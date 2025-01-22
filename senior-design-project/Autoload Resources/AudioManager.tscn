@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5npmq0u6kfdd"]
+
+[ext_resource type="Script" path="res://Autoload Resources/AudioManager.gd" id="1_gc6o3"]
+
+[node name="AudioManager" type="Node2D"]
+script = ExtResource("1_gc6o3")

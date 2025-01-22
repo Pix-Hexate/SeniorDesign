@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6ejghcgv8jqs"]
+
+[ext_resource type="Script" path="res://Menus/main_menu.gd" id="1_ts35x"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ts35x")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayButton" type="Button" parent="Background"]
+layout_mode = 0
+offset_left = 495.0
+offset_top = 204.0
+offset_right = 636.0
+offset_bottom = 280.0
+text = "Go"
+
+[node name="QuitButton" type="Button" parent="Background"]
+layout_mode = 0
+offset_left = 496.0
+offset_top = 344.0
+offset_right = 637.0
+offset_bottom = 420.0
+text = "Quit"
+
+[connection signal="pressed" from="Background/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Background/QuitButton" to="." method="_on_quit_button_pressed"]
