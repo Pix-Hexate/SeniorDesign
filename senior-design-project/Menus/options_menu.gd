@@ -2,7 +2,7 @@ extends Control
 
 signal back_pressed  # Define a signal
 
-@onready var resolution_button : OptionButton = $MarginContainer/VBoxContainer/ResolutionButton  # Reference to OptionButton (Resolution)
+@onready var resolution_button : OptionButton = $MarginContainer/HBoxContainer/ContainerGraphics/ResolutionButton # Reference to OptionButton (Resolution)
 @onready var settings_manager = preload("res://SettingsManager.gd")  # Preload SettingsManager script
 
 # Called when the node enters the scene tree for the first time
