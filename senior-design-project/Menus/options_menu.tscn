@@ -1,0 +1,134 @@
+[gd_scene load_steps=2 format=3 uid="uid://84oph0c8bh8k"]
+
+[ext_resource type="Script" path="res://Menus/options_menu.gd" id="1_b6p4a"]
+
+[node name="Options" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b6p4a")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 380
+
+[node name="GraphicsLabel" type="Label" parent="MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Graphics"
+
+[node name="SoundLabel" type="Label" parent="MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Sounds"
+
+[node name="Controls" type="Label" parent="MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Controls"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(100, 450)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="ContainerGraphics" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 450)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="FullScreenButton" type="CheckBox" parent="MarginContainer/HBoxContainer/ContainerGraphics"]
+layout_mode = 2
+text = "FullScreen"
+
+[node name="ResolutionButton" type="OptionButton" parent="MarginContainer/HBoxContainer/ContainerGraphics"]
+layout_mode = 2
+
+[node name="ContainerSounds" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 450)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 100
+
+[node name="MasterVolumeLabel" type="Label" parent="MarginContainer/HBoxContainer/ContainerSounds"]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="MasterVolume" type="HSlider" parent="MarginContainer/HBoxContainer/ContainerSounds/MasterVolumeLabel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.00808625
+anchor_top = 1.13043
+anchor_right = 0.991914
+anchor_bottom = 2.13043
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SFXVolumeLabel" type="Label" parent="MarginContainer/HBoxContainer/ContainerSounds"]
+layout_mode = 2
+text = "SFX Sound"
+
+[node name="SFXVolume" type="HSlider" parent="MarginContainer/HBoxContainer/ContainerSounds/SFXVolumeLabel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.00808625
+anchor_top = 1.13043
+anchor_right = 0.991914
+anchor_bottom = 2.13043
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SoundVolumeLabel" type="Label" parent="MarginContainer/HBoxContainer/ContainerSounds"]
+layout_mode = 2
+text = "Sound"
+
+[node name="Sound" type="HSlider" parent="MarginContainer/HBoxContainer/ContainerSounds/SoundVolumeLabel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.00808625
+anchor_top = 1.13043
+anchor_right = 0.991914
+anchor_bottom = 2.13043
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Exit" type="Button" parent="MarginContainer/HBoxContainer/ContainerSounds"]
+layout_mode = 2
+text = "Back"
+
+[node name="ContainerGraphics2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 450)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="TODO" type="Button" parent="MarginContainer/HBoxContainer/ContainerGraphics2"]
+layout_mode = 2
+text = "TODO-Key ReMap Stuff"
+
+[connection signal="item_selected" from="MarginContainer/HBoxContainer/ContainerGraphics/ResolutionButton" to="." method="_on_resolution_button_item_selected"]
