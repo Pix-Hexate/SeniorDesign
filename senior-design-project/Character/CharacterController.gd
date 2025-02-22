@@ -18,6 +18,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	Take_Inputs()
 	Process_Movement_Inputs()
+	Process_Action_Inputs()
+
+func _physics_process(delta: float) -> void: 
+	Process_Movement_Physics(delta)
 
 var Buffered_Keys : Dictionary = {"Movement" : "", "Action" : ""}
 @export var Playing_Action : bool = false
@@ -51,7 +55,6 @@ func Take_Inputs(): #This function is our input buffer
 		Buffered_Keys["Action"] = "AbilityFour"
 		BufferTimer.start()
 
-
 func Process_Movement_Inputs():
 	MovementVector = 0
 	match Buffered_Keys["Movement"]:
@@ -73,8 +76,20 @@ func AttemptJump() -> void:
 		velocity.y -= JumpStrength
 		Buffered_Keys["Action"] = ""
 	
-func _physics_process(delta: float) -> void: 
-	Process_Movement_Physics(delta)
+func Process_Action_Inputs():
+	match Buffered_Keys["Action"]:
+		"AbilityOne":
+			if not Playing_Action:
+				AnimPlayer.play("AbilityOne")
+				Buffered_Keys["Action"] = ""
+		"AbilityTwo":
+			if not Playing_Action:
+				AnimPlayer.play("AbilityTwo")
+				Buffered_Keys["Action"] = ""
+		"AbilityThree":
+			pass
+		"AbilityFour":
+			pass
 	
 
 func Process_Movement_Physics(delta : float):
@@ -88,19 +103,19 @@ func Process_Movement_Physics(delta : float):
 		velocity.x = 0
 		
 	move_and_slide()
-	print(velocity.y)
 
 #First, check if going up or down, those always come first
 #Then, check if walking, if not walking or up or down, then idle
 func SetAnimation() -> void:
-	if ((not is_on_floor()) and (velocity.y >= 0)):
-		AnimPlayer.play("JumpDown")
-	elif velocity.y < 0:
-		AnimPlayer.play("JumpUp")
-	elif velocity.x != 0:
-		AnimPlayer.play("Walk")
-	else:
-		AnimPlayer.play("Idle")
+	if not Playing_Action:
+		if ((not is_on_floor()) and (velocity.y >= 0)):
+			AnimPlayer.play("JumpDown")
+		elif velocity.y < 0:
+			AnimPlayer.play("JumpUp")
+		elif velocity.x != 0:
+			AnimPlayer.play("Walk")
+		else:
+			AnimPlayer.play("Idle")
 
 
 func BufferTimeout():
