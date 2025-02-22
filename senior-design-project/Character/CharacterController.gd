@@ -55,15 +55,27 @@ func Take_Inputs(): #This function is our input buffer
 		Buffered_Keys["Action"] = "AbilityFour"
 		BufferTimer.start()
 
+var FacingRight = true
+@onready var Flipper : Marker2D = $Flipper
 func Process_Movement_Inputs():
 	MovementVector = 0
 	match Buffered_Keys["Movement"]:
 		"LeftKey":
 			MovementVector = -1
 			Buffered_Keys["Movement"] = ""
+			if FacingRight:
+				FacingRight = false
+			
 		"RightKey":
 			MovementVector = 1
 			Buffered_Keys["Movement"] = ""
+			if not FacingRight:
+				FacingRight = true
+				
+	if FacingRight and not Playing_Action:
+		Flipper.scale.x = 1
+	elif not FacingRight and not Playing_Action:
+		Flipper.scale.x = -1
 		
 	if Buffered_Keys["Action"] == "Jump":
 		AttemptJump()

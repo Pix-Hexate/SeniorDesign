@@ -139,7 +139,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/path = NodePath("Flipper/Sprite2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -151,7 +151,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:rotation")
+tracks/2/path = NodePath("Flipper/Sprite2D:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -163,7 +163,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:visible")
+tracks/3/path = NodePath("Flipper/Sprite2D:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -191,7 +191,7 @@ length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/path = NodePath("Flipper/Sprite2D:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -203,7 +203,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/path = NodePath("Flipper/Sprite2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -234,7 +234,7 @@ length = 0.2975
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/path = NodePath("Flipper/Sprite2D:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -246,7 +246,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/path = NodePath("Flipper/Sprite2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -258,7 +258,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:rotation")
+tracks/2/path = NodePath("Flipper/Sprite2D:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -317,23 +317,25 @@ libraries = {
 "": SubResource("AnimationLibrary_xxl1o")
 }
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="InputBufferTimer" type="Timer" parent="."]
+wait_time = 0.15
+
+[node name="Flipper" type="Marker2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Flipper"]
 visible = false
 position = Vector2(64, -1)
 rotation = 1.57079
-scale = Vector2(0.0703125, 0.304688)
+scale = Vector2(0.0703125, 0.328125)
 texture = ExtResource("7_ifrtx")
 
-[node name="Hitbox" type="Area2D" parent="Sprite2D"]
+[node name="Hitbox" type="Area2D" parent="Flipper/Sprite2D"]
 position = Vector2(5.43594e-05, 15.2381)
 scale = Vector2(14.2222, 3.04762)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Flipper/Sprite2D/Hitbox"]
 position = Vector2(-3.88175e-06, -4.46154)
 shape = SubResource("CapsuleShape2D_sb3t2")
 metadata/_edit_lock_ = true
-
-[node name="InputBufferTimer" type="Timer" parent="."]
-wait_time = 0.15
 
 [connection signal="timeout" from="InputBufferTimer" to="." method="BufferTimeout"]
