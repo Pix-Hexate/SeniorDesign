@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6ejghcgv8jqs"]
+[gd_scene load_steps=5 format=3 uid="uid://b6ejghcgv8jqs"]
 
 [ext_resource type="Script" path="res://Menus/main_menu.gd" id="1_ts35x"]
 [ext_resource type="Script" path="res://Menus/Resources/better_button.gd" id="2_7vho3"]
+[ext_resource type="Texture2D" uid="uid://je7ggbhjektv" path="res://Menus/Size Example.png" id="2_rdxv5"]
 
 [sub_resource type="SystemFont" id="SystemFont_04k3s"]
 font_names = PackedStringArray("Cooper")
@@ -22,6 +23,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("2_rdxv5")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
