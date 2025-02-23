@@ -129,6 +129,10 @@ func SetAnimation() -> void:
 		else:
 			AnimPlayer.play("Idle")
 
+func Got_Hit(Data : AttackData):
+	pass
 
 func BufferTimeout():
 	Buffered_Keys["Action"] = ""
+	
+	
