@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://fxwww7poh7ea"]
+
+[ext_resource type="Script" path="res://Menus/Resources/better_button.gd" id="1_84w21"]
+
+[node name="BetterButton" type="Button"]
+script = ExtResource("1_84w21")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

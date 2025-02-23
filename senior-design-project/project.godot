@@ -15,6 +15,12 @@ run/main_scene="res://Menus/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+AudioManager="*res://Autoload Resources/AudioManager.tscn"
+SignalBus="*res://Autoload Resources/SignalBus.gd"
+GameManager="*res://Autoload Resources/GameManager.gd"
+
 [editor_plugins]
 
 enabled=PackedStringArray()

@@ -1,2 +1,2 @@
-class_name GameManager extends Node
+extends Node
 #Tracks Game statistics and stuff

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b6ejghcgv8jqs"]
+[gd_scene load_steps=4 format=3 uid="uid://b6ejghcgv8jqs"]
 
 [ext_resource type="Script" path="res://Menus/main_menu.gd" id="1_ts35x"]
+[ext_resource type="Script" path="res://Menus/Resources/better_button.gd" id="2_7vho3"]
 
 [sub_resource type="SystemFont" id="SystemFont_04k3s"]
 font_names = PackedStringArray("Cooper")
@@ -69,19 +70,27 @@ custom_minimum_size = Vector2(120, 60)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Play"
+script = ExtResource("2_7vho3")
 
 [node name="OptionButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(120, 60)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Option"
+script = ExtResource("2_7vho3")
 
 [node name="QuitButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(120, 60)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Quit"
+script = ExtResource("2_7vho3")
 
+[connection signal="mouse_entered" from="MarginContainer/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="MarginContainer/HBoxContainer/VBoxContainer/PlayButton" to="MarginContainer/HBoxContainer/VBoxContainer/PlayButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/HBoxContainer/VBoxContainer/OptionButton" to="." method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="MarginContainer/HBoxContainer/VBoxContainer/OptionButton" to="MarginContainer/HBoxContainer/VBoxContainer/OptionButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/OptionButton" to="." method="_on_option_button_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/HBoxContainer/VBoxContainer/QuitButton" to="MarginContainer/HBoxContainer/VBoxContainer/QuitButton" method="_on_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
