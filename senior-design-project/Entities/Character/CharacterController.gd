@@ -101,8 +101,16 @@ func Process_Action_Inputs():
 		"AbilityThree":
 			pass
 		"AbilityFour":
-			pass
+			TEMPORARY_TEST_FUNC()
+			Buffered_Keys["Action"] = ""
 	
+#example of how to spawn an item
+func TEMPORARY_TEST_FUNC():
+	var item = load("res://Entities/Items/Item_Object.tscn")
+	var item_2 = item.instantiate()
+	item_2.Data = GameManager.All_Items[0]
+	item_2.global_position = global_position
+	get_parent().add_child(item_2)
 
 func Process_Movement_Physics(delta : float):
 	velocity.y += GravityStrength*delta
