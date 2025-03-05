@@ -1,10 +1,21 @@
-[gd_scene load_steps=5 format=4 uid="uid://c740ul0beilqq"]
+[gd_scene load_steps=10 format=4 uid="uid://cjxwfm7on3ii0"]
 
-[ext_resource type="PackedScene" uid="uid://c733lubf7hob6" path="res://Entities/Character/CharacterScene.tscn" id="1_kloo0"]
-[ext_resource type="Texture2D" uid="uid://clbc4sq7aq0p6" path="res://Resources/Upgrade Icons/Block.png" id="2_hcnkr"]
+[ext_resource type="Script" path="res://Entities/Enemy/Basic Walker/Walker_Enemy.gd" id="1_8jg57"]
+[ext_resource type="Texture2D" uid="uid://rmss06pcfjen" path="res://icon.svg" id="2_16pps"]
+[ext_resource type="PackedScene" uid="uid://cu77iqu4ph4v5" path="res://Entities/Shared Resources/Hitbox.tscn" id="3_0uf3w"]
+[ext_resource type="Texture2D" uid="uid://clbc4sq7aq0p6" path="res://Resources/Upgrade Icons/Block.png" id="4_fgxba"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sibo7"]
-texture = ExtResource("2_hcnkr")
+[sub_resource type="CircleShape2D" id="CircleShape2D_vyya2"]
+radius = 18.0278
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n82wc"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ucq1w"]
+size = Vector2(1093, 55)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2apge"]
+texture = ExtResource("4_fgxba")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
@@ -56,18 +67,57 @@ texture = ExtResource("2_hcnkr")
 4:4/0 = 0
 4:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
-[sub_resource type="TileSet" id="TileSet_bjvq2"]
+[sub_resource type="TileSet" id="TileSet_6a17s"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_sibo7")
+sources/0 = SubResource("TileSetAtlasSource_2apge")
 
-[node name="TestMap" type="Node2D"]
+[node name="WalkerEnemy" type="CharacterBody2D"]
+script = ExtResource("1_8jg57")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Collision (Terrain)" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_vyya2")
 
-[node name="CharacterScene" parent="." instance=ExtResource("1_kloo0")]
-position = Vector2(25, 163)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_16pps")
+
+[node name="Hitbox" parent="." instance=ExtResource("3_0uf3w")]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_n82wc")
+
+[node name="Delete this - testing only" type="Label" parent="."]
+visible = false
+offset_left = -10.0
+offset_top = -49.0
+offset_right = 30.0
+offset_bottom = -26.0
+text = "ow"
+
+[node name="Timer" type="Timer" parent="Delete this - testing only"]
+wait_time = 0.5
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+position = Vector2(0, -11)
+shape = SubResource("RectangleShape2D_ucq1w")
+
+[node name="Wall Detector" type="RayCast2D" parent="."]
+target_position = Vector2(31, 0)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(0, -158.025)
 tile_map_data = PackedByteArray("AADZ/wsAAAACAAAAAADa/wsAAAACAAAAAADb/wsAAAACAAAAAADc/wsAAAACAAAAAADd/wsAAAACAAAAAADe/wsAAAACAAAAAADf/wsAAAACAAAAAADg/wsAAAACAAAAAADh/wsAAAACAAAAAADi/wsAAAACAAAAAADj/wsAAAACAAAAAADk/wsAAAACAAAAAADl/wsAAAACAAAAAADm/wsAAAACAAAAAADn/wsAAAACAAAAAADo/wsAAAACAAAAAADp/wsAAAACAAAAAADq/wsAAAACAAAAAADr/wsAAAACAAAAAADs/wsAAAACAAAAAADt/wsAAAACAAAAAADu/wsAAAACAAAAAADv/wsAAAACAAAAAADw/wsAAAACAAAAAADx/wsAAAACAAAAAADy/wsAAAACAAAAAADz/wsAAAACAAAAAAD0/wsAAAACAAAAAAD1/wsAAAACAAAAAAD2/wsAAAACAAAAAAD3/wsAAAACAAAAAAD4/wsAAAACAAAAAAD5/wsAAAACAAAAAAD6/wsAAAACAAAAAAD7/wsAAAACAAAAAAD8/wsAAAACAAAAAAD9/wsAAAACAAAAAAD+/wsAAAACAAAAAAD//wsAAAACAAAAAAAAAAsAAAACAAAAAAABAAsAAAACAAAAAAACAAsAAAACAAAAAAADAAsAAAACAAAAAAAEAAsAAAACAAAAAAAFAAsAAAACAAAAAAAGAAsAAAACAAAAAAAHAAsAAAACAAAAAAAIAAsAAAACAAAAAAAJAAsAAAACAAAAAAAKAAsAAAACAAAAAAALAAsAAAACAAAAAAAMAAsAAAACAAAAAAANAAsAAAACAAAAAAAOAAsAAAACAAAAAAAPAAsAAAACAAAAAAAQAAsAAAACAAAAAAARAAsAAAACAAAAAAASAAsAAAACAAAAAAATAAsAAAACAAAAAAAUAAsAAAACAAAAAAAVAAsAAAACAAAAAAAWAAsAAAACAAAAAAAXAAsAAAACAAAAAAAYAAsAAAACAAAAAAAZAAsAAAACAAAAAAAaAAsAAAACAAAAAAAbAAsAAAACAAAAAAAcAAsAAAACAAAAAAAdAAsAAAACAAAAAAAeAAsAAAACAAAAAAAfAAsAAAACAAAAAAAgAAsAAAACAAAAAAAhAAsAAAACAAAAAAAiAAsAAAACAAAAAAAjAAsAAAACAAAAAAAkAAsAAAACAAAAAAAlAAsAAAACAAAAAAAmAAsAAAACAAAAAAAnAAsAAAACAAAAAAAoAAsAAAACAAAAAAApAAsAAAACAAAAAAAqAAsAAAACAAAAAADe/wUAAAACAAAAAADf/wUAAAACAAAAAADg/wUAAAACAAAAAADh/wUAAAACAAAAAADi/wUAAAACAAAAAADj/wUAAAACAAAAAADk/wUAAAACAAAAAADl/wUAAAACAAAAAADm/wUAAAACAAAAAAAYAAUAAAACAAAAAAAZAAUAAAACAAAAAAAaAAUAAAACAAAAAAAbAAUAAAACAAAAAAAcAAUAAAACAAAAAAAdAAUAAAACAAAAAAAeAAUAAAACAAAAAAAfAAUAAAACAAAAAAAgAAUAAAACAAAAAADd/woAAAABAAAAAADe/woAAAABAAAAAADf/woAAAABAAAAAADg/woAAAABAAAAAADh/woAAAABAAAAAADi/woAAAABAAAAAADj/woAAAABAAAAAADk/woAAAABAAAAAADl/woAAAABAAAAAADm/woAAAABAAAAAADn/woAAAABAAAAAADo/woAAAABAAAAAADp/woAAAABAAAAAADq/woAAAABAAAAAADg/wkAAAABAAAAAADh/wkAAAABAAAAAADi/wkAAAABAAAAAADj/wkAAAABAAAAAADk/wkAAAABAAAAAADl/wkAAAABAAAAAADm/wkAAAABAAAAAADn/wkAAAABAAAAAADo/wkAAAABAAAAAAAIAAoAAAABAAAAAAAJAAoAAAABAAAAAAAKAAoAAAABAAAAAAALAAoAAAABAAAAAAAMAAoAAAABAAAAAAANAAoAAAABAAAAAAAOAAoAAAABAAAAAAAPAAoAAAABAAAAAAAQAAoAAAABAAAAAAARAAoAAAABAAAAAAASAAoAAAABAAAAAAATAAoAAAABAAAAAAAIAAkAAAABAAAAAAAJAAkAAAABAAAAAAAKAAkAAAABAAAAAAALAAkAAAABAAAAAAAMAAkAAAABAAAAAAANAAkAAAABAAAAAAAOAAkAAAABAAAAAAAPAAkAAAABAAAAAAAQAAkAAAABAAAAAAARAAkAAAABAAAAAAASAAkAAAABAAAAAAAGAAoAAAABAAAAAAAFAAoAAAABAAAAAAAEAAoAAAABAAAAAAADAAoAAAABAAAAAAA=")
-tile_set = SubResource("TileSet_bjvq2")
+tile_set = SubResource("TileSet_6a17s")
 metadata/_edit_lock_ = true
+
+[node name="PlayerAggroTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Delete this - testing only/Timer" to="." method="delete_this_testing_only"]
+[connection signal="body_entered" from="PlayerDetection" to="." method="PlayerDetection"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="PlayerDetection_Leave"]
+[connection signal="timeout" from="PlayerAggroTimer" to="." method="DropAggro"]

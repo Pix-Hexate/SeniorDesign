@@ -4,14 +4,18 @@
 [ext_resource type="Texture2D" uid="uid://rmss06pcfjen" path="res://icon.svg" id="2_gfdlk"]
 [ext_resource type="PackedScene" uid="uid://cu77iqu4ph4v5" path="res://Entities/Shared Resources/Hitbox.tscn" id="2_ltybd"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_n82wc"]
-size = Vector2(32, 32)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_vyya2"]
 radius = 18.0278
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n82wc"]
+size = Vector2(32, 32)
+
 [node name="EnemyBase" type="CharacterBody2D"]
 script = ExtResource("1_jnrfc")
+
+[node name="Collision (Terrain)" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_vyya2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
@@ -21,10 +25,6 @@ texture = ExtResource("2_gfdlk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_n82wc")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource("CircleShape2D_vyya2")
 
 [node name="Delete this - testing only" type="Label" parent="."]
 visible = false
@@ -37,4 +37,13 @@ text = "ow"
 [node name="Timer" type="Timer" parent="Delete this - testing only"]
 wait_time = 0.5
 
+[node name="PlayerDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+
+[node name="Wall Detector" type="RayCast2D" parent="."]
+target_position = Vector2(31, 0)
+
 [connection signal="timeout" from="Delete this - testing only/Timer" to="." method="delete_this_testing_only"]
+[connection signal="body_entered" from="PlayerDetection" to="." method="PlayerDetection"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="PlayerDetection_Leave"]

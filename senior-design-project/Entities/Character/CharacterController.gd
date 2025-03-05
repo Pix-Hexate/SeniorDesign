@@ -2,9 +2,9 @@ class_name CharacterBaseScene extends CharacterBody2D
 
 '''Movement Stuff'''
 var MovementVector : float = 0
-var MoveSpeed : float = 500
-var JumpStrength : float = 1500
-var GravityStrength : float = 6000
+var MoveSpeed : float = 250
+var JumpStrength : float = 250
+var GravityStrength : float = 1200
 @onready var AnimPlayer : AnimationPlayer = $AnimationPlayer
 
 

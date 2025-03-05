@@ -25,6 +25,10 @@ GameManager="*res://Autoload Resources/GameManager.gd"
 
 enabled=PackedStringArray()
 
+[global_group]
+
+Player=""
+
 [input]
 
 UpKey={
