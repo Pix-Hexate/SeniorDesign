@@ -343,6 +343,7 @@ height = 40.0
 
 [node name="CharacterScene" type="CharacterBody2D" groups=["Player"]]
 scale = Vector2(0.5, 0.5)
+collision_layer = 2
 script = ExtResource("1_yuedg")
 
 [node name="Collision (Terrain)" type="CollisionShape2D" parent="."]
@@ -355,6 +356,8 @@ animation = &"walk"
 
 [node name="Hitbox" parent="." instance=ExtResource("7_oqpet")]
 visible = false
+collision_layer = 512
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(-0.5, 0)
@@ -378,6 +381,8 @@ scale = Vector2(0.0703125, 0.328125)
 texture = ExtResource("7_ifrtx")
 
 [node name="Hurtbox" parent="Flipper/Sprite2D" instance=ExtResource("9_18ojk")]
+collision_layer = 0
+collision_mask = 1024
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Flipper/Sprite2D/Hurtbox"]
