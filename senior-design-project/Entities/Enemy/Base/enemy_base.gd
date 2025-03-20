@@ -8,7 +8,7 @@ func _physics_process(delta): #Override this
 	move_and_slide()
 
 
-func _AI():#Override This
+func _AI(delta : float):#Override This
 	pass
 
 
@@ -26,3 +26,6 @@ func PlayerDetection(body: Node2D) -> void: #override this
 
 func PlayerDetection_Leave(body: Node2D) -> void:
 	pass # Replace with function body.
+
+func _Despawn() -> void: #call this if too far from player and not in aggro
+	pass

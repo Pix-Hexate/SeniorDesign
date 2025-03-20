@@ -11,7 +11,7 @@ radius = 18.0278
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucq1w"]
-size = Vector2(717.5, 64.5)
+size = Vector2(717.5, 164)
 
 [node name="WalkerEnemy" type="CharacterBody2D"]
 collision_layer = 4
@@ -39,19 +39,30 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
-position = Vector2(0, -19)
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_ucq1w")
 
-[node name="Wall Detector" type="RayCast2D" parent="."]
-position = Vector2(13, -67)
+[node name="PlayerRaycast" type="RayCast2D" parent="."]
+position = Vector2(0, -65)
 target_position = Vector2(158, 4)
 collision_mask = 3
 
+[node name="WallRaycast" type="RayCast2D" parent="."]
+position = Vector2(1, 7)
+target_position = Vector2(27, 0)
+
+[node name="JumpRaycast" type="RayCast2D" parent="."]
+position = Vector2(0, -25)
+target_position = Vector2(38, 0)
+
 [node name="PlayerAggroTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="StunTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Attempt Reaggro" type="Timer" parent="."]
+one_shot = true
 
 [node name="TEST_PHASE_INDICATOR" type="Label" parent="."]
 offset_left = -19.0
@@ -59,7 +70,12 @@ offset_top = -47.0
 offset_right = 21.0
 offset_bottom = -24.0
 
+[node name="TurnTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="body_entered" from="PlayerDetection" to="." method="PlayerDetection"]
 [connection signal="body_exited" from="PlayerDetection" to="." method="PlayerDetection_Leave"]
 [connection signal="timeout" from="PlayerAggroTimer" to="." method="DropAggro"]
 [connection signal="timeout" from="StunTimer" to="." method="EndStun"]
+[connection signal="timeout" from="Attempt Reaggro" to="." method="PlayerDetection"]
+[connection signal="timeout" from="TurnTimer" to="." method="CanTurn"]
