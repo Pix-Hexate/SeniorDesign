@@ -10,7 +10,7 @@ radius = 18.0278
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n82wc"]
 size = Vector2(32, 32)
 
-[node name="EnemyBase" type="CharacterBody2D"]
+[node name="EnemyBase" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
 script = ExtResource("1_jnrfc")
 

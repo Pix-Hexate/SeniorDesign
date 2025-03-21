@@ -13,12 +13,12 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucq1w"]
 size = Vector2(717.5, 164)
 
-[node name="WalkerEnemy" type="CharacterBody2D"]
+[node name="WalkerEnemy" type="CharacterBody2D" groups=["Enemy"]]
+scale = Vector2(0.5, 0.5)
 collision_layer = 4
 script = ExtResource("1_8jg57")
 
 [node name="Collision (Terrain)" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CircleShape2D_vyya2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -27,7 +27,6 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_16pps")
 
 [node name="Hitbox" parent="." instance=ExtResource("3_0uf3w")]
-visible = false
 collision_layer = 1024
 collision_mask = 0
 
@@ -35,6 +34,7 @@ collision_mask = 0
 shape = SubResource("RectangleShape2D_n82wc")
 
 [node name="PlayerDetection" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 
@@ -43,15 +43,23 @@ position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_ucq1w")
 
 [node name="PlayerRaycast" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(0, -65)
 target_position = Vector2(158, 4)
 collision_mask = 3
 
 [node name="WallRaycast" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(1, 7)
 target_position = Vector2(27, 0)
 
+[node name="FloorRaycast" type="RayCast2D" parent="."]
+visible = false
+position = Vector2(18, 13)
+target_position = Vector2(0, 80)
+
 [node name="JumpRaycast" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(0, -25)
 target_position = Vector2(38, 0)
 

@@ -20,6 +20,8 @@ func Got_Hit(Data : AttackData): #Override This
 func delete_this_testing_only():
 	$"Delete this - testing only".visible = false
 
+func Die():
+	pass
 
 func PlayerDetection(body: Node2D) -> void: #override this
 	pass # Replace with function body.

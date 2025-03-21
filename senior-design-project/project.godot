@@ -21,6 +21,11 @@ AudioManager="*res://Autoload Resources/AudioManager.tscn"
 SignalBus="*res://Autoload Resources/SignalBus.gd"
 GameManager="*res://Autoload Resources/GameManager.gd"
 
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=360
+
 [editor_plugins]
 
 enabled=PackedStringArray()
@@ -28,6 +33,9 @@ enabled=PackedStringArray()
 [global_group]
 
 Player=""
+Enemy=""
+Camera=""
+PlayerCameraPosition=""
 
 [input]
 

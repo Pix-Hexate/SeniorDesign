@@ -24,7 +24,10 @@ radius for x seconds and dpe
 immediately enter 1 after stun regardless distance
 
 3 - Wandering
-Basic behavior if player is outside of radius
+Walk left or right until
+1 - There is no more floor, turn around - Enemies will drop down at most 4 blocks, not 5
+2 - There's a block ahead of me, if I can jump up, jump 
+3 - There's a block ahead of me and I can't jump it, turn around
 
 4 - Wandering*
 Player went inside detection, but not "Visible" due to collision blocking vision
@@ -42,6 +45,14 @@ var RecentlyTurned : bool = false
 @onready var StunTimer : Timer = $StunTimer
 @onready var PlayerAggroTimer : Timer = $PlayerAggroTimer
 @onready var PlayerRaycast : RayCast2D = $"PlayerRaycast"
+@export var DIE_ON_HIT_TESTER : bool = false
+@export var SLOW_TESTER : bool = false
+
+func _ready():
+	Acceleration *= randf_range(.9, 1.1)
+	Max_Speed *= randf_range(.9, 1.1)
+	if SLOW_TESTER:
+		Max_Speed *= .5
 
 func _AI(delta : float):#Override This
 	match AI_Phase:
@@ -55,17 +66,36 @@ func _AI(delta : float):#Override This
 				if Want_Right:
 					Want_Right = false
 					FlipRayCasts()
+			if !$FloorRaycast.is_colliding(): #player has run off a ledge we can't follow, we drop aggro immediately
+				AI_Phase = 3
 				
-			if ($WallRaycast as RayCast2D).is_colliding():
-				if not ($JumpRaycast as RayCast2D).is_colliding():
-					if is_on_floor():
-						velocity.y -= JumpStrength
-						print("trying to jump")	
+				if not Want_Right:
+					Want_Right = true
+					FlipRayCasts()
+					$TurnTimer.start(.25)
+					RecentlyTurned = true
+				else:
+					if Want_Right:
+						Want_Right = false
+						FlipRayCasts()
+						RecentlyTurned = true
+						$TurnTimer.start(.25)
+			else:
+				if ($WallRaycast as RayCast2D).is_colliding(): #if we see a wall in front of us
+					if not ($JumpRaycast as RayCast2D).is_colliding(): #we check if the wall is jumpable
+						if is_on_floor(): #if it's jumpable, then we jump
+							velocity.y -= JumpStrength
+							print("trying to jump")	
+				#we don't turn cos we are aggro even if we are at a wall
 			
 			if Want_Right:
+				if velocity.x < 0 : #this is essentially "friction", so they turn around quickly, but they still have some amount of "slow" when they turn around without a full stop which is jarring
+					velocity.x *= pow(0.5, delta/.1)
 				velocity.x += delta * Acceleration
 				velocity.x = clampf(velocity.x, -Max_Speed, Max_Speed)
 			else:
+				if velocity.x > 0 :
+					velocity.x *= pow(0.5, delta/.1)
 				velocity.x -= delta * Acceleration
 				velocity.x = clampf(velocity.x, -Max_Speed, Max_Speed)
 		2: #stunned
@@ -74,16 +104,28 @@ func _AI(delta : float):#Override This
 		3: #wander
 			$TEST_PHASE_INDICATOR.text = "3"
 			
-			if ($WallRaycast as RayCast2D).is_colliding():
-				if not ($JumpRaycast as RayCast2D).is_colliding():
-					if is_on_floor():
+			if not $FloorRaycast.is_colliding():
+				if Want_Right:
+					Want_Right = false
+					RecentlyTurned = true 
+					$TurnTimer.start(.25)
+					FlipRayCasts()
+				else:
+					Want_Right = true
+					RecentlyTurned = true
+					FlipRayCasts()
+					$TurnTimer.start(.25)
+					
+			if ($WallRaycast as RayCast2D).is_colliding(): #if we hit a wall
+				if not ($JumpRaycast as RayCast2D).is_colliding(): #if we can jump it
+					if is_on_floor(): #we try to jump
 						velocity.y -= JumpStrength
 						print("trying to jump")
-				else:
-					if not RecentlyTurned:
+				else: #if we cant jump it 
+					if not RecentlyTurned: #we turn around
 						if Want_Right:
 							Want_Right = false
-							RecentlyTurned = true
+							RecentlyTurned = true #this deals with some nonsense with colliders spamming turns at a wall
 							$TurnTimer.start(.25)
 							FlipRayCasts()
 						else:
@@ -93,25 +135,39 @@ func _AI(delta : float):#Override This
 							$TurnTimer.start(.25)
 			
 			if Want_Right:
+				if velocity.x < 0 : #this is essentially "friction", so they turn around quickly, but they still have some amount of "slow" when they turn around without a full stop which is jarring
+					velocity.x *= pow(0.5, delta/.1)
 				velocity.x += delta * Acceleration
 				velocity.x = clampf(velocity.x, -Max_Speed, Max_Speed)
 			else:
+				if velocity.x > 0 :
+					velocity.x *= pow(0.5, delta/.1)
 				velocity.x -= delta * Acceleration
 				velocity.x = clampf(velocity.x, -Max_Speed, Max_Speed)
-		4: #wander
+		4: #this is basically a copy of 3, we need 4 though to know when to actively "look" for the player within aggro range
 			$TEST_PHASE_INDICATOR.text = "4"
-			$WallRaycast.force_raycast_update()
-			if ($WallRaycast as RayCast2D).is_colliding():
-				$JumpRaycast.force_raycast_update()
-				if not ($JumpRaycast as RayCast2D).is_colliding():
-					if is_on_floor():
+			if not $FloorRaycast.is_colliding():
+				if Want_Right:
+					Want_Right = false
+					RecentlyTurned = true 
+					$TurnTimer.start(.25)
+					FlipRayCasts()
+				else:
+					Want_Right = true
+					RecentlyTurned = true
+					FlipRayCasts()
+					$TurnTimer.start(.25)
+					
+			if ($WallRaycast as RayCast2D).is_colliding(): #if we hit a wall
+				if not ($JumpRaycast as RayCast2D).is_colliding(): #if we can jump it
+					if is_on_floor(): #we try to jump
 						velocity.y -= JumpStrength
 						print("trying to jump")
-				else:
-					if not RecentlyTurned:
+				else: #if we cant jump it 
+					if not RecentlyTurned: #we turn around
 						if Want_Right:
 							Want_Right = false
-							RecentlyTurned = true
+							RecentlyTurned = true #this deals with some nonsense with colliders spamming turns at a wall
 							$TurnTimer.start(.25)
 							FlipRayCasts()
 						else:
@@ -121,9 +177,13 @@ func _AI(delta : float):#Override This
 							$TurnTimer.start(.25)
 			
 			if Want_Right:
+				if velocity.x < 0 : #this is essentially "friction", so they turn around quickly, but they still have some amount of "slow" when they turn around without a full stop which is jarring
+					velocity.x *= pow(0.5, delta/.1)
 				velocity.x += delta * Acceleration
 				velocity.x = clampf(velocity.x, -Max_Speed, Max_Speed)
 			else:
+				if velocity.x > 0 :
+					velocity.x *= pow(0.5, delta/.1)
 				velocity.x -= delta * Acceleration
 				velocity.x = clampf(velocity.x, -Max_Speed, Max_Speed)
 		_:
@@ -135,9 +195,12 @@ func FlipRayCasts():
 	if Want_Right:
 		$JumpRaycast.target_position.x = 38
 		$WallRaycast.target_position.x = 27
+		$FloorRaycast.position.x = 28
 	else:
 		$JumpRaycast.target_position.x = -38
 		$WallRaycast.target_position.x = -27
+		$FloorRaycast.position.x = -28
+
 
 func _physics_process(delta): #Override this
 	_AI(delta)
@@ -147,6 +210,8 @@ func _physics_process(delta): #Override this
 
 
 func Got_Hit(Data : AttackData): #Override This
+	if DIE_ON_HIT_TESTER:
+		Die()
 	PlayerAggroTimer.stop()
 	AI_Phase = 2
 	velocity.x = 0
@@ -155,6 +220,11 @@ func Got_Hit(Data : AttackData): #Override This
 	#TODO Knockback
 	$"Attempt Reaggro".stop()
 
+func Die():
+	print("we're dying")
+	SignalBus.EnemyDied.emit(self)
+	#TODO play death animation
+	queue_free()
 
 func delete_this_testing_only():
 	$"Delete this - testing only".visible = false
@@ -191,7 +261,6 @@ func DropAggro() -> void:
 
 func EndStun() -> void:
 	AI_Phase = 1
-
 
 func CanTurn():
 	RecentlyTurned = false
