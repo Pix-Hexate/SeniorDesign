@@ -20,10 +20,11 @@ func _ready():
 func _process(delta):
 	pass
 
-func Player_Enter(area):
-	if area.get_parent() is CharacterBaseScene:
-		$Panel.visible = true
 
-func Player_Leave(area):
-	if area.get_parent() is CharacterBaseScene:
-		$Panel.visible = false
+
+func Player_Entered(body):
+	$Panel.visible = true
+
+
+func Player_Left(body):
+	$Panel.visible = false
