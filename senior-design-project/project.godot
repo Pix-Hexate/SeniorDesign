@@ -25,7 +25,8 @@ GameManager="*res://Autoload Resources/GameManager.gd"
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-window/stretch/aspect="ignore"
+window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
 
 [editor_plugins]
 
