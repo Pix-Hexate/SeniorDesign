@@ -1,23 +1,31 @@
-[gd_scene load_steps=24 format=3 uid="uid://c733lubf7hob6"]
+[gd_scene load_steps=26 format=3 uid="uid://dm7iv3g8qnokp"]
 
-[ext_resource type="Texture2D" uid="uid://csvi27tcw3cby" path="res://Resources/1a8f338f04dbdfd00ca5e635bda3efb8.png" id="1_qjvi7"]
-[ext_resource type="Script" path="res://Entities/Character/CharacterController.gd" id="1_yuedg"]
-[ext_resource type="Texture2D" uid="uid://barviako6rc2" path="res://Resources/51f54192b09a96adcef5c88b05291e3a.png" id="2_ry1r5"]
-[ext_resource type="Texture2D" uid="uid://duoc8hk2log74" path="res://Resources/426a4b00b1d7ed2e267075742607eca8.png" id="3_smh2d"]
-[ext_resource type="Texture2D" uid="uid://crtdmtp7cnfx4" path="res://Resources/be147c96e6af5bc6a26cce80fa77897a.png" id="4_kosgy"]
-[ext_resource type="Texture2D" uid="uid://xsuvw8sqeiwt" path="res://Resources/0136d8f41eb50046f29b5b808c2ee87b.png" id="6_ab2pw"]
-[ext_resource type="Texture2D" uid="uid://rmss06pcfjen" path="res://icon.svg" id="7_ifrtx"]
-[ext_resource type="PackedScene" uid="uid://cu77iqu4ph4v5" path="res://Entities/Shared Resources/Hitbox.tscn" id="7_oqpet"]
-[ext_resource type="PackedScene" uid="uid://c1vt3jqxeo5ln" path="res://Entities/Shared Resources/Hurtbox.tscn" id="9_18ojk"]
+[ext_resource type="Script" path="res://Entities/Characters/Knight/Knight.gd" id="1_h0thw"]
+[ext_resource type="Texture2D" uid="uid://csvi27tcw3cby" path="res://Resources/1a8f338f04dbdfd00ca5e635bda3efb8.png" id="2_xu4j4"]
+[ext_resource type="Texture2D" uid="uid://ctm2gxd5ikbnq" path="res://Resources/Sprites/Player_Characters/Knight/knight-idle.png" id="3_5nlis"]
+[ext_resource type="Texture2D" uid="uid://duoc8hk2log74" path="res://Resources/426a4b00b1d7ed2e267075742607eca8.png" id="4_qxqbs"]
+[ext_resource type="Texture2D" uid="uid://crtdmtp7cnfx4" path="res://Resources/be147c96e6af5bc6a26cce80fa77897a.png" id="5_65dgi"]
+[ext_resource type="Texture2D" uid="uid://xsuvw8sqeiwt" path="res://Resources/0136d8f41eb50046f29b5b808c2ee87b.png" id="6_rpy5t"]
+[ext_resource type="PackedScene" uid="uid://cu77iqu4ph4v5" path="res://Entities/Shared Resources/Hitbox.tscn" id="7_x7lp7"]
+[ext_resource type="Texture2D" uid="uid://rmss06pcfjen" path="res://icon.svg" id="8_nokva"]
+[ext_resource type="PackedScene" uid="uid://c1vt3jqxeo5ln" path="res://Entities/Shared Resources/Hurtbox.tscn" id="9_v8dpl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f0dll"]
 size = Vector2(40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gi4pb"]
+atlas = ExtResource("3_5nlis")
+region = Rect2(266, 0, 19, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41xd5"]
+atlas = ExtResource("3_5nlis")
+region = Rect2(285, 0, 19, 38)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vrm1s"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_qjvi7")
+"texture": ExtResource("2_xu4j4")
 }],
 "loop": true,
 "name": &"dash",
@@ -25,15 +33,18 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_ry1r5")
+"texture": SubResource("AtlasTexture_gi4pb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41xd5")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_smh2d")
+"texture": ExtResource("4_qxqbs")
 }],
 "loop": true,
 "name": &"jumpdown",
@@ -41,7 +52,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_kosgy")
+"texture": ExtResource("5_65dgi")
 }],
 "loop": true,
 "name": &"jumpup",
@@ -49,7 +60,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_ab2pw")
+"texture": ExtResource("6_rpy5t")
 }],
 "loop": true,
 "name": &"walk",
@@ -341,20 +352,19 @@ _data = {
 radius = 7.0
 height = 40.0
 
-[node name="CharacterScene" type="CharacterBody2D" groups=["Player"]]
+[node name="KnightScene" type="CharacterBody2D" groups=["Player"]]
 scale = Vector2(0.5, 0.5)
 collision_layer = 2
-script = ExtResource("1_yuedg")
+script = ExtResource("1_h0thw")
 
 [node name="Collision (Terrain)" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_f0dll")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.05, 0.05)
 sprite_frames = SubResource("SpriteFrames_vrm1s")
 animation = &"walk"
 
-[node name="Hitbox" parent="." instance=ExtResource("7_oqpet")]
+[node name="Hitbox" parent="." instance=ExtResource("7_x7lp7")]
 visible = false
 collision_layer = 512
 collision_mask = 0
@@ -378,9 +388,9 @@ visible = false
 position = Vector2(64, -1)
 rotation = 1.57079
 scale = Vector2(0.0703125, 0.328125)
-texture = ExtResource("7_ifrtx")
+texture = ExtResource("8_nokva")
 
-[node name="Hurtbox" parent="Flipper/Sprite2D" instance=ExtResource("9_18ojk")]
+[node name="Hurtbox" parent="Flipper/Sprite2D" instance=ExtResource("9_v8dpl")]
 collision_layer = 0
 collision_mask = 1024
 monitoring = false

@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://clbc4sq7aq0p6" path="res://Resources/Upgrade Icons/Block.png" id="1_ibeyo"]
 [ext_resource type="Script" path="res://Maps/Instancing_Test_Only.gd" id="1_q7kuy"]
 [ext_resource type="PackedScene" uid="uid://cjxwfm7on3ii0" path="res://Entities/Enemy/Basic Walker/Walker_Enemy.tscn" id="2_2kqow"]
-[ext_resource type="PackedScene" uid="uid://c733lubf7hob6" path="res://Entities/Character/CharacterScene.tscn" id="3_sb55g"]
+[ext_resource type="PackedScene" uid="uid://c733lubf7hob6" path="res://Entities/Characters/Character_Base/CharacterScene.tscn" id="3_sb55g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sibo7"]
 texture = ExtResource("1_ibeyo")
