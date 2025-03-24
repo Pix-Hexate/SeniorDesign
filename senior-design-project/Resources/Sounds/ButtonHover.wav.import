@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://ne0ywq6a3ugy"
-path="res://.godot/imported/SFX_Interact_Pop_1.wav-bf096c57557021aa4b7e316524f2754a.sample"
+path="res://.godot/imported/ButtonHover.wav-105ef8f552e5084919ab3a0ee99e71df.sample"
 
 [deps]
 
-source_file="res://Resources/SFX_Interact_Pop_1.wav"
-dest_files=["res://.godot/imported/SFX_Interact_Pop_1.wav-bf096c57557021aa4b7e316524f2754a.sample"]
+source_file="res://Resources/Sounds/ButtonHover.wav"
+dest_files=["res://.godot/imported/ButtonHover.wav-105ef8f552e5084919ab3a0ee99e71df.sample"]
 
 [params]
 

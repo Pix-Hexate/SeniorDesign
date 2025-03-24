@@ -12,4 +12,4 @@ func _process(delta):
 
 
 func _on_mouse_entered():
-	AudioManager.Queue_Sound("ButtonHover")
+	AudioManager.QueueRandomizedSound("ButtonHover")
