@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=4 uid="uid://c740ul0beilqq"]
 
-[ext_resource type="PackedScene" uid="uid://c733lubf7hob6" path="res://Entities/Characters/Character_Base/CharacterScene.tscn" id="1_kloo0"]
 [ext_resource type="Texture2D" uid="uid://clbc4sq7aq0p6" path="res://Resources/Upgrade Icons/Block.png" id="2_hcnkr"]
 [ext_resource type="PackedScene" uid="uid://cjxwfm7on3ii0" path="res://Entities/Enemy/Basic Walker/Walker_Enemy.tscn" id="2_yc2fk"]
+[ext_resource type="PackedScene" uid="uid://dm7iv3g8qnokp" path="res://Entities/Characters/Knight/KnightScene.tscn" id="3_o3yhr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_map0a"]
 texture = ExtResource("2_hcnkr")
@@ -72,11 +72,10 @@ metadata/_edit_lock_ = true
 [node name="WalkerEnemy2" parent="." instance=ExtResource("2_yc2fk")]
 position = Vector2(103, 0)
 
-[node name="CharacterScene" parent="." instance=ExtResource("1_kloo0")]
-position = Vector2(-353, 57)
+[node name="KnightScene" parent="." instance=ExtResource("3_o3yhr")]
 
-[node name="Marker2D2" type="Marker2D" parent="CharacterScene" groups=["PlayerCameraPosition"]]
-position = Vector2(0, -125)
+[node name="Marker2D2" type="Marker2D" parent="KnightScene" groups=["PlayerCameraPosition"]]
+position = Vector2(-706, -11)
 
-[node name="Camera2D2" type="Camera2D" parent="CharacterScene" groups=["Camera"]]
-position = Vector2(0, -125)
+[node name="Camera2D2" type="Camera2D" parent="KnightScene" groups=["Camera"]]
+position = Vector2(3, -44)
