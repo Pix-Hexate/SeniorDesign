@@ -41,7 +41,9 @@ func Take_Inputs(): #This function is our input buffer
 		Buffered_Keys["Action"] = "Jump"
 		BufferTimer.start()
 		
-	
+	if Input.is_action_pressed("BasicAttack"):
+		Buffered_Keys["Action"] = "BasicAttack"
+		BufferTimer.start()
 	if Input.is_action_pressed("AbilityOneKey"):
 		Buffered_Keys["Action"] = "AbilityOne"
 		BufferTimer.start()
@@ -90,6 +92,10 @@ func AttemptJump() -> void:
 	
 func Process_Action_Inputs():
 	match Buffered_Keys["Action"]:
+		"BasicAttack":
+			if not Playing_Action:
+				AnimPlayer.play("BasicAttack")
+				Buffered_Keys["Action"] = ""
 		"AbilityOne":
 			if not Playing_Action:
 				AnimPlayer.play("AbilityOne")
@@ -99,10 +105,13 @@ func Process_Action_Inputs():
 				AnimPlayer.play("AbilityTwo")
 				Buffered_Keys["Action"] = ""
 		"AbilityThree":
-			pass
+			if not Playing_Action:
+				AnimPlayer.play("AbilityThree")
+				Buffered_Keys["Action"] = ""
 		"AbilityFour":
-			TEMPORARY_TEST_FUNC()
-			Buffered_Keys["Action"] = ""
+			if not Playing_Action:
+				AnimPlayer.play("AbilityFour")
+				Buffered_Keys["Action"] = ""
 	
 #example of how to spawn an item
 func TEMPORARY_TEST_FUNC():

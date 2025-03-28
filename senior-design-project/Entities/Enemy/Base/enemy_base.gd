@@ -1,6 +1,8 @@
 class_name EnemyBaseScene extends CharacterBody2D
 
 @onready var PlayerRef : CharacterBaseScene = get_tree().get_first_node_in_group("Player")
+@export var MaxHP: int = 10
+@export var CurrentHP: int = 10
 
 func _physics_process(delta): #Override this
 	if not is_on_floor():
@@ -11,6 +13,12 @@ func _physics_process(delta): #Override this
 func _AI(delta : float):#Override This
 	pass
 
+func TakeDamage(amount: int):
+	CurrentHP -= amount
+	print("Enemy took " + str(amount) + " damage")
+	
+	if CurrentHP <= 0:
+		Die()
 
 func Got_Hit(Data : AttackData): #Override This
 	print("i got hit")
