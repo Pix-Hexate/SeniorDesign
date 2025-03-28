@@ -78,6 +78,16 @@ func _on_ability_cooldown(ability_name: String):
 	print(ability_name + " is ready!")
 	
 var regen_timer: float = 0.0
+
+func _process(delta: float) -> void:
+	Take_Inputs()
+	Process_Movement_Inputs()
+	Process_Action_Inputs()
+	regen_timer += delta
+	if regen_timer >= 1.0:  # Apply health regen every second
+		regen_timer = 0
+		Heal(HealthRegen)
+'''		
 func _process(delta: float) -> void:
 	Process_Action_Inputs() #why was this removed from _process?
 	regen_timer += delta
@@ -95,7 +105,7 @@ func _process(delta: float) -> void:
 
 		# Hit detection with enemies in the range
 		#_check_for_hits_in_whirlwind()
-
+'''
 func Heal(amount: float):
 	CurrentHP = min(CurrentHP + amount, MaxHP)
 

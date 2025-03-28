@@ -1,8 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://dm7iv3g8qnokp"]
+[gd_scene load_steps=24 format=3 uid="uid://dm7iv3g8qnokp"]
 
 [ext_resource type="Script" path="res://Entities/Characters/Knight/Knight.gd" id="1_h0thw"]
 [ext_resource type="Texture2D" uid="uid://csvi27tcw3cby" path="res://Resources/1a8f338f04dbdfd00ca5e635bda3efb8.png" id="2_xu4j4"]
-[ext_resource type="Texture2D" uid="uid://ctm2gxd5ikbnq" path="res://Resources/Sprites/Player_Characters/Knight/knight-idle.png" id="3_5nlis"]
+[ext_resource type="Texture2D" uid="uid://barviako6rc2" path="res://Resources/51f54192b09a96adcef5c88b05291e3a.png" id="3_732b6"]
 [ext_resource type="Texture2D" uid="uid://duoc8hk2log74" path="res://Resources/426a4b00b1d7ed2e267075742607eca8.png" id="4_qxqbs"]
 [ext_resource type="Texture2D" uid="uid://crtdmtp7cnfx4" path="res://Resources/be147c96e6af5bc6a26cce80fa77897a.png" id="5_65dgi"]
 [ext_resource type="Texture2D" uid="uid://xsuvw8sqeiwt" path="res://Resources/0136d8f41eb50046f29b5b808c2ee87b.png" id="6_rpy5t"]
@@ -12,14 +12,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f0dll"]
 size = Vector2(40, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gi4pb"]
-atlas = ExtResource("3_5nlis")
-region = Rect2(266, 0, 19, 38)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_41xd5"]
-atlas = ExtResource("3_5nlis")
-region = Rect2(285, 0, 19, 38)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vrm1s"]
 animations = [{
@@ -33,10 +25,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gi4pb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_41xd5")
+"texture": ExtResource("3_732b6")
 }],
 "loop": true,
 "name": &"idle",
