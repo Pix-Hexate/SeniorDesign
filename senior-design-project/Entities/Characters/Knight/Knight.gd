@@ -33,7 +33,7 @@ var AttackBuffTimer: Timer
 var is_whirlwind_active: bool = false
 var whirlwind_timer: Timer
 var original_attack_speed: float
-@onready var attack_hitbox = $AttackHitbox  # Reference the Area2D
+@onready var attack_hitbox = $Flipper/Sprite2D/Hurtbox # Reference the Area2D
 
 func _ready():
 	# Initialize cooldown timers
@@ -79,21 +79,22 @@ func _on_ability_cooldown(ability_name: String):
 	
 var regen_timer: float = 0.0
 func _process(delta: float) -> void:
+	Process_Action_Inputs() #why was this removed from _process?
 	regen_timer += delta
 	if regen_timer >= 1.0:  # Apply health regen every second
 		regen_timer = 0
 		Heal(HealthRegen)
 		
-	if is_whirlwind_active:
+	#if is_whirlwind_active: #TODO this needs to be redone
 		# Rotate the player character
-		rotation += WhirlwindSpeed * delta
+		#rotation += WhirlwindSpeed * delta #no we don't rotate the player
 
 		# Move the player in the direction they're facing
-		var direction = Vector2(cos(rotation), sin(rotation))
-		global_position += direction * WhirlwindSpeed * delta
+		#var direction = Vector2(cos(rotation), sin(rotation))
+		#global_position += direction * WhirlwindSpeed * delta
 
 		# Hit detection with enemies in the range
-		_check_for_hits_in_whirlwind()
+		#_check_for_hits_in_whirlwind()
 
 func Heal(amount: float):
 	CurrentHP = min(CurrentHP + amount, MaxHP)
@@ -116,8 +117,11 @@ func TakeDamage(amount: int):
 		Die()
 
 func Die():
+	#TODO
+	pass
 	print("Knight has fallen!")
-	queue_free()
+	#queue_free()
+	#we cannot delete the player entity, it should instead go to a end screen
 
 # Handles boost expiration
 func _on_boost_expired():
@@ -176,7 +180,8 @@ func _reflect_damage(Data: AttackData):
 	# Stop whirlwind after its duration
 func _on_whirlwind_end():
 	is_whirlwind_active = false
-	set_process(false)
+	#set_process(false) #wtf no we absolutely cannot do this?
+	
 	if !WasBoosted:
 		MoveSpeed /= 1.5  # Increase movement speed
 		WhirlwindDamage /= 1.5
@@ -187,11 +192,13 @@ func _on_whirlwind_end():
 	AbilityCooldownTimers["AbilityThree"].start()
 	print("Whirlwind Slash ended!")
 		
-func _start_whirlwind_movement():
+func _start_whirlwind_movement(): #we do NOT want to rotate the player, it'll be an animation
+	pass
 	# Logic to rotate the player and move forward while spinning
-	var rotation_speed: float = 5.0  # Speed of rotation
+	#var rotation_speed: float = 5.0  # Speed of rotation
+	
 	# Add a process to rotate and move while the ability is active
-	set_process(true)
+	#set_process(true) #what even is this?
 
 func _check_for_hits_in_whirlwind():
 	# Check for collision with enemies during the whirlwind
@@ -207,6 +214,9 @@ func _apply_Whirlwind_knockback(enemy):
 	var direction = (enemy.global_position - global_position).normalized()
 	CurrentAttackKnockback *= KnockbackMultiplier
 	enemy.apply_impulse(direction * CurrentAttackKnockback)
+
+#region Attacks
+#why aren't any of the attacks calling setting PlayingAction?
 
 func BasicAttack():
 	print("Basic Attack: Slashing forward!")
@@ -307,3 +317,5 @@ func Ability4Boosted():
 	MoveSpeed *= 1.5
 	AttackBuffTimer.start()
 	AbilityCooldownTimers["AbilityFour"].start()
+
+#endregion

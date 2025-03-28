@@ -353,7 +353,6 @@ radius = 7.0
 height = 40.0
 
 [node name="KnightScene" type="CharacterBody2D" groups=["Player"]]
-scale = Vector2(0.5, 0.5)
 collision_layer = 2
 script = ExtResource("1_h0thw")
 
@@ -361,6 +360,8 @@ script = ExtResource("1_h0thw")
 shape = SubResource("RectangleShape2D_f0dll")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 1)
+scale = Vector2(0.0545685, 0.0494924)
 sprite_frames = SubResource("SpriteFrames_vrm1s")
 animation = &"walk"
 
