@@ -1,0 +1,18 @@
+extends Control
+
+# Called when the Resume button is pressed
+func _on_resume_pressed() -> void:
+    # Emit signal or call method on the main game to resume the game
+    get_parent().get_node("MainGameScript").pauseMenu()  # Call the pauseMenu function in the main game
+    queue_free()  # Hide the pause menu
+
+# Called when the Settings button is pressed
+func _on_settings_pressed() -> void:
+    # Call the main game's function to open the options menu
+    get_parent().get_node("MainGameScript")._on_settings_pressed()
+    queue_free()  # Hide the pause menu while in settings
+
+# Called when the Quit button is pressed
+func _on_quit_pressed() -> void:
+    get_tree().quit()  # Quit the game
+

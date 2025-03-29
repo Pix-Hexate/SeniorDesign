@@ -1,0 +1,89 @@
+[gd_scene load_steps=7 format=3 uid="uid://cjxwfm7on3ii0"]
+
+[ext_resource type="Script" path="res://Entities/Enemy/Basic Walker/Walker_Enemy.gd" id="1_8jg57"]
+[ext_resource type="Texture2D" uid="uid://rmss06pcfjen" path="res://icon.svg" id="2_16pps"]
+[ext_resource type="PackedScene" uid="uid://cu77iqu4ph4v5" path="res://Entities/Shared Resources/Hitbox.tscn" id="3_0uf3w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vyya2"]
+radius = 18.0278
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n82wc"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ucq1w"]
+size = Vector2(717.5, 164)
+
+[node name="WalkerEnemy" type="CharacterBody2D" groups=["Enemy"]]
+scale = Vector2(0.5, 0.5)
+collision_layer = 4
+script = ExtResource("1_8jg57")
+
+[node name="Collision (Terrain)" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_vyya2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_16pps")
+
+[node name="Hitbox" parent="." instance=ExtResource("3_0uf3w")]
+collision_layer = 1024
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_n82wc")
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_ucq1w")
+
+[node name="PlayerRaycast" type="RayCast2D" parent="."]
+visible = false
+position = Vector2(0, -65)
+target_position = Vector2(158, 4)
+collision_mask = 3
+
+[node name="WallRaycast" type="RayCast2D" parent="."]
+visible = false
+position = Vector2(1, 7)
+target_position = Vector2(27, 0)
+
+[node name="FloorRaycast" type="RayCast2D" parent="."]
+visible = false
+position = Vector2(18, 13)
+target_position = Vector2(0, 80)
+
+[node name="JumpRaycast" type="RayCast2D" parent="."]
+visible = false
+position = Vector2(0, -25)
+target_position = Vector2(38, 0)
+
+[node name="PlayerAggroTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="StunTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Attempt Reaggro" type="Timer" parent="."]
+one_shot = true
+
+[node name="TEST_PHASE_INDICATOR" type="Label" parent="."]
+offset_left = -19.0
+offset_top = -47.0
+offset_right = 21.0
+offset_bottom = -24.0
+
+[node name="TurnTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="PlayerDetection" to="." method="PlayerDetection"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="PlayerDetection_Leave"]
+[connection signal="timeout" from="PlayerAggroTimer" to="." method="DropAggro"]
+[connection signal="timeout" from="StunTimer" to="." method="EndStun"]
+[connection signal="timeout" from="Attempt Reaggro" to="." method="PlayerDetection"]
+[connection signal="timeout" from="TurnTimer" to="." method="CanTurn"]

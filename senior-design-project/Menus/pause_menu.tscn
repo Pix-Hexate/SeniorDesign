@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://cocgowud7ki4y"]
+
+[ext_resource type="Script" path="res://Menus/pause_menu.gd" id="1_844em"]
+
+[node name="pause_menu_root" type="Node2D"]
+script = ExtResource("1_844em")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="pause_menu_cnode" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/pause_menu_cnode"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -50.5
+offset_right = 35.0
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/pause_menu_cnode/MarginContainer"]
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="CanvasLayer/pause_menu_cnode/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Settings" type="Button" parent="CanvasLayer/pause_menu_cnode/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Quit" type="Button" parent="CanvasLayer/pause_menu_cnode/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="CanvasLayer/pause_menu_cnode/MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]

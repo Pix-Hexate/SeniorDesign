@@ -1,0 +1,47 @@
+extends Node2D
+
+@onready var options_menu = preload("res://Menus/options_menu.tscn")
+@onready var pause_menu = $"."
+var paused = false
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+    # Add ESC key to pause or resume the game
+    Input.set_custom_mouse_cursor("res://cursor/cursor.png")  # Optional for custom cursor if desired
+    pass
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+    # Pause the game when ESC is pressed
+    if Input.is_action_just_pressed("pause"):  # Ensure that "pause" is set to "esc" in your input map
+        pauseMenu()
+
+# Function to handle pausing and unpausing the game
+func pauseMenu():
+    if paused:
+        pause_menu.hide()  # Hide the pause menu
+        Engine.time_scale = 1  # Unpause the game
+    else:
+        pause_menu.show()  # Show the pause menu
+        Engine.time_scale = 0  # Pause the game
+
+    paused = !paused  # Toggle the paused state
+
+# Called when Settings button is pressed
+func _on_settings_pressed() -> void:
+    var options_instance = options_menu.instantiate()
+    options_instance.back_pressed.connect(_on_options_closed)  # Connect signal to go back to pause menu
+    get_parent().add_child(options_instance)  # Add options menu to the scene tree
+    pause_menu.hide()  # Hide the pause menu while in settings
+    Engine.time_scale = 0  # Pause the game when settings are open
+
+# Called when the Options menu is closed (back button is pressed)
+func _on_options_closed() -> void:
+    Engine.time_scale = 1  # Resume the game
+    get_parent().get_node("OptionsMenu").queue_free()  # Remove the options menu from the scene tree
+    pause_menu.show()  # Show the pause menu again
+
+# Called when the Quit button is pressed
+func _on_quit_pressed() -> void:
+    get_tree().quit()  # Quit the game
+

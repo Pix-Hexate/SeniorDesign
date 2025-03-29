@@ -1,0 +1,127 @@
+[gd_scene load_steps=3 format=3 uid="uid://84oph0c8bh8k"]
+
+[ext_resource type="Script" path="res://Menus/options_menu.gd" id="1_b6p4a"]
+
+[sub_resource type="SystemFont" id="SystemFont_l3u16"]
+font_stretch = 150
+subpixel_positioning = 0
+multichannel_signed_distance_field = true
+
+[node name="Options" type="Node2D"]
+script = ExtResource("1_b6p4a")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_fonts/font = SubResource("SystemFont_l3u16")
+theme_override_font_sizes/font_size = 40
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -11.0
+offset_right = 350.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="MusicContainer" type="VBoxContainer" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+
+[node name="MusicVolume" type="Label" parent="CanvasLayer/Control/HBoxContainer/MusicContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Music Volume"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="CanvasLayer/Control/HBoxContainer/MusicContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 50.0
+rounded = true
+ticks_on_borders = true
+
+[node name="SFXContainer" type="VBoxContainer" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+
+[node name="SfxVolume" type="Label" parent="CanvasLayer/Control/HBoxContainer/SFXContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "SFX Volume"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SfxSlider" type="HSlider" parent="CanvasLayer/Control/HBoxContainer/SFXContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 50.0
+rounded = true
+ticks_on_borders = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.402
+anchor_top = 0.65
+anchor_right = 0.577
+anchor_bottom = 1.0
+offset_left = -0.279999
+offset_top = -1.52588e-05
+offset_right = -0.280029
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ResolutionContainer" type="VBoxContainer" parent="CanvasLayer/Control/HBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/HBoxContainer2/ResolutionContainer"]
+layout_mode = 2
+text = "Resolution"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/HBoxContainer2/ResolutionContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 300.0
+offset_right = 552.0
+offset_bottom = 325.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/BackButton"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = " Menu"
+
+[connection signal="value_changed" from="CanvasLayer/Control/HBoxContainer/MusicContainer/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Control/HBoxContainer/SFXContainer/SfxSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="pressed" from="CanvasLayer/Control/BackButton" to="." method="_on_back_button_pressed"]
