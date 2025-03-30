@@ -3,6 +3,9 @@ class_name EnemyBaseScene extends CharacterBody2D
 @onready var PlayerRef : CharacterBaseScene = get_tree().get_first_node_in_group("Player")
 @export var MaxHP: int = 10
 @export var CurrentHP: int = 10
+@onready var StunTimer : Timer = $StunTimer
+@onready var PlayerAggroTimer : Timer = $PlayerAggroTimer
+@onready var PlayerRaycast : RayCast2D = $"PlayerRaycast"
 
 func _physics_process(delta): #Override this
 	if not is_on_floor():

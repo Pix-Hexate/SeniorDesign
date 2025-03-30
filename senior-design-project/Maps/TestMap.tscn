@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=4 uid="uid://c740ul0beilqq"]
 
+[ext_resource type="PackedScene" uid="uid://c733lubf7hob6" path="res://Entities/Characters/Character_Base/CharacterScene.tscn" id="2_87c8n"]
 [ext_resource type="Texture2D" uid="uid://clbc4sq7aq0p6" path="res://Resources/Upgrade Icons/Block.png" id="2_hcnkr"]
-[ext_resource type="PackedScene" uid="uid://cjxwfm7on3ii0" path="res://Entities/Enemy/Basic Walker/Walker_Enemy.tscn" id="2_yc2fk"]
-[ext_resource type="PackedScene" uid="uid://dm7iv3g8qnokp" path="res://Entities/Characters/Knight/KnightScene.tscn" id="3_o3yhr"]
+[ext_resource type="PackedScene" uid="uid://dmgxevoewo7u8" path="res://Entities/Enemy/Ghost/Ghost.tscn" id="3_lcwmw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_map0a"]
 texture = ExtResource("2_hcnkr")
@@ -64,18 +64,20 @@ sources/0 = SubResource("TileSetAtlasSource_map0a")
 
 [node name="TestMap" type="Node2D"]
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
+[node name="TileMapLayer" type="TileMapLayer" parent="." groups=["Map"]]
 tile_map_data = PackedByteArray("AADd/wsAAAACAAAAAADe/wsAAAACAAAAAADf/wsAAAACAAAAAADg/wsAAAACAAAAAADh/wsAAAACAAAAAADi/wsAAAACAAAAAADj/wsAAAACAAAAAADk/wsAAAACAAAAAADl/wsAAAACAAAAAADm/wsAAAACAAAAAADn/wsAAAACAAAAAADo/wsAAAACAAAAAADp/wsAAAACAAAAAADq/wsAAAACAAAAAADr/wsAAAACAAAAAADs/wsAAAACAAAAAADt/wsAAAACAAAAAADu/wsAAAACAAAAAADv/wsAAAACAAAAAADw/wsAAAACAAAAAADx/wsAAAACAAAAAADy/wsAAAACAAAAAADz/wsAAAACAAAAAAD0/wsAAAACAAAAAAD1/wsAAAACAAAAAAD2/wsAAAACAAAAAAD3/wsAAAACAAAAAAD4/wsAAAACAAAAAAD5/wsAAAACAAAAAAD6/wsAAAACAAAAAAD7/wsAAAACAAAAAAD8/wsAAAACAAAAAAD9/wsAAAACAAAAAAD+/wsAAAACAAAAAAD//wsAAAACAAAAAAAAAAsAAAACAAAAAAABAAsAAAACAAAAAAACAAsAAAACAAAAAAADAAsAAAACAAAAAAAEAAsAAAACAAAAAAAFAAsAAAACAAAAAAAGAAsAAAACAAAAAAAHAAsAAAACAAAAAAAIAAsAAAACAAAAAAAJAAsAAAACAAAAAAAKAAsAAAACAAAAAAALAAsAAAACAAAAAAAMAAsAAAACAAAAAAANAAsAAAACAAAAAAAOAAsAAAACAAAAAAAPAAsAAAACAAAAAAAQAAsAAAACAAAAAAARAAsAAAACAAAAAAASAAsAAAACAAAAAAATAAsAAAACAAAAAAAUAAsAAAACAAAAAAAVAAsAAAACAAAAAAAWAAsAAAACAAAAAAAXAAsAAAACAAAAAAAYAAsAAAACAAAAAAAZAAsAAAACAAAAAAAaAAsAAAACAAAAAAAbAAsAAAACAAAAAAAcAAsAAAACAAAAAAAdAAsAAAACAAAAAAAeAAsAAAACAAAAAAAfAAsAAAACAAAAAAAgAAsAAAACAAAAAAAhAAsAAAACAAAAAAAiAAsAAAACAAAAAAAjAAsAAAACAAAAAAAkAAsAAAACAAAAAAAlAAsAAAACAAAAAAAmAAsAAAACAAAAAAAnAAsAAAACAAAAAAAoAAsAAAACAAAAAAApAAsAAAACAAAAAAAqAAsAAAACAAAAAAAqAAoAAAABAAEAAAAqAAkAAAABAAEAAAAqAAgAAAABAAEAAAAqAAcAAAABAAEAAAAqAAYAAAABAAEAAAAjAAoAAAABAAIAAAAjAAkAAAABAAIAAAAjAAgAAAABAAIAAAAjAAcAAAABAAIAAAAjAAYAAAABAAIAAAAjAAUAAAABAAIAAAAjAAQAAAABAAIAAAAjAAMAAAABAAIAAAAjAAIAAAABAAIAAAAjAAEAAAABAAIAAAAjAAAAAAABAAIAAADc/wsAAAABAAIAAADc/woAAAABAAIAAADc/wkAAAABAAIAAADc/wgAAAABAAIAAADc/wcAAAABAAIAAADc/wYAAAABAAIAAADc/wUAAAABAAIAAADc/wQAAAABAAIAAADc/wMAAAABAAIAAADd/wIAAAABAAIAAADd/wEAAAABAAIAAADc/wEAAAABAAIAAADc/wAAAAABAAIAAADc////AAABAAIAAADc/wIAAAABAAIAAAD+/woAAAAAAAAAAAD9/wkAAAAAAAAAAAD8/wgAAAAAAAAAAAD7/wcAAAAAAAAAAAD9/woAAAAAAAAAAAD8/woAAAAAAAAAAAD7/woAAAAAAAAAAAD7/wkAAAAAAAAAAAD7/wgAAAAAAAAAAAD8/wkAAAAAAAAAAAD6/woAAAACAAMAAAD6/wkAAAACAAMAAAD6/wgAAAACAAMAAAD6/wcAAAACAAMAAAD6/wYAAAACAAMAAAADAAIAAAACAAAAAAAEAAIAAAACAAAAAAAFAAIAAAACAAAAAAAGAAIAAAACAAAAAAAHAAIAAAACAAAAAAAIAAIAAAACAAAAAAAJAAIAAAACAAAAAAAKAAIAAAACAAAAAAALAAIAAAACAAAAAAAMAAIAAAACAAAAAAA=")
 tile_set = SubResource("TileSet_bjvq2")
 metadata/_edit_lock_ = true
 
-[node name="WalkerEnemy2" parent="." instance=ExtResource("2_yc2fk")]
-position = Vector2(103, 0)
+[node name="CharacterScene" parent="." instance=ExtResource("2_87c8n")]
 
-[node name="KnightScene" parent="." instance=ExtResource("3_o3yhr")]
+[node name="Marker2D2" type="Marker2D" parent="CharacterScene" groups=["PlayerCameraPosition"]]
+position = Vector2(-1412, -22)
+scale = Vector2(2, 2)
 
-[node name="Marker2D2" type="Marker2D" parent="KnightScene" groups=["PlayerCameraPosition"]]
-position = Vector2(-706, -11)
+[node name="Camera2D2" type="Camera2D" parent="CharacterScene" groups=["Camera"]]
+position = Vector2(6, -88)
+scale = Vector2(2, 2)
 
-[node name="Camera2D2" type="Camera2D" parent="KnightScene" groups=["Camera"]]
-position = Vector2(3, -44)
+[node name="Ghost" parent="." instance=ExtResource("3_lcwmw")]
+position = Vector2(-357, 86)

@@ -6,7 +6,7 @@ var Done : bool = false #done with the fight but not exited, likely looking at i
 var Started : bool = false #started the fight
 var Compleated : bool = false #turns off all instance functionality after player leaves the instance
 '''
-Instances need to
+Instances need to1
 1. Move Camera to center of stage, and shut the door
 2. Disable or kill all outside enemies
 3. Enable the spawns

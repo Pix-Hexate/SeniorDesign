@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://csdab3usnnwcj"]
+[gd_scene load_steps=6 format=3 uid="uid://km42jk0g2set"]
 
-[ext_resource type="Script" path="res://Entities/Enemy/Base/enemy_base.gd" id="1_jnrfc"]
-[ext_resource type="Texture2D" uid="uid://rmss06pcfjen" path="res://icon.svg" id="2_gfdlk"]
-[ext_resource type="PackedScene" uid="uid://cu77iqu4ph4v5" path="res://Entities/Shared Resources/Hitbox.tscn" id="2_ltybd"]
+[ext_resource type="Script" path="res://Entities/Enemy/Mole/Mole.gd" id="1_63xkd"]
+[ext_resource type="Texture2D" uid="uid://rmss06pcfjen" path="res://icon.svg" id="2_jmovh"]
+[ext_resource type="PackedScene" uid="uid://cu77iqu4ph4v5" path="res://Entities/Shared Resources/Hitbox.tscn" id="3_ly07d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vyya2"]
 radius = 18.0278
@@ -10,9 +10,9 @@ radius = 18.0278
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n82wc"]
 size = Vector2(32, 32)
 
-[node name="EnemyBase" type="CharacterBody2D" groups=["Enemy"]]
+[node name="Mole" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
-script = ExtResource("1_jnrfc")
+script = ExtResource("1_63xkd")
 
 [node name="Collision (Terrain)" type="CollisionShape2D" parent="."]
 visible = false
@@ -20,9 +20,9 @@ shape = SubResource("CircleShape2D_vyya2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_gfdlk")
+texture = ExtResource("2_jmovh")
 
-[node name="Hitbox" parent="." instance=ExtResource("2_ltybd")]
+[node name="Hitbox" parent="." instance=ExtResource("3_ly07d")]
 collision_layer = 1024
 collision_mask = 0
 
@@ -30,7 +30,6 @@ collision_mask = 0
 shape = SubResource("RectangleShape2D_n82wc")
 
 [node name="Delete this - testing only" type="Label" parent="."]
-visible = false
 offset_left = -10.0
 offset_top = -49.0
 offset_right = 30.0
@@ -47,6 +46,7 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
 
 [node name="Wall Detector" type="RayCast2D" parent="."]
+visible = false
 target_position = Vector2(31, 0)
 
 [node name="StunTimer" type="Timer" parent="."]
@@ -54,6 +54,7 @@ target_position = Vector2(31, 0)
 [node name="PlayerAggroTimer" type="Timer" parent="."]
 
 [node name="PlayerRaycast" type="RayCast2D" parent="."]
+visible = false
 
 [connection signal="timeout" from="Delete this - testing only/Timer" to="." method="delete_this_testing_only"]
 [connection signal="body_entered" from="PlayerDetection" to="." method="PlayerDetection"]

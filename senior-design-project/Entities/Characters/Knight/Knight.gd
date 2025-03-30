@@ -116,7 +116,7 @@ func _Got_Hit(Data: AttackData):
 		if IsBoosted:
 			_reflect_damage(Data)
 		return		
-	var damage = Data.damage
+	var damage = Data.Damage
 	damage = max(damage - Armor, 1)  # Reduce damage by armor, minimum 1
 	TakeDamage(damage)
 

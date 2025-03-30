@@ -42,9 +42,8 @@ var Max_Speed : float = 275 #Player is 250 for reference
 var JumpStrength : float = 250 #Player is 250
 var GravityStrength : float = 1200 #Player is 1200
 var RecentlyTurned : bool = false
-@onready var StunTimer : Timer = $StunTimer
-@onready var PlayerAggroTimer : Timer = $PlayerAggroTimer
-@onready var PlayerRaycast : RayCast2D = $"PlayerRaycast"
+
+
 @export var DIE_ON_HIT_TESTER : bool = false
 @export var SLOW_TESTER : bool = false
 

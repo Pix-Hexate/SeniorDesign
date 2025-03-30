@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1vl54vntxbj0"]
+
+[ext_resource type="Script" path="res://Entities/Enemy/Mole/mole_projectile.gd" id="1_g7fcb"]
+[ext_resource type="Texture2D" uid="uid://rmss06pcfjen" path="res://icon.svg" id="2_8kosq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nhapm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1fgbn"]
+radius = 7.0
+
+[node name="Projectile" type="Area2D"]
+collision_layer = 0
+collision_mask = 512
+script = ExtResource("1_g7fcb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_8kosq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_nhapm")
+
+[node name="WallCollision" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallCollision"]
+shape = SubResource("CircleShape2D_1fgbn")
+
+[node name="Lifespan" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="PlayerEntered"]
+[connection signal="body_entered" from="WallCollision" to="." method="WallCollision"]
+[connection signal="timeout" from="Lifespan" to="." method="_on_lifespan_timeout"]
