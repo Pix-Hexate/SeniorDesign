@@ -108,8 +108,13 @@ func _physics_process(delta): #Override this
 	move_and_slide()
 	
 
-func Got_Hit(Data : AttackData): #Override This
+func _Got_Hit(Data : AttackData): #Override This
 	#TODO take damage
+	print("i got hit")
+	CurrentHP -= Data.Damage
+	print("Enemy took " + str(Data.Damage) + " damage")
+	if CurrentHP <= 0:
+		Die()
 	#TODO Knockback
 	velocity = Vector2(0,0)
 	$Hitbox.set_deferred("monitorable", false)

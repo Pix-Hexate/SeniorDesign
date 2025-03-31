@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dm7iv3g8qnokp"]
+[gd_scene load_steps=25 format=3 uid="uid://dm7iv3g8qnokp"]
 
 [ext_resource type="Script" path="res://Entities/Characters/Knight/Knight.gd" id="1_h0thw"]
 [ext_resource type="Texture2D" uid="uid://csvi27tcw3cby" path="res://Resources/1a8f338f04dbdfd00ca5e635bda3efb8.png" id="2_xu4j4"]
@@ -324,12 +324,16 @@ tracks/0/keys = {
 "values": [&"walk"]
 }
 
+[sub_resource type="Animation" id="Animation_2te16"]
+resource_name = "BasicAttack"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xxl1o"]
 _data = {
 "AbilityFour": SubResource("Animation_xjhsj"),
 "AbilityOne": SubResource("Animation_bqut6"),
 "AbilityThree": SubResource("Animation_f0yia"),
 "AbilityTwo": SubResource("Animation_6oe56"),
+"BasicAttack": SubResource("Animation_2te16"),
 "Idle": SubResource("Animation_ghd6p"),
 "JumpDown": SubResource("Animation_hsad6"),
 "JumpUp": SubResource("Animation_8aovu"),

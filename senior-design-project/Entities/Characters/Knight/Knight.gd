@@ -9,6 +9,7 @@ class_name Knight extends CharacterBaseScene
 @export var Armor: float = 5.0
 @export var AttackSpeedDelay: float = 0.3 # Attack timer
 @export var AttackDamage: float = 5.0
+@export var attack_data = AttackData.new()
 @export var AttackKnockbackBase: float = 300.0
 @export var CurrentAttackKnockback : float = 300.0
 @export var WhirlwindSlashDuration: float = 3.0 # Time the ability lasts
@@ -21,7 +22,7 @@ class_name Knight extends CharacterBaseScene
 	"AbilityOne": 2.0,  
 	"AbilityTwo": 5.0,
 	"AbilityThree": 10.0,
-	"AbilityFour": 20.0
+	"AbilityFour": 1.0
 }
 
 # Track cooldown timers
@@ -33,6 +34,7 @@ var AttackBuffTimer: Timer
 var is_whirlwind_active: bool = false
 var whirlwind_timer: Timer
 var original_attack_speed: float
+var is_crit = randf()
 @onready var attack_hitbox = $Flipper/Sprite2D/Hurtbox # Reference the Area2D
 
 func _ready():
@@ -53,7 +55,7 @@ func _ready():
 	add_child(AttackBuffTimer)
 	
 	# Connect attack hitbox detection
-	attack_hitbox.area_entered.connect(_on_attack_hitbox_entered)
+	#attack_hitbox.area_entered.connect(_on_attack_hitbox_entered)
 
 func Process_Action_Inputs():
 	match Buffered_Keys["Action"]:
@@ -116,46 +118,40 @@ func _Got_Hit(Data: AttackData):
 		if IsBoosted:
 			_reflect_damage(Data)
 		return		
-	var damage = Data.Damage
-	damage = max(damage - Armor, 1)  # Reduce damage by armor, minimum 1
-	TakeDamage(damage)
-
-func TakeDamage(amount: int):		
-	CurrentHP -= amount
-	print("Took " + str(amount) + " damage")	
+	print("Took " + str(Data.Damage) + " damage")
+	var damage = max(Data.Damage - Armor, 1)
+	CurrentHP -= damage
+	print(CurrentHP)
+	#TODO Knockback
+	
 	if CurrentHP <= 0:
 		Die()
 
 func Die():
-	#TODO
-	pass
 	print("Knight has fallen!")
-	#queue_free()
-	#we cannot delete the player entity, it should instead go to a end screen
+	# Instead of deleting the player, transition to an end screen
+	#var game_over_screen = preload("res://GameOver.tscn").instantiate()
+	#get_tree().current_scene.add_child(game_over_screen)
 
 # Handles boost expiration
 func _on_boost_expired():
 	print("Boost expired!")
-	AttackSpeedDelay *= 1.5
+	AttackSpeedDelay /= 0.5
 	MoveSpeed /= 1.5
+	JumpStrength /= 1.2
 	IsBoosted = false
+	AbilityCooldownTimers["AbilityFour"].start()
 	
-func _on_attack_hitbox_entered(area):
-	if area.is_in_group("Enemies"):
-		var enemy = area.get_parent()
-		if enemy.has_method("TakeDamage"):
-			# Determine if it's a critical hit
-			var is_crit = randf() < CritChance
-			var final_damage = AttackDamage * (CritDamage if is_crit else 1)		
-			# Apply damage to the enemy
-			enemy.TakeDamage(AttackDamage)
-			_apply_knockback(enemy)
+#func _on_attack_hitbox_entered(area):
+	#if area.is_in_group("Enemies"):
+		#var enemy = area.get_parent()
 
 func _apply_knockback(enemy):
 	var direction = (enemy.global_position - global_position).normalized()
 	enemy.apply_impulse(direction * CurrentAttackKnockback)
 
 func _pull_enemy_towards_player(enemy):
+	print("Pulling Enemies")  
 	var direction = (global_position - enemy.global_position).normalized()
 	var pull_force = 500.0  # Adjust as needed
 	enemy.apply_impulse(direction * pull_force)
@@ -175,13 +171,14 @@ func _reflect_damage(Data: AttackData):
 
 	# Add blast to scene
 	get_parent().add_child(blast)
-
+				
 	# Damage enemies in blast radius
 	for area in blast.get_overlapping_areas():
 		if area.is_in_group("Enemies"):
 			var enemy = area.get_parent()
-			if enemy.has_method("TakeDamage"):
-				enemy.TakeDamage(Data.damage)  # Reflect full damage back
+			var enemy_hurtbox = enemy.get_node("Hurtbox")
+			if enemy_hurtbox:
+				enemy_hurtbox.Got_Hit(Data.Damage) # Reflect full damage back
 
 	# Remove blast after a short delay
 	await get_tree().create_timer(0.2).timeout
@@ -190,15 +187,16 @@ func _reflect_damage(Data: AttackData):
 	# Stop whirlwind after its duration
 func _on_whirlwind_end():
 	is_whirlwind_active = false
-	#set_process(false) #wtf no we absolutely cannot do this?
 	
 	if !WasBoosted:
 		MoveSpeed /= 1.5  # Increase movement speed
 		WhirlwindDamage /= 1.5
 		WasBoosted = false
+		
 	# Reset knockback multiplier
 	KnockbackMultiplier = 1.0
 	CurrentAttackKnockback = AttackKnockbackBase
+	AttackSpeedDelay = original_attack_speed
 	AbilityCooldownTimers["AbilityThree"].start()
 	print("Whirlwind Slash ended!")
 		
@@ -215,81 +213,130 @@ func _check_for_hits_in_whirlwind():
 	for enemy in attack_hitbox.get_overlapping_areas():
 		if enemy.is_in_group("Enemies"):
 			# Apply damage and knockback
-			enemy.TakeDamage(WhirlwindDamage, false)  # No crits during whirlwind
+			enemy.TakeDamage(WhirlwindDamage)
 			_apply_Whirlwind_knockback(enemy)
 			
 	
 func _apply_Whirlwind_knockback(enemy):
 	# Calculate direction of knockback
 	var direction = (enemy.global_position - global_position).normalized()
-	CurrentAttackKnockback *= KnockbackMultiplier
-	enemy.apply_impulse(direction * CurrentAttackKnockback)
+	var knockback_force = AttackKnockbackBase * KnockbackMultiplier
+	enemy.apply_impulse(direction * knockback_force)
 
+func _start_whirlwind_damage():
+	var damage_timer = Timer.new()
+	damage_timer.wait_time = 0.3  # Apply damage every 0.3 seconds
+	damage_timer.one_shot = false
+	damage_timer.timeout.connect(_check_for_hits_in_whirlwind)
+	add_child(damage_timer)
+	damage_timer.start()
+	
+	# Stop damage application when whirlwind ends
+	await get_tree().create_timer(WhirlwindSlashDuration).timeout
+	damage_timer.queue_free()
+	
 #region Attacks
 #why aren't any of the attacks calling setting PlayingAction?
 
 func BasicAttack():
 	print("Basic Attack: Slashing forward!")
+	# Create attack data
+	is_crit = randf() < CritChance
+	attack_data.Damage = AttackDamage * (CritDamage if is_crit else 1)
+	attack_data.Knockback = AttackKnockbackBase
+	attack_data.Source = global_position  # Set attack origin
+	
 	# Enable hitbox temporarily
 	attack_hitbox.monitoring = true
+	attack_hitbox.StoredAttackData = attack_data
+	
 	# Trigger attack animation
 	AnimPlayer.play("BasicAttack")
+	
+	# Apply attack to overlapping areas
 	for area in attack_hitbox.get_overlapping_areas():
-		if area.is_in_group("Enemies"):
-			var enemy = area.get_parent()
-			if enemy.has_method("TakeDamage"):
-				enemy.TakeDamage(AttackDamage)
+		if area is Hurtbox:  # Check if it's a valid Hurtbox
+			area.Got_Hit(attack_data)  # Apply attack data to hurtbox
 				
 	# Start attack cooldown
 	AbilityCooldownTimers["BasicAttack"].start()
 	
 	# Wait for attack delay, then disable hitbox
 	await get_tree().create_timer(0.1).timeout
-	attack_hitbox.monitoring = false  # Disable hitbox after attack
+	attack_hitbox.monitoring = false
 	
 func Ability1Stab():
-	print("Ability 1: Stab!")  
+	print("Ability 1: Stab!")
+	
+	# Create AttackData and assign values for this attack
+	is_crit = randf() < CritChance
+	attack_data.Damage = AttackDamage * 1.5 * (CritDamage if is_crit else 1)
+	attack_data.Knockback = IsBoosted if -200 else 1
+	attack_data.Source = global_position
+	attack_hitbox.StoredAttackData = attack_data
+	if IsBoosted:
+		print("Ability 1 when boosted")
+		attack_hitbox.scale *= 1.5  # Increase stab range
+		WasBoosted = true
+	
 	# Enable hitbox for attack detection
 	attack_hitbox.monitoring = true
+	
 	# Play stab animation
 	AnimPlayer.play("AbilityOne")
-	# Start cooldown
-	AbilityCooldownTimers["AbilityOne"].start()
+	
 	# Wait for a brief moment to allow the hitbox to detect enemies
 	await get_tree().create_timer(0.2).timeout  # Adjust timing as needed
-	if IsBoosted:
-		attack_hitbox.scale *= 1.5  # Increase stab range
-		
-	CurrentAttackKnockback == 0 
+	
+	
+				 
+	
 	# Check for enemies in range
 	for area in attack_hitbox.get_overlapping_areas():
 		if area.is_in_group("Enemies"):
 			var enemy = area.get_parent()
-			if enemy.has_method("TakeDamage"):
-				enemy.TakeDamage(AttackDamage * 1.5)
-				if IsBoosted:
-					attack_hitbox.scale /= 1.5
-					_pull_enemy_towards_player(enemy)
-					IsBoosted = false
+			# Send the attack data to the enemy's hurtbox
+			var enemy_hurtbox = enemy.get_node("Hurtbox")
+			if enemy_hurtbox:
+				enemy_hurtbox.Got_Hit(attack_data)  # Pass the attack data to the hurtbox
 
+	# If boosted, apply extra effects
+	if WasBoosted:
+		attack_hitbox.scale /= 1.5  # Reset the scale
+		IsBoosted = false
+		WasBoosted = false
+				
 	# Disable hitbox after the attack
 	attack_hitbox.monitoring = false
 	CurrentAttackKnockback = AttackKnockbackBase
+	
+		# Start cooldown
+	AbilityCooldownTimers["AbilityOne"].start()
 
 func Ability2Block():
+	if Playing_Action:
+		return
+	Playing_Action = true
 	print("Ability 2: Blocking!")
+	
 	# Play block animation
 	AnimPlayer.play("AbilityTwo")
+	
 	# Set invulnerability flag
 	IsInvulnerable = true
-	# Start cooldown
-	AbilityCooldownTimers["AbilityTwo"].start()
+	
 	# Wait for a short duration of invulnerability
-	await get_tree().create_timer(0.3).timeout
+	await get_tree().create_timer(0.5).timeout
 	IsBoosted = false;
+	
 	# Remove invulnerability
 	IsInvulnerable = false
-				
+	IsBoosted = false
+	Playing_Action = false
+	
+	# Start cooldown
+	AbilityCooldownTimers["AbilityTwo"].start()
+
 func Ability3WhilrwindSlash():
 	if Playing_Action or is_whirlwind_active:
 		return  # Prevent spamming the ability if already active
@@ -298,34 +345,35 @@ func Ability3WhilrwindSlash():
 	original_attack_speed = AttackSpeedDelay  # Store original attack speed
 
 	# Adjust attack speed (decreased cooldown for basic attack while spinning)
-	AttackSpeedDelay /= 0.5  # Faster attacks during whirlwind
+	AttackSpeedDelay *= 0.5  # Faster attacks during whirlwind
 
-	# Trigger animation
-	AnimPlayer.play("AbilityThree")
-	
 	# Boosted effects (increased movement speed, range, etc.)
 	if IsBoosted:
 		MoveSpeed *= 1.5  # Increase movement speed
 		WhirlwindDamage *= 1.5  # Increase damage for boosted whirlwind
 		KnockbackMultiplier = BoostedKnockbackMultiplier  # Increase knockback for boosted ability
 		IsBoosted = false
+		WasBoosted = true
 
 	# Start timer for whirlwind duration
 	var whirlwind_duration_timer = Timer.new()
 	
-	# Allow movement during the whirlwind
-	_start_whirlwind_movement()
-	whirlwind_duration_timer.wait_time = WhirlwindSlashDuration
-	whirlwind_duration_timer.one_shot = true
-	whirlwind_duration_timer.timeout.connect(_on_whirlwind_end)
-	add_child(whirlwind_duration_timer)
-	whirlwind_duration_timer.start()
+	# Start a timer for the whirlwind duration
+	var whirlwind_timer = Timer.new()
+	whirlwind_timer.wait_time = WhirlwindSlashDuration
+	whirlwind_timer.one_shot = true
+	whirlwind_timer.timeout.connect(_on_whirlwind_end)
+	add_child(whirlwind_timer)
+	whirlwind_timer.start()
+
+	# Start applying damage periodically
+	_start_whirlwind_damage()
 
 func Ability4Boosted():
 	IsBoosted = true
-	AttackSpeedDelay /= 1.5
+	AttackSpeedDelay *= 0.5
 	MoveSpeed *= 1.5
+	JumpStrength *= 1.2
 	AttackBuffTimer.start()
-	AbilityCooldownTimers["AbilityFour"].start()
 
 #endregion

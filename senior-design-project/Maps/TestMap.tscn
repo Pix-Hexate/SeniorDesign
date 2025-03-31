@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=4 uid="uid://c740ul0beilqq"]
 
-[ext_resource type="PackedScene" uid="uid://c733lubf7hob6" path="res://Entities/Characters/Character_Base/CharacterScene.tscn" id="2_87c8n"]
 [ext_resource type="Texture2D" uid="uid://clbc4sq7aq0p6" path="res://Resources/Upgrade Icons/Block.png" id="2_hcnkr"]
+[ext_resource type="PackedScene" uid="uid://dm7iv3g8qnokp" path="res://Entities/Characters/Knight/KnightScene.tscn" id="3_hgkdq"]
 [ext_resource type="PackedScene" uid="uid://dmgxevoewo7u8" path="res://Entities/Enemy/Ghost/Ghost.tscn" id="3_lcwmw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_map0a"]
@@ -69,15 +69,13 @@ tile_map_data = PackedByteArray("AADd/wsAAAACAAAAAADe/wsAAAACAAAAAADf/wsAAAACAAA
 tile_set = SubResource("TileSet_bjvq2")
 metadata/_edit_lock_ = true
 
-[node name="CharacterScene" parent="." instance=ExtResource("2_87c8n")]
-
-[node name="Marker2D2" type="Marker2D" parent="CharacterScene" groups=["PlayerCameraPosition"]]
-position = Vector2(-1412, -22)
-scale = Vector2(2, 2)
-
-[node name="Camera2D2" type="Camera2D" parent="CharacterScene" groups=["Camera"]]
-position = Vector2(6, -88)
-scale = Vector2(2, 2)
-
 [node name="Ghost" parent="." instance=ExtResource("3_lcwmw")]
 position = Vector2(-357, 86)
+
+[node name="KnightScene" parent="." instance=ExtResource("3_hgkdq")]
+
+[node name="Marker2D2" type="Marker2D" parent="KnightScene" groups=["PlayerCameraPosition"]]
+position = Vector2(-706, -11)
+
+[node name="Camera2D2" type="Camera2D" parent="KnightScene" groups=["Camera"]]
+position = Vector2(3, -44)

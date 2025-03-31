@@ -23,7 +23,7 @@ func TakeDamage(amount: int):
 	if CurrentHP <= 0:
 		Die()
 
-func Got_Hit(Data : AttackData): #Override This
+func _Got_Hit(Data : AttackData): #Override This
 	print("i got hit")
 	$"Delete this - testing only".visible = true
 	$"Delete this - testing only/Timer".start()
@@ -32,6 +32,7 @@ func delete_this_testing_only():
 	$"Delete this - testing only".visible = false
 
 func Die():
+	print("I Died")
 	pass
 
 func PlayerDetection(body: Node2D) -> void: #override this

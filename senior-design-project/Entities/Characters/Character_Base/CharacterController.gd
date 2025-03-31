@@ -41,9 +41,9 @@ func Take_Inputs(): #This function is our input buffer
 		Buffered_Keys["Action"] = "Jump"
 		BufferTimer.start()
 		
-	#if Input.is_action_pressed("BasicAttack"):
-		#Buffered_Keys["Action"] = "BasicAttack"
-		#BufferTimer.start()
+	if Input.is_action_pressed("BasicAttackKey"):
+		Buffered_Keys["Action"] = "BasicAttack"
+		BufferTimer.start()
 	if Input.is_action_pressed("AbilityOneKey"):
 		Buffered_Keys["Action"] = "AbilityOne"
 		BufferTimer.start()
