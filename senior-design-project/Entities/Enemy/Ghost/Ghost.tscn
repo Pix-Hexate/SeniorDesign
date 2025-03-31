@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Entities/Enemy/Ghost/Ghost.gd" id="1_k1lxq"]
 [ext_resource type="Texture2D" uid="uid://rmss06pcfjen" path="res://icon.svg" id="2_gycj3"]
 [ext_resource type="PackedScene" uid="uid://cu77iqu4ph4v5" path="res://Entities/Shared Resources/Hitbox.tscn" id="3_68kj5"]
-[ext_resource type="Script" path="res://Entities/Shared Resources/Hurtbox.gd" id="4_cyqxh"]
+[ext_resource type="PackedScene" uid="uid://c1vt3jqxeo5ln" path="res://Entities/Shared Resources/Hurtbox.tscn" id="4_mldym"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vyya2"]
 radius = 18.0278
@@ -11,7 +11,7 @@ radius = 18.0278
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n82wc"]
 size = Vector2(32, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bd3mq"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r2wfv"]
 size = Vector2(32, 32)
 
 [node name="Ghost" type="CharacterBody2D" groups=["Enemy"]]
@@ -29,7 +29,6 @@ texture = ExtResource("2_gycj3")
 
 [node name="Hitbox" parent="." instance=ExtResource("3_68kj5")]
 collision_layer = 1024
-collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_n82wc")
@@ -60,13 +59,11 @@ one_shot = true
 
 [node name="PlayerRaycast" type="RayCast2D" parent="."]
 
-[node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 0
+[node name="Hurtbox" parent="." instance=ExtResource("4_mldym")]
 collision_mask = 512
-script = ExtResource("4_cyqxh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource("RectangleShape2D_bd3mq")
+shape = SubResource("RectangleShape2D_r2wfv")
 
 [connection signal="timeout" from="Delete this - testing only/Timer" to="." method="delete_this_testing_only"]
 [connection signal="body_entered" from="PlayerDetection" to="." method="PlayerDetection"]

@@ -11,5 +11,4 @@ func _on_area_entered(area):
 		print("THERE IS A HURTBOX WITH AN UNSET ATTACK VALUE")
 	
 	StoredAttackData.Source = global_position
-	if area is Hitbox:
-		area.Got_Hit(StoredAttackData)
+	area.Got_Hit(StoredAttackData)

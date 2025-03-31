@@ -32,7 +32,6 @@ texture = ExtResource("2_16pps")
 
 [node name="Hitbox" parent="." instance=ExtResource("3_0uf3w")]
 collision_layer = 1024
-collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("RectangleShape2D_n82wc")
@@ -86,6 +85,8 @@ offset_bottom = -24.0
 one_shot = true
 
 [node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 512
 script = ExtResource("4_pd1or")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
