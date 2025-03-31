@@ -79,6 +79,7 @@ func PhaseOut():
 	if AI_Phase == 2:
 		RandPhaseOutTime = PhaseOutTime + randf_range(-1,1)
 		_HitBox.monitorable = false #we disable the hitbox while phased out
+		_HurtBox.monitoring = false
 		await get_tree().create_timer(RandPhaseOutTime).timeout
 		PhaseIn()
 		$"Delete this - testing only".text = "3"
@@ -93,6 +94,7 @@ func PhaseIn():
 		FacingRight = false
 		global_position = PlayerLoc + Vector2(200, -30)
 	_HitBox.monitorable = true
+	_HurtBox.monitoring = true
 	var tw : Tween = get_tree().create_tween()
 	tw.tween_property(self, "modulate:a", 1, FadeInTime)
 	await tw.finished
@@ -117,7 +119,8 @@ func _Got_Hit(Data : AttackData): #Override This
 		Die()
 	#TODO Knockback
 	velocity = Vector2(0,0)
-	$Hitbox.set_deferred("monitorable", false)
+	_HitBox.set_deferred("monitorable", false)
+	_HurtBox.set_deferred("monitoring", true)
 	self_modulate.a = .5
 	AI_Phase = 5
 	StunTimer.start()
