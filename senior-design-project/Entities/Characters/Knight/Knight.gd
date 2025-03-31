@@ -11,7 +11,8 @@ class_name Knight extends CharacterBaseScene
 @export var AttackDamage: float = 5.0
 @export var attack_data = AttackData.new()
 @export var AttackKnockbackBase: float = 300.0
-@export var CurrentAttackKnockback : float = 300.0
+@export var CurrentAttackKnockback: float = 300.0
+@export var ReflectDamage: float = 10.0
 @export var WhirlwindSlashDuration: float = 3.0 # Time the ability lasts
 @export var WhirlwindSpeed: float = 200.0 # Speed of movement during whirlwind
 @export var WhirlwindDamage: int = 15 # Damage per hit during whirlwind
@@ -53,6 +54,12 @@ func _ready():
 	AttackBuffTimer.one_shot = true
 	AttackBuffTimer.timeout.connect(_on_boost_expired)
 	add_child(AttackBuffTimer)
+	
+	# Initialize attack
+	attack_data.Damage = AttackDamage * (CritDamage if is_crit else 1)
+	attack_data.Knockback = AttackKnockbackBase
+	attack_data.Source = global_position
+	attack_data.Attacker = self
 	
 	# Connect attack hitbox detection
 	#attack_hitbox.area_entered.connect(_on_attack_hitbox_entered)
@@ -117,7 +124,7 @@ func _Got_Hit(Data: AttackData):
 		# If boosted, reflect damage
 		if IsBoosted:
 			_reflect_damage(Data)
-		return		
+		return
 	print("Took " + str(Data.Damage) + " damage")
 	var damage = max(Data.Damage - Armor, 1)
 	CurrentHP -= damage
@@ -142,9 +149,6 @@ func _on_boost_expired():
 	IsBoosted = false
 	AbilityCooldownTimers["AbilityFour"].start()
 	
-#func _on_attack_hitbox_entered(area):
-	#if area.is_in_group("Enemies"):
-		#var enemy = area.get_parent()
 
 func _apply_knockback(enemy):
 	var direction = (enemy.global_position - global_position).normalized()
@@ -158,31 +162,16 @@ func _pull_enemy_towards_player(enemy):
 	
 func _reflect_damage(Data: AttackData):
 	print("Reflecting damage!")
+	
+	var attacker = Data.Attacker
 
-	# Create a blast hitbox
-	var blast = Area2D.new()
-	var shape = CollisionShape2D.new()
-	shape.shape = CircleShape2D.new()
-	shape.shape.radius = 50  # Adjust as needed
-	blast.add_child(shape)
-
-	# Position blast in front of player
-	blast.global_position = global_position + Vector2(50, 0).rotated(rotation)  # Adjust offset
-
-	# Add blast to scene
-	get_parent().add_child(blast)
-				
-	# Damage enemies in blast radius
-	for area in blast.get_overlapping_areas():
-		if area.is_in_group("Enemies"):
-			var enemy = area.get_parent()
-			var enemy_hurtbox = enemy.get_node("Hurtbox")
-			if enemy_hurtbox:
-				enemy_hurtbox.Got_Hit(Data.Damage) # Reflect full damage back
-
-	# Remove blast after a short delay
-	await get_tree().create_timer(0.2).timeout
-	blast.queue_free()
+	if attacker != null:
+		if attacker.has_method("_Got_Hit"):
+			attack_data.Damage = ReflectDamage
+			attack_data.Knockback = Data.Knockback
+			attack_data.Source = global_position
+			attacker._Got_Hit(attack_data)  # Redirect the original damage
+		return
 	
 	# Stop whirlwind after its duration
 func _on_whirlwind_end():
