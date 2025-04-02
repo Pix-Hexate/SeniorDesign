@@ -28,6 +28,7 @@ func _ready():
 	var atkdata : AttackData = AttackData.new()
 	atkdata.Damage = Damage
 	_HurtBox.StoredAttackData = atkdata
+	atkdata.Attacker = self
 	
 '''
 AI is simple - 
