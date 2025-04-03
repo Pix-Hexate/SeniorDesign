@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dm7iv3g8qnokp"]
+[gd_scene load_steps=27 format=3 uid="uid://dm7iv3g8qnokp"]
 
 [ext_resource type="Script" path="res://Entities/Characters/Knight/Knight.gd" id="1_h0thw"]
 [ext_resource type="Texture2D" uid="uid://csvi27tcw3cby" path="res://Resources/1a8f338f04dbdfd00ca5e635bda3efb8.png" id="2_xu4j4"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://crtdmtp7cnfx4" path="res://Resources/be147c96e6af5bc6a26cce80fa77897a.png" id="5_65dgi"]
 [ext_resource type="Texture2D" uid="uid://xsuvw8sqeiwt" path="res://Resources/0136d8f41eb50046f29b5b808c2ee87b.png" id="6_rpy5t"]
 [ext_resource type="PackedScene" uid="uid://cu77iqu4ph4v5" path="res://Entities/Shared Resources/Hitbox.tscn" id="7_x7lp7"]
+[ext_resource type="Script" path="res://Entities/Characters/Knight/animation_player.gd" id="8_ew124"]
 [ext_resource type="Texture2D" uid="uid://rmss06pcfjen" path="res://icon.svg" id="8_nokva"]
 [ext_resource type="PackedScene" uid="uid://c1vt3jqxeo5ln" path="res://Entities/Shared Resources/Hurtbox.tscn" id="9_v8dpl"]
 
@@ -61,10 +62,143 @@ size = Vector2(39, 40)
 
 [sub_resource type="Animation" id="Animation_xjhsj"]
 resource_name = "AbilityFour"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:Playing_Action")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="Animation" id="Animation_bqut6"]
 resource_name = "AbilityOne"
-length = 0.2975
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Flipper/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flipper/Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(42, -2), Vector2(149, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:Playing_Action")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Flipper/Hurtbox:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Flipper/Hurtbox:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(42, -2), Vector2(149, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_f0yia"]
+resource_name = "AbilityThree"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:Playing_Action")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2975),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flipper/Hurtbox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.975),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flipper/Hurtbox:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(17, -7.62939e-06), Vector2(-81, 0), Vector2(17, -7.62939e-06), Vector2(-81, 0), Vector2(17, -7.62939e-06), Vector2(-81, 0), Vector2(17, -7.62939e-06), Vector2(-81, 0), Vector2(17, -7.62939e-06), Vector2(-81, 0), Vector2(17, -7.62939e-06), Vector2(-81, 0), Vector2(17, -7.62939e-06), Vector2(-81, 0), Vector2(17, -7.62939e-06), Vector2(-81, 0), Vector2(17, -7.62939e-06), Vector2(-81, 0), Vector2(17, -7.62939e-06), Vector2(-81, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6oe56"]
+resource_name = "AbilityTwo"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:Playing_Action")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.133333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_2te16"]
+resource_name = "BasicAttack"
+length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -116,7 +250,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Flipper/Sprite2D/Hurtbox:monitoring")
+tracks/4/path = NodePath("Flipper/Hurtbox:monitoring")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -125,60 +259,17 @@ tracks/4/keys = {
 "update": 1,
 "values": [true, false]
 }
-
-[sub_resource type="Animation" id="Animation_f0yia"]
-resource_name = "AbilityThree"
-
-[sub_resource type="Animation" id="Animation_6oe56"]
-resource_name = "AbilityTwo"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Flipper/Sprite2D:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Flipper/Sprite2D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Flipper/Hurtbox:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.166667, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(42, -2), Vector2(149, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:Playing_Action")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Flipper/Sprite2D/Hurtbox:monitoring")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
+"values": [Vector2(21, -45.5), Vector2(54, -45), Vector2(76, -39), Vector2(85, -1)]
 }
 
 [sub_resource type="Animation" id="Animation_ghd6p"]
@@ -297,7 +388,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Flipper/Sprite2D/Hurtbox:monitoring")
+tracks/5/path = NodePath("Flipper/Hurtbox:monitoring")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -305,6 +396,18 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Flipper/Hurtbox:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(21, -46.5)]
 }
 
 [sub_resource type="Animation" id="Animation_yeifv"]
@@ -324,8 +427,8 @@ tracks/0/keys = {
 "values": [&"walk"]
 }
 
-[sub_resource type="Animation" id="Animation_2te16"]
-resource_name = "BasicAttack"
+[sub_resource type="Animation" id="Animation_ny5mo"]
+resource_name = "test"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xxl1o"]
 _data = {
@@ -338,7 +441,8 @@ _data = {
 "JumpDown": SubResource("Animation_hsad6"),
 "JumpUp": SubResource("Animation_8aovu"),
 "RESET": SubResource("Animation_v1qt8"),
-"Walk": SubResource("Animation_yeifv")
+"Walk": SubResource("Animation_yeifv"),
+"test": SubResource("Animation_ny5mo")
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sb3t2"]
@@ -361,7 +465,6 @@ animation = &"walk"
 [node name="Hitbox" parent="." instance=ExtResource("7_x7lp7")]
 visible = false
 collision_layer = 512
-collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(-0.5, 0)
@@ -371,11 +474,26 @@ shape = SubResource("RectangleShape2D_if6il")
 libraries = {
 "": SubResource("AnimationLibrary_xxl1o")
 }
+script = ExtResource("8_ew124")
 
 [node name="InputBufferTimer" type="Timer" parent="."]
 wait_time = 0.15
 
 [node name="Flipper" type="Marker2D" parent="."]
+position = Vector2(29, -1)
+
+[node name="Hurtbox" parent="Flipper" instance=ExtResource("9_v8dpl")]
+position = Vector2(21, -46.5)
+rotation = 1.5708
+scale = Vector2(0.0703125, 0.328125)
+collision_mask = 1024
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Flipper/Hurtbox"]
+position = Vector2(-1.90735e-06, 1.64102)
+scale = Vector2(14.2222, 3.04762)
+shape = SubResource("CapsuleShape2D_sb3t2")
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Flipper"]
 visible = false
@@ -383,16 +501,5 @@ position = Vector2(64, -1)
 rotation = 1.57079
 scale = Vector2(0.0703125, 0.328125)
 texture = ExtResource("8_nokva")
-
-[node name="Hurtbox" parent="Flipper/Sprite2D" instance=ExtResource("9_v8dpl")]
-collision_layer = 0
-collision_mask = 1024
-monitoring = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Flipper/Sprite2D/Hurtbox"]
-position = Vector2(-1.90735e-06, 1.64102)
-scale = Vector2(14.2222, 3.04762)
-shape = SubResource("CapsuleShape2D_sb3t2")
-metadata/_edit_lock_ = true
 
 [connection signal="timeout" from="InputBufferTimer" to="." method="BufferTimeout"]
