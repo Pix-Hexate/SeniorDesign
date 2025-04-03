@@ -152,4 +152,11 @@ func _Got_Hit(Data : AttackData):
 func BufferTimeout():
 	Buffered_Keys["Action"] = ""
 	
+func ApplyUpgrade(Upgrade : Item_Data):
+	for effect in Upgrade.Effects:
+		match effect:
+			"Damage":
+				pass
+			_:
+				print("Unknown effect in ApplyUpgrade, it is " + str(effect))
 	
