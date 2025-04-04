@@ -1,0 +1,53 @@
+[gd_resource type="Theme" load_steps=15 format=3 uid="uid://df14w6dfgl4bw"]
+
+[ext_resource type="FontFile" uid="uid://d3xq58wnk4bit" path="res://Resources/TinyUnicode.ttf" id="1_tp8t8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ae83e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gkger"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6h48w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_776sx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c15sl"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_my6b8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1kb32"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_33ytl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_twihq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_38ay6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vbta7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_07jqw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2qoiu"]
+
+[resource]
+Button/colors/font_hover_color = Color(0.79532, 0.792924, 0.378375, 1)
+Button/colors/font_hover_pressed_color = Color(0.796078, 0.266667, 0.376471, 1)
+Button/colors/font_pressed_color = Color(0.556158, 0.55288, 0.214977, 1)
+Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("1_tp8t8")
+Button/styles/disabled = SubResource("StyleBoxEmpty_ae83e")
+Button/styles/focus = SubResource("StyleBoxEmpty_gkger")
+Button/styles/hover = SubResource("StyleBoxEmpty_6h48w")
+Button/styles/normal = SubResource("StyleBoxEmpty_776sx")
+Button/styles/pressed = SubResource("StyleBoxEmpty_c15sl")
+Label/font_sizes/font_size = 32
+Label/fonts/font = ExtResource("1_tp8t8")
+OptionButton/fonts/font = ExtResource("1_tp8t8")
+OptionButton/icons/arrow = SubResource("ImageTexture_my6b8")
+OptionButton/styles/focus = SubResource("StyleBoxEmpty_1kb32")
+OptionButton/styles/hover = SubResource("StyleBoxEmpty_33ytl")
+OptionButton/styles/hover_mirrored = SubResource("StyleBoxEmpty_twihq")
+OptionButton/styles/normal = SubResource("StyleBoxEmpty_38ay6")
+OptionButton/styles/normal_mirrored = SubResource("StyleBoxEmpty_vbta7")
+OptionButton/styles/pressed = SubResource("StyleBoxEmpty_07jqw")
+OptionButton/styles/pressed_mirrored = SubResource("StyleBoxEmpty_2qoiu")
+PopupMenu/fonts/font = ExtResource("1_tp8t8")

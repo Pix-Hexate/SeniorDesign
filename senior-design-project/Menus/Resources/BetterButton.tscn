@@ -1,8 +1,51 @@
-[gd_scene load_steps=2 format=3 uid="uid://fxwww7poh7ea"]
+[gd_scene load_steps=3 format=3 uid="uid://fxwww7poh7ea"]
 
+[ext_resource type="Theme" uid="uid://df14w6dfgl4bw" path="res://Resources/GameTheme.tres" id="1_33u4c"]
 [ext_resource type="Script" path="res://Menus/Resources/better_button.gd" id="1_84w21"]
 
 [node name="BetterButton" type="Button"]
+anchors_preset = -1
+anchor_left = 0.409375
+anchor_top = 0.502778
+anchor_right = 0.409375
+anchor_bottom = 0.566667
+offset_top = 1.52588e-05
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_33u4c")
+text = "WAZZAPASDSADASDSADSADSADSA"
 script = ExtResource("1_84w21")
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="RightArrow" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9
+anchor_right = 0.982759
+anchor_bottom = 1.0
+offset_left = 7.8
+offset_right = 9.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.79532, 0.792924, 0.378375, 1)
+text = "<"
+metadata/_edit_use_anchors_ = true
+
+[node name="LeftArrow" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_right = 1.0
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.79532, 0.792924, 0.378375, 1)
+text = ">"
+metadata/_edit_use_anchors_ = true
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

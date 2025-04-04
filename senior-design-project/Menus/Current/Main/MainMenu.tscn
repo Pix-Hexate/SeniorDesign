@@ -1,0 +1,363 @@
+[gd_scene load_steps=16 format=3 uid="uid://c08j1iqnpewjl"]
+
+[ext_resource type="Theme" uid="uid://df14w6dfgl4bw" path="res://Resources/GameTheme.tres" id="1_b3tie"]
+[ext_resource type="PackedScene" uid="uid://fxwww7poh7ea" path="res://Menus/Resources/BetterButton.tscn" id="1_lsk4x"]
+[ext_resource type="Script" path="res://Menus/Current/Main/MainMenu.gd" id="1_qs43v"]
+[ext_resource type="Texture2D" uid="uid://4ur0e4jk2xyg" path="res://Resources/Scaler2.png" id="2_5pshp"]
+[ext_resource type="Texture2D" uid="uid://cg4kq8javfwu6" path="res://Resources/Empty.png" id="4_e31l3"]
+[ext_resource type="Texture2D" uid="uid://bl58qixihso0g" path="res://Resources/Full.png" id="5_obufb"]
+
+[sub_resource type="Animation" id="Animation_wmhsj"]
+resource_name = "MainFadeOut"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(285, 120), Vector2(285, 80)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jl472"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_0ysi3"]
+resource_name = "MainFadeIn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(285, 160), Vector2(285, 120)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ri4rv"]
+resource_name = "OptionFadeOut"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Options:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(219, 126), Vector2(219, 86)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../Options:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_e2776"]
+resource_name = "OptionFadeIn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Options:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(219, 166), Vector2(219, 126)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../Options:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0wm4m"]
+_data = {
+"MainFadeIn": SubResource("Animation_0ysi3"),
+"MainFadeOut": SubResource("Animation_wmhsj"),
+"OptionFadeIn": SubResource("Animation_e2776"),
+"OptionFadeOut": SubResource("Animation_ri4rv"),
+"RESET": SubResource("Animation_jl472")
+}
+
+[sub_resource type="Animation" id="Animation_nhb1o"]
+resource_name = "Shifting"
+length = 60.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/Line2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 60),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-450, -240), Vector2(-1500, -240)]
+}
+
+[sub_resource type="Animation" id="Animation_pgchf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D/Line2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1500, -240)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kfssb"]
+_data = {
+"RESET": SubResource("Animation_pgchf"),
+"Shifting": SubResource("Animation_nhb1o")
+}
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_b3tie")
+script = ExtResource("1_qs43v")
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.193386, 0.288156, 0.119596, 1)
+metadata/_edit_lock_ = true
+
+[node name="Main" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -60.0
+offset_right = 29.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayButton" parent="Main" instance=ExtResource("1_lsk4x")]
+layout_mode = 2
+text = "Play"
+
+[node name="OptionsButton" parent="Main" instance=ExtResource("1_lsk4x")]
+layout_mode = 2
+text = "Options"
+
+[node name="CreditsButton" parent="Main" instance=ExtResource("1_lsk4x")]
+layout_mode = 2
+text = "Credits"
+
+[node name="QuitButton" parent="Main" instance=ExtResource("1_lsk4x")]
+layout_mode = 2
+text = "Quit"
+
+[node name="Options" type="VBoxContainer" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.0
+offset_top = -54.0
+offset_right = 101.0
+offset_bottom = 73.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Volume" type="TextureProgressBar" parent="Options"]
+custom_minimum_size = Vector2(0, 35.29)
+layout_mode = 2
+mouse_filter = 2
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("4_e31l3")
+texture_progress = ExtResource("5_obufb")
+
+[node name="Label" type="Label" parent="Options/Volume"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Volume - 100"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="Options/Volume"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Options"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Options/HBoxContainer"]
+layout_mode = 2
+text = "Resolution : "
+
+[node name="ResolutionButton" type="OptionButton" parent="Options/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_b3tie")
+flat = true
+selected = 0
+item_count = 4
+popup/item_0/text = "640x360"
+popup/item_1/text = "1280x720"
+popup/item_1/id = 1
+popup/item_2/text = "1920x1080"
+popup/item_2/id = 2
+popup/item_3/text = "2560x1440"
+popup/item_3/id = 3
+
+[node name="FullScreen" parent="Options" instance=ExtResource("1_lsk4x")]
+layout_mode = 2
+text = "Fullscreen - off"
+
+[node name="OptionsBack" parent="Options" instance=ExtResource("1_lsk4x")]
+layout_mode = 2
+text = "Back"
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -43.0
+offset_top = 24.0
+offset_right = 43.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 48
+text = "Earthcrawl"
+
+[node name="FadePlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Main/QuitButton")
+libraries = {
+"": SubResource("AnimationLibrary_0wm4m")
+}
+
+[node name="FadePlayer2" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Main/QuitButton")
+libraries = {
+"": SubResource("AnimationLibrary_0wm4m")
+}
+
+[node name="Fancy Animations" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 93.685
+offset_bottom = 93.685
+grow_horizontal = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Fancy Animations"]
+self_modulate = Color(1, 1, 1, 0.698039)
+clip_children = 1
+scale = Vector2(0.54625, 0.05)
+texture = ExtResource("2_5pshp")
+metadata/_edit_lock_ = true
+
+[node name="Line2D" type="Line2D" parent="Fancy Animations/Sprite2D"]
+position = Vector2(-1500, -240)
+points = PackedVector2Array(0, 0, 75, 500, 150, 0, 225, 500, 300, 0, 375, 500, 450, 0, 525, 500, 600, 0, 675, 500, 750, 0, 825, 500, 900, 0, 975, 500, 1050, 0, 1125, 500)
+width = 7.085
+begin_cap_mode = 2
+sharp_limit = 10.0
+
+[node name="Line2D" type="Line2D" parent="Fancy Animations/Sprite2D/Line2D"]
+position = Vector2(900, 0)
+points = PackedVector2Array(0, 0, 75, 500, 150, 0, 225, 500, 300, 0, 375, 500, 450, 0, 525, 500, 600, 0, 675, 500, 750, 0, 825, 500, 900, 0, 975, 500, 1050, 0, 1125, 500)
+width = 7.085
+begin_cap_mode = 2
+sharp_limit = 10.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Fancy Animations"]
+libraries = {
+"": SubResource("AnimationLibrary_kfssb")
+}
+
+[connection signal="pressed" from="Main/PlayButton" to="." method="PlayPressed"]
+[connection signal="pressed" from="Main/OptionsButton" to="." method="OptionsPressed"]
+[connection signal="pressed" from="Main/CreditsButton" to="." method="CreditsPressed"]
+[connection signal="pressed" from="Main/QuitButton" to="." method="QuitPressed"]
+[connection signal="value_changed" from="Options/Volume" to="." method="VolumeChanged"]
+[connection signal="value_changed" from="Options/Volume/HSlider" to="." method="VolumeChanged"]
+[connection signal="item_selected" from="Options/HBoxContainer/ResolutionButton" to="." method="ResolutionChanged"]
+[connection signal="pressed" from="Options/FullScreen" to="." method="FullscreenPressed"]
+[connection signal="pressed" from="Options/OptionsBack" to="." method="OptionsBackPressed"]

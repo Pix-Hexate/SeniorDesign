@@ -2,7 +2,10 @@ extends Node2D
 #This will play every sound in the game, each thing that needs to play a sound will send a signal to the audio manager
 #Audio signals will bypass the signalbus
 
-var MasterVolumePercent : float = 15 #The settings menu will manually change these vars, and then call setvolume
+var MasterVolumePercent : float = 15: #The settings menu will manually change these vars, and then call setvolume
+	set(value):
+		MasterVolumePercent = value
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(MasterVolumePercent/100))
 var SFXVolumePercent : float = 100
 var MusicVolumePercent : float = 50
 @onready var MusicPlayer : AudioStreamPlayer2D = $Music
