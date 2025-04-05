@@ -47,6 +47,10 @@ Stunned - 5
 
 func _AI(delta : float):#Override This
 	AI_Timer += delta
+	TickDamageTimer += delta
+	if TickDamageTimer >= 1.0:  # Apply tick damage every second
+		TickDamageTimer = 0
+		ApplyTickDamage()
 	match AI_Phase:
 		1: #idle
 			velocity = Vector2(0,0)
@@ -118,6 +122,9 @@ func _Got_Hit(Data : AttackData): #Override This
 	print("Enemy took " + str(Data.Damage) + " damage")
 	if CurrentHP <= 0:
 		Die()
+	if !Data.SpecialEffects.is_empty():
+		ApplySpecialEffects(Data.SpecialEffects)
+		
 	#TODO Knockback
 	velocity = Vector2(0,0)
 	_HitBox.set_deferred("monitorable", false)

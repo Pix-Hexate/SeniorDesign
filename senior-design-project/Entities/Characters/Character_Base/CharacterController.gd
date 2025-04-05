@@ -1,13 +1,31 @@
 class_name CharacterBaseScene extends CharacterBody2D
 
 '''Movement Stuff'''
-var MovementVector : float = 0
-var MoveSpeed : float = 250
-var JumpStrength : float = 600 #250 default
-var GravityStrength : float = 1200
+@export var MovementVector : float = 0
+@export var MoveSpeed : float = 250
+@export var JumpStrength : float = 600 #250 default
+@export var GravityStrength : float = 1200
+@export var MaxHP: int = 100
+@export var CurrentHP: int = 100
+@export var Armor: float = 5.0 # flat damage reduction
+@export var BaseAttackSpeedDelay: float = 0.3 # Attack timer
+@export var AttackSpeedDelay: float = 0.3 # Attack timer
+@export var AttackDamage: float = 5.0
+@export var TotalDamage: float = 5.0
+@export var CritChance: float = 0.05 # crit chance percentage as decimal
+@export var CritDamage: float = 1.5 # crit damage boost
+@export var HealthRegen: float = 5.0 # HP regenerated per second
+@export var AttackKnockbackBase: float = 300.0
+@export var ReflectDamage: float = 10.0
+@export var BurnDamage: float = 0
+@export var PoisonDamage: float = 0
+@export var DoubleJumpAvailable: bool = false
+@export var RegeneratingShield: bool = false
+@export var AbilityDamageCooldownBonus: bool = false
+@export var attack_data = AttackData.new()
+@export var SpecialEffects : Dictionary = {}
 @onready var AnimPlayer : AnimationPlayer = $AnimationPlayer
-
-
+@export var DoubleJumpReady: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -41,6 +59,7 @@ func Take_Inputs(): #This function is our input buffer
 		Buffered_Keys["Action"] = "Jump"
 		BufferTimer.start()
 		
+	'''Attacks and Abilities'''
 	if Input.is_action_pressed("BasicAttackKey"):
 		Buffered_Keys["Action"] = "BasicAttack"
 		BufferTimer.start()
@@ -85,10 +104,17 @@ func Process_Movement_Inputs():
 	SetAnimation()
 
 func AttemptJump() -> void:
-	var canjump = true #to add canjump logic later #TODO
-	if canjump and is_on_floor():
+	if is_on_floor():
 		velocity.y -= JumpStrength
 		Buffered_Keys["Action"] = ""
+		DoubleJumpReady = true
+		return
+	if DoubleJumpReady and DoubleJumpAvailable:
+		velocity.y -= JumpStrength
+		Buffered_Keys["Action"] = ""
+		DoubleJumpReady = false
+		return
+	
 	
 func Process_Action_Inputs():
 	match Buffered_Keys["Action"]:
@@ -152,11 +178,44 @@ func _Got_Hit(Data : AttackData):
 func BufferTimeout():
 	Buffered_Keys["Action"] = ""
 	
+# Applies modifiers after picking up items
 func ApplyUpgrade(Upgrade : Item_Data):
 	for effect in Upgrade.Effects:
 		match effect:
-			"Damage":
-				pass
+			"Move":
+				MoveSpeed += Upgrade.Effects[effect]
+			"Jump":
+				JumpStrength += Upgrade.Effects[effect]
+			"MaxHP":
+				MaxHP += Upgrade.Effects[effect]
+			"Armor":
+				Armor += Upgrade.Effects[effect]
+			"AttackSpeed":
+				AttackSpeedDelay *= Upgrade.Effects[effect]
+			"AttackDamage":
+				AttackDamage += Upgrade.Effects[effect]
+			"CritChance":
+				CritChance += Upgrade.Effects[effect]
+			"CritDamage":
+				CritDamage += Upgrade.Effects[effect]
+			"HealthRegen":
+				HealthRegen += Upgrade.Effects[effect]
+			"RegeneratingShield":
+				RegeneratingShield = true
+			"DoubleJump":
+				DoubleJumpAvailable = true
+			"CooldownBonusDamage":
+				AbilityDamageCooldownBonus = true
+			"BurnDamage":
+				BurnDamage += Upgrade.Effects[effect]
+				if not SpecialEffects.has("BurnDamage"):
+					SpecialEffects["BurnDamage"] = 0
+				SpecialEffects["BurnDamage"] += Upgrade.Effects[effect]
+			"PoisonDamage":
+				PoisonDamage += Upgrade.Effects[effect]
+				if not SpecialEffects.has("PoisonDamage"):
+					SpecialEffects["PoisonDamage"] = 0
+				SpecialEffects["PoisonDamage"] += Upgrade.Effects[effect]
 			_:
 				print("Unknown effect in ApplyUpgrade, it is " + str(effect))
 	

@@ -33,7 +33,10 @@ func Take_Item():
 
 
 func Player_Entered(body):
-	Display.visible = true
+	if body.has_method("ApplyUpgrade"):  # Check if the character has the function
+		body.ApplyUpgrade(Data)  # Give armor
+		queue_free()  # Remove the item after pickup
+	# Display.visible = true
 
 
 func Player_Left(body):

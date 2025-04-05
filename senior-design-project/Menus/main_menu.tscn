@@ -1,0 +1,162 @@
+[gd_scene load_steps=13 format=3 uid="uid://bsn0iji5v4e1i"]
+
+[ext_resource type="Script" path="res://Menus/main_menu.gd" id="1_ts35x"]
+[ext_resource type="Script" path="res://Menus/Resources/better_button.gd" id="2_7vho3"]
+[ext_resource type="Texture2D" uid="uid://je7ggbhjektv" path="res://Menus/Size Example.png" id="2_rdxv5"]
+[ext_resource type="Texture2D" uid="uid://csvi27tcw3cby" path="res://Resources/1a8f338f04dbdfd00ca5e635bda3efb8.png" id="4_2q2ul"]
+[ext_resource type="Texture2D" uid="uid://ctm2gxd5ikbnq" path="res://Resources/Sprites/Player_Characters/Knight/knight-idle.png" id="5_86ofk"]
+[ext_resource type="Texture2D" uid="uid://duoc8hk2log74" path="res://Resources/426a4b00b1d7ed2e267075742607eca8.png" id="6_44p31"]
+[ext_resource type="Texture2D" uid="uid://crtdmtp7cnfx4" path="res://Resources/be147c96e6af5bc6a26cce80fa77897a.png" id="7_gcyyi"]
+[ext_resource type="Texture2D" uid="uid://xsuvw8sqeiwt" path="res://Resources/0136d8f41eb50046f29b5b808c2ee87b.png" id="8_xsht0"]
+
+[sub_resource type="SystemFont" id="SystemFont_04k3s"]
+font_names = PackedStringArray("Cooper")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gi4pb"]
+atlas = ExtResource("5_86ofk")
+region = Rect2(266, 0, 19, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41xd5"]
+atlas = ExtResource("5_86ofk")
+region = Rect2(285, 0, 19, 38)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4wqng"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_2q2ul")
+}],
+"loop": true,
+"name": &"dash",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gi4pb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41xd5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_44p31")
+}],
+"loop": true,
+"name": &"jumpdown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_gcyyi")
+}],
+"loop": true,
+"name": &"jumpup",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_xsht0")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ts35x")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_rdxv5")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/separation = 80
+
+[node name="Seperator" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GameTitle" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = SubResource("SystemFont_04k3s")
+theme_override_font_sizes/font_size = 60
+text = "Our Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="Seperator" type="Control" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Play"
+script = ExtResource("2_7vho3")
+
+[node name="OptionButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Option"
+script = ExtResource("2_7vho3")
+
+[node name="QuitButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Quit"
+script = ExtResource("2_7vho3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(125, 144)
+sprite_frames = SubResource("SpriteFrames_4wqng")
+animation = &"idle"
+
+[connection signal="mouse_entered" from="MarginContainer/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="MarginContainer/HBoxContainer/VBoxContainer/PlayButton" to="MarginContainer/HBoxContainer/VBoxContainer/PlayButton" method="_on_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/HBoxContainer/VBoxContainer/OptionButton" to="." method="_on_mouse_entered"]
+[connection signal="mouse_entered" from="MarginContainer/HBoxContainer/VBoxContainer/OptionButton" to="MarginContainer/HBoxContainer/VBoxContainer/OptionButton" method="_on_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/OptionButton" to="." method="_on_option_button_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/HBoxContainer/VBoxContainer/QuitButton" to="MarginContainer/HBoxContainer/VBoxContainer/QuitButton" method="_on_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
