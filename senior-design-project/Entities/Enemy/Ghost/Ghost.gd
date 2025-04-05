@@ -123,7 +123,7 @@ func _Got_Hit(Data : AttackData): #Override This
 	if CurrentHP <= 0:
 		Die()
 	if !Data.SpecialEffects.is_empty():
-		ApplySpecialEffects(Data.SpecialEffects)
+		ApplySpecialEffects(Data)
 		
 	#TODO Knockback
 	velocity = Vector2(0,0)

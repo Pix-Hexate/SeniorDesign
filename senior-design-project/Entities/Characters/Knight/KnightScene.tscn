@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dm7iv3g8qnokp"]
+[gd_scene load_steps=28 format=3 uid="uid://dm7iv3g8qnokp"]
 
 [ext_resource type="Script" path="res://Entities/Characters/Knight/Knight.gd" id="1_h0thw"]
 [ext_resource type="Texture2D" uid="uid://csvi27tcw3cby" path="res://Resources/1a8f338f04dbdfd00ca5e635bda3efb8.png" id="2_xu4j4"]
@@ -409,6 +409,30 @@ tracks/6/keys = {
 "update": 0,
 "values": [Vector2(21, -46.5)]
 }
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Flipper/Fireball Hurtbox:monitoring")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Flipper/Fireball Hurtbox:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(42, -2)]
+}
 
 [sub_resource type="Animation" id="Animation_yeifv"]
 resource_name = "Walk"
@@ -430,6 +454,70 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_ny5mo"]
 resource_name = "test"
 
+[sub_resource type="Animation" id="Animation_dvq1p"]
+resource_name = "BasicAttackBonus"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:Playing_Action")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2975),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Flipper/Hurtbox:monitoring")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2975),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flipper/Hurtbox:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.166667, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(21, -45.5), Vector2(54, -45), Vector2(76, -39), Vector2(85, -1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Flipper/Fireball Hurtbox:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Flipper/Fireball Hurtbox:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(42, -2), Vector2(149, -2)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xxl1o"]
 _data = {
 "AbilityFour": SubResource("Animation_xjhsj"),
@@ -437,6 +525,7 @@ _data = {
 "AbilityThree": SubResource("Animation_f0yia"),
 "AbilityTwo": SubResource("Animation_6oe56"),
 "BasicAttack": SubResource("Animation_2te16"),
+"BasicAttackBonus": SubResource("Animation_dvq1p"),
 "Idle": SubResource("Animation_ghd6p"),
 "JumpDown": SubResource("Animation_hsad6"),
 "JumpUp": SubResource("Animation_8aovu"),
@@ -501,5 +590,17 @@ position = Vector2(64, -1)
 rotation = 1.57079
 scale = Vector2(0.0703125, 0.328125)
 texture = ExtResource("8_nokva")
+
+[node name="Fireball Hurtbox" parent="Flipper" instance=ExtResource("9_v8dpl")]
+position = Vector2(42, -2)
+rotation = 1.5708
+scale = Vector2(0.0703125, 0.328125)
+collision_mask = 1024
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Flipper/Fireball Hurtbox"]
+position = Vector2(-1.90735e-06, 1.64102)
+scale = Vector2(14.2222, 3.04762)
+shape = SubResource("CapsuleShape2D_sb3t2")
+metadata/_edit_lock_ = true
 
 [connection signal="timeout" from="InputBufferTimer" to="." method="BufferTimeout"]

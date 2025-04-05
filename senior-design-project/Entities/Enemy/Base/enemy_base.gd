@@ -4,11 +4,11 @@ class_name EnemyBaseScene extends CharacterBody2D
 @export var MaxHP: int = 10
 @export var CurrentHP: int = 10
 @export var BurnDamage: int = 0
-@export var PoisonDamage: int = 0
 @onready var StunTimer : Timer = $StunTimer
 @onready var TickDamageTimer: float = 0.0 # Used for calculating tick damage every second
 @onready var PlayerAggroTimer : Timer = $PlayerAggroTimer
 @onready var PlayerRaycast : RayCast2D = $"PlayerRaycast"
+@export var attack_data = AttackData.new()
 
 func _physics_process(delta): #Override this
 	if not is_on_floor():
@@ -35,16 +35,18 @@ func ApplyTickDamage():
 		CurrentHP -= BurnDamage
 		print("Enemy took " + str(BurnDamage) + "burn damage")
 		BurnDamage -= 2
-	if PoisonDamage > 0:
-		CurrentHP -= PoisonDamage
-		print("Enemy took " + str(PoisonDamage) + "poison damage")
-		PoisonDamage -= 1
 	
-func ApplySpecialEffects(SpecialEffects : Dictionary):
-	if SpecialEffects.has("BurnDamage"):
-		BurnDamage += SpecialEffects["BurnDamage"]
-	if SpecialEffects.has("PoisonDamage"):
-		PoisonDamage += SpecialEffects["PoisonDamage"]	
+func ApplySpecialEffects(Data : AttackData):
+	if Data.SpecialEffects.has("BurnDamage"):
+		BurnDamage += Data.SpecialEffects["BurnDamage"]
+	if Data.SpecialEffects.has("Lifesteal"):
+		var attacker = Data.Attacker
+		if attacker != null:
+			var healAmount = - (Data.Damage * Data.SpecialEffects["Lifesteal"])
+			if attacker.has_method("_Got_Hit"):
+				attack_data.Damage = healAmount
+				attack_data.Source = global_position
+				attacker._Got_Hit(attack_data)
 
 func _Got_Hit(Data : AttackData): #Override This
 	print("i got hit")
