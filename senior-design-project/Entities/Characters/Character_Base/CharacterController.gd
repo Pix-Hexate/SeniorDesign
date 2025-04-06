@@ -18,10 +18,14 @@ class_name CharacterBaseScene extends CharacterBody2D
 @export var AttackKnockbackBase: float = 300.0
 @export var ReflectDamage: float = 10.0
 @export var BurnDamage: float = 0
-@export var PoisonDamage: float = 0
+@export var Lifesteal: float = 0
+@export var CooldownBonus: float = 0
+@export var CooldownPickup: bool = false
 @export var DoubleJumpAvailable: bool = false
 @export var RegeneratingShield: bool = false
 @export var AbilityDamageCooldownBonus: bool = false
+@export var KnockbackEnabled: bool = false
+@export var BasicAttackBonus: bool = true
 @export var attack_data = AttackData.new()
 @export var SpecialEffects : Dictionary = {}
 @onready var AnimPlayer : AnimationPlayer = $AnimationPlayer
@@ -211,11 +215,18 @@ func ApplyUpgrade(Upgrade : Item_Data):
 				if not SpecialEffects.has("BurnDamage"):
 					SpecialEffects["BurnDamage"] = 0
 				SpecialEffects["BurnDamage"] += Upgrade.Effects[effect]
-			"PoisonDamage":
-				PoisonDamage += Upgrade.Effects[effect]
-				if not SpecialEffects.has("PoisonDamage"):
-					SpecialEffects["PoisonDamage"] = 0
-				SpecialEffects["PoisonDamage"] += Upgrade.Effects[effect]
+			"Lifesteal":
+				Lifesteal = Upgrade.Effects[effect]
+				if not SpecialEffects.has("Lifesteal"):
+					SpecialEffects["Lifesteal"] = 0
+				SpecialEffects["Lifesteal"] += Upgrade.Effects[effect]
+			"Knockback":
+				KnockbackEnabled = true
+			"CoolDown":
+				CooldownPickup = true
+				CooldownBonus = Upgrade.Effects[effect]
+			"BasicAttackBonus":
+				BasicAttackBonus = true
 			_:
 				print("Unknown effect in ApplyUpgrade, it is " + str(effect))
 	

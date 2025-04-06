@@ -8,9 +8,9 @@ class_name Knight extends CharacterBaseScene
 @export var AbilityCooldowns: Dictionary = {
 	"BasicAttack": AttackSpeedDelay, # Cooldown in seconds
 	"AbilityOne": 2.0,  
-	"AbilityTwo": 5.0,
-	"AbilityThree": 1.0,
-	"AbilityFour": 1.0
+	"AbilityTwo": 4.0,
+	"AbilityThree": 6.0,
+	"AbilityFour": 8.0
 }
 
 # Track cooldown timers
@@ -19,14 +19,15 @@ var IsBoosted: bool = false
 var WasBoosted = false
 var IsInvulnerable: bool = false
 var AttackBuffTimer: Timer
+var BasicAttackBonusTimer: Timer
 var RegeneratingShieldTimer: Timer
 var RegeneratingShieldUp: bool = true
+var BasicAttackBonusUp: bool = true
 var regen_timer: float = 0.0
 var is_crit = randf() < CritChance
 @onready var attack_hitbox = $Flipper/Hurtbox # Reference the Area2D
 
 func _ready():
-	TEMPORARY_TEST_FUNC()
 	# Initialize stats
 	MaxHP = 100
 	CritChance = 0.05 # crit chance percentage as decimal
@@ -63,10 +64,15 @@ func _ready():
 	RegeneratingShieldTimer.timeout.connect(_on_shield_timer_ended)
 	add_child(RegeneratingShieldTimer)
 	
+	# Timer for Basic Attack Bonus
+	BasicAttackBonusTimer = Timer.new()
+	BasicAttackBonusTimer.wait_time = 5.0
+	BasicAttackBonusTimer.one_shot = true
+	BasicAttackBonusTimer.timeout.connect(_on_basic_attack_bonus_timer_ended)
+	add_child(BasicAttackBonusTimer)
 	
 	# Initialize attack
 	attack_data.Damage = AttackDamage * (CritDamage if is_crit else 1)
-	attack_data.Knockback = AttackKnockbackBase
 	attack_data.Source = global_position
 	attack_data.Attacker = self
 
@@ -101,10 +107,24 @@ func _process(delta: float) -> void:
 	if regen_timer >= 1.0:  # Apply health regen every second
 		regen_timer = 0
 		Heal(HealthRegen)
+	if CooldownPickup:
+		CooldownPickup = false
+		UpdateCooldowns()
 
 func Heal(amount: float):
 	CurrentHP = min(CurrentHP + amount, MaxHP)
 
+func UpdateCooldowns():
+	# Update cooldown times
+	AbilityCooldowns["AbilityOne"] *= CooldownBonus
+	AbilityCooldowns["AbilityTwo"] *= CooldownBonus
+	AbilityCooldowns["AbilityThree"] *= CooldownBonus
+	AbilityCooldowns["AbilityFour"] *= CooldownBonus
+	
+	# Update cooldown timers
+	for ability in AbilityCooldowns.keys():
+		AbilityCooldownTimers[ability].wait_time = AbilityCooldowns[ability]
+	
 func _Got_Hit(Data: AttackData):
 	if IsInvulnerable:
 		print("Attack Blocked!")
@@ -146,6 +166,10 @@ func _on_boost_expired():
 func _on_shield_timer_ended():
 	RegeneratingShieldUp = true
 
+# Handles Bonus to Basic Attack is ready
+func _on_basic_attack_bonus_timer_ended():
+	BasicAttackBonusUp = true
+
 func _apply_knockback(enemy):
 	var direction = (enemy.global_position - global_position).normalized()
 	enemy.apply_impulse(direction * AttackKnockbackBase)
@@ -157,10 +181,8 @@ func _pull_enemy_towards_player(enemy):
 	enemy.apply_impulse(direction * pull_force)
 	
 func _reflect_damage(Data: AttackData):
-	print("Reflecting damage!")
-	
+	print("Reflecting damage!")	
 	var attacker = Data.Attacker
-
 	if attacker != null:
 		if attacker.has_method("_Got_Hit"):
 			attack_data.Damage = ReflectDamage
@@ -189,7 +211,6 @@ func CalcBonusDamage(Damage: float):
 #region Attacks
 func BasicAttack():		
 	Playing_Action = true
-	print("Basic Attack: Slashing forward!")
 	
 	# Create attack data
 	is_crit = randf() < CritChance
@@ -201,7 +222,8 @@ func BasicAttack():
 		TotalDamage = AttackDamage * (CritDamage if is_crit else 1)
 		
 	attack_data.Damage = TotalDamage
-	attack_data.Knockback = AttackKnockbackBase
+	if KnockbackEnabled:
+		attack_data.Knockback = AttackKnockbackBase
 	attack_data.SpecialEffects = SpecialEffects
 	attack_data.Source = global_position  # Set attack origin
 	
@@ -212,21 +234,30 @@ func BasicAttack():
 	# Update attack animation speed
 	UpdateAnimationSpeed()
 	
-	# Trigger attack animation
-	AnimPlayer.play("BasicAttack")
+	if BasicAttackBonusUp and BasicAttackBonus:
+		print("Basic Attack Bonus: Slashing forward!")
+		# Trigger attack animation
+		AnimPlayer.play("BasicAttackBonus")
+		# Start Basic Attack Bonus Cooldown
+		BasicAttackBonusTimer.start()
+		BasicAttackBonusUp = false
+	else:
+		print("Basic Attack: Slashing forward!")
+		# Trigger attack animation
+		AnimPlayer.play("BasicAttack")
 	
 	# Apply attack to overlapping areas
 	for area in attack_hitbox.get_overlapping_areas():
 		if area is Hurtbox:  # Check if it's a valid Hurtbox
 			area.Got_Hit(attack_data)  # Apply attack data to hurtbox
-				
-	# Start attack cooldown
-	AbilityCooldownTimers["BasicAttack"].start()
-	
+					
 	# Disable hitbox after the attack
 	attack_hitbox.monitoring = false
 	Playing_Action = false
 	
+	# Start attack cooldown
+	AbilityCooldownTimers["BasicAttack"].start()
+		
 	# Reset Animation Speed
 	AnimPlayer.speed_scale = 1
 	
@@ -244,7 +275,8 @@ func Ability1Stab():
 		TotalDamage = AttackDamage * 1.5 * (CritDamage if is_crit else 1)
 	
 	attack_data.Damage = TotalDamage
-	attack_data.Knockback = IsBoosted if -200 else 1
+	if IsBoosted:
+		attack_data.Knockback = -200 
 	attack_data.SpecialEffects = SpecialEffects
 	attack_data.Source = global_position
 	attack_hitbox.StoredAttackData = attack_data
@@ -273,7 +305,8 @@ func Ability1Stab():
 		attack_hitbox.scale /= 1.5  # Reset the scale
 		IsBoosted = false
 		WasBoosted = false
-				
+		attack_data.Knockback = 0
+		
 	# Disable hitbox after the attack
 	attack_hitbox.monitoring = false
 	Playing_Action = false
@@ -329,6 +362,9 @@ func Ability3WhilrwindSlash():
 	# Create AttackData and assign values for this attack
 	is_crit = randf() < CritChance
 	attack_data.Damage = TotalDamage
+	if KnockbackEnabled and IsBoosted:
+		attack_data.Knockback = AttackKnockbackBase * 1.5
+		
 	attack_data.SpecialEffects = SpecialEffects
 	attack_data.Source = global_position
 	attack_hitbox.StoredAttackData = attack_data
@@ -349,8 +385,12 @@ func Ability3WhilrwindSlash():
 	attack_hitbox.monitoring = false
 	Playing_Action = false
 	
+	# Reset knockback
+	attack_data.Knockback = 0
+	
 	# Start cooldown
 	AbilityCooldownTimers["AbilityThree"].start()
+	
 
 func Ability4Boosted():
 	Playing_Action = true

@@ -1,164 +1,56 @@
 [
 	{
-		"Name": "Minor Movement Speed",
-		"Effects": {
-			"Move":25
-			}
-	},
-	{
-		"Name": "Medium Movement Speed",
+		"Name": "Movement Speed",
 		"Effects": {
 			"Move":50
 			}
 	},
 	{
-		"Name": "Major Movement Speed",
-		"Effects": {
-			"Move":75
-			}
-	},
-	{
-		"Name": "Minor Jump Boost",
-		"Effects": {
-			"Jump":50
-			}
-	},
-	{
-		"Name": "Medium Jump Boost",
+		"Name": "Jump Boost",
 		"Effects": {
 			"Jump":75
 			}
 	},
 	{
-		"Name": "Major Jump Boost",
-		"Effects": {
-			"Jump":100
-			}
-	},
-	{
-		"Name": "Minor HP Boost",
-		"Effects": {
-			"MaxHP":20
-			}
-	},
-	{
-		"Name": "Medium HP Boost",
+		"Name": "HP Boost",
 		"Effects": {
 			"MaxHP":40
 			}
 	},
 	{
-		"Name": "Major HP Boost",
-		"Effects": {
-			"MaxHP":60
-			}
-	},
-	{
-		"Name": "Minor Shield",
-		"Effects": {
-			"Armor":5
-			}
-	},
-	{
-		"Name": "Medium Shield",
+		"Name": "Shield",
 		"Effects": {
 			"Armor":10
 			}
 	},
 	{
-		"Name": "Major Shield",
-		"Effects": {
-			"Armor":15
-			}
-	},
-	{
-		"Name": "Minor Attack Speed",
-		"Effects": {
-			"AttackSpeed":0.9
-			}
-	},
-	{
-		"Name": "Medium Attack Speed",
+		"Name": "Attack Speed",
 		"Effects": {
 			"AttackSpeed":0.7
 			}
 	},
 	{
-		"Name": "Major Attack Speed",
-		"Effects": {
-			"AttackSpeed":0.5
-			}
-	},
-	{
-		"Name": "Minor Attack Damage",
-		"Effects": {
-			"AttackDamage":5
-			}
-	},
-	{
-		"Name": "Medium Attack Damage",
+		"Name": "Attack Damage",
 		"Effects": {
 			"AttackDamage":10
 			}
 	},
 	{
-		"Name": "Major Attack Damage",
-		"Effects": {
-			"AttackDamage":15
-			}
-	},
-	{
-		"Name": "Minor Crit Chance",
-		"Effects": {
-			"CritChance":0.05
-			}
-	},
-	{
-		"Name": "Medium Crit Chance",
+		"Name": "Crit Chance",
 		"Effects": {
 			"CritChance":0.1
 			}
 	},
 	{
-		"Name": "Major Crit Chance",
-		"Effects": {
-			"CritChance":0.15
-			}
-	},
-	{
-		"Name": "Minor Crit Damage",
-		"Effects": {
-			"CritDamage":0.15
-			}
-	},
-	{
-		"Name": "Medium Crit Damage",
+		"Name": "Crit Damage",
 		"Effects": {
 			"CritDamage":0.3
 			}
 	},
 	{
-		"Name": "Major Crit Damage",
-		"Effects": {
-			"CritDamage":0.45
-			}
-	},
-	{
-		"Name": "Minor Health Regen",
-		"Effects": {
-			"HealthRegen":3
-			}
-	},
-	{
-		"Name": "Medium Health Regen",
+		"Name": "Health Regen",
 		"Effects": {
 			"HealthRegen":7
-			}
-	},
-	{
-		"Name": "Major Health Regen",
-		"Effects": {
-			"HealthRegen":10
 			}
 	},
 	{
@@ -186,9 +78,27 @@
 			}
 	},
 	{
-		"Name": "Poison Damage",
+		"Name": "Lifesteal",
 		"Effects": {
-			"PoisonDamage":6
+			"Lifesteal":0.2
+			}
+	},
+	{
+		"Name": "Enable Knockback",
+		"Effects": {
+			"Knockback":true
+			}
+	},
+	{
+		"Name": "Ability Cool Down",
+		"Effects": {
+			"CoolDown":0.5
+			}
+	},
+	{
+		"Name": "ABasic Attack Bonus",
+		"Effects": {
+			"BasicAttackBonus":true
 			}
 	}
 ]
