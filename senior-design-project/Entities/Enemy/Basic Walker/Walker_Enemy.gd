@@ -36,18 +36,22 @@ If player leaves, go back to 3
 '''
 var AI_Phase : int = 3
 var Want_Right : bool = true #Which way the enemy "wants" to go, and determines the way its facing
-var Curr_Speed : float = 0
 var Acceleration : float = 300 #takes slightly under 1s to get to max speed
-var Max_Speed : float = 275 #Player is 250 for reference
+var Max_Speed : float = 220 #Player is 250 for reference
 var JumpStrength : float = 250 #Player is 250
 var GravityStrength : float = 1200 #Player is 1200
 var RecentlyTurned : bool = false
+@onready var _Hurtbox : Hurtbox = $Hurtbox
 
-
+@export var Damage : float = 20
 @export var DIE_ON_HIT_TESTER : bool = false
 @export var SLOW_TESTER : bool = false
 
 func _ready():
+	var AtkData : AttackData = AttackData.new()
+	AtkData.Damage = Damage
+	_Hurtbox.StoredAttackData = AtkData
+	
 	Acceleration *= randf_range(.9, 1.1)
 	Max_Speed *= randf_range(.9, 1.1)
 	if SLOW_TESTER:
@@ -208,7 +212,7 @@ func _physics_process(delta): #Override this
 	move_and_slide()
 
 
-func Got_Hit(Data : AttackData): #Override This
+func _Got_Hit(Data : AttackData): #Override This
 	if DIE_ON_HIT_TESTER:
 		Die()
 	PlayerAggroTimer.stop()

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Entities/Enemy/Basic Walker/Walker_Enemy.gd" id="1_8jg57"]
 [ext_resource type="Texture2D" uid="uid://rmss06pcfjen" path="res://icon.svg" id="2_16pps"]
 [ext_resource type="PackedScene" uid="uid://cu77iqu4ph4v5" path="res://Entities/Shared Resources/Hitbox.tscn" id="3_0uf3w"]
-[ext_resource type="Script" path="res://Entities/Shared Resources/Hurtbox.gd" id="4_pd1or"]
+[ext_resource type="PackedScene" uid="uid://c1vt3jqxeo5ln" path="res://Entities/Shared Resources/Hurtbox.tscn" id="4_4kx0i"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vyya2"]
 radius = 18.0278
@@ -14,7 +14,7 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucq1w"]
 size = Vector2(717.5, 164)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wxrja"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h4hhr"]
 size = Vector2(32, 32)
 
 [node name="WalkerEnemy" type="CharacterBody2D" groups=["Enemy"]]
@@ -57,12 +57,10 @@ position = Vector2(1, 7)
 target_position = Vector2(27, 0)
 
 [node name="FloorRaycast" type="RayCast2D" parent="."]
-visible = false
 position = Vector2(18, 13)
-target_position = Vector2(0, 80)
+target_position = Vector2(0, 137)
 
 [node name="JumpRaycast" type="RayCast2D" parent="."]
-visible = false
 position = Vector2(0, -25)
 target_position = Vector2(38, 0)
 
@@ -84,13 +82,11 @@ offset_bottom = -24.0
 [node name="TurnTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 0
+[node name="Hurtbox" parent="." instance=ExtResource("4_4kx0i")]
 collision_mask = 512
-script = ExtResource("4_pd1or")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-shape = SubResource("RectangleShape2D_wxrja")
+shape = SubResource("RectangleShape2D_h4hhr")
 
 [connection signal="body_entered" from="PlayerDetection" to="." method="PlayerDetection"]
 [connection signal="body_exited" from="PlayerDetection" to="." method="PlayerDetection_Leave"]

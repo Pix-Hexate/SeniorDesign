@@ -1,0 +1,201 @@
+[gd_scene load_steps=19 format=3 uid="uid://p25bqbuir1qm"]
+
+[ext_resource type="Script" path="res://Entities/Enemy/Mage/mage.gd" id="1_iadl5"]
+[ext_resource type="Texture2D" uid="uid://c8hpflwoahbmg" path="res://Resources/Sprites/Player_Characters/Knight/knight-swing1.png" id="2_r5wfn"]
+[ext_resource type="PackedScene" uid="uid://cu77iqu4ph4v5" path="res://Entities/Shared Resources/Hitbox.tscn" id="3_fu2cg"]
+[ext_resource type="Texture2D" uid="uid://cwlxwfa543jat" path="res://Entities/Enemy/Mage/WarningBeam.png" id="4_5epm8"]
+[ext_resource type="Texture2D" uid="uid://bjfg6yk8jf2i2" path="res://Entities/Enemy/Mage/Beam.png" id="5_17a8p"]
+[ext_resource type="PackedScene" uid="uid://c1vt3jqxeo5ln" path="res://Entities/Shared Resources/Hurtbox.tscn" id="6_p3hnc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vyya2"]
+radius = 18.0278
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ytl7"]
+atlas = ExtResource("2_r5wfn")
+region = Rect2(43, 0, 43, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_heunv"]
+atlas = ExtResource("2_r5wfn")
+region = Rect2(86, 0, 43, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_forf3"]
+atlas = ExtResource("2_r5wfn")
+region = Rect2(43, 47, 43, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfrhv"]
+atlas = ExtResource("2_r5wfn")
+region = Rect2(86, 47, 43, 47)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aktqq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ytl7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_heunv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_forf3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfrhv")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n82wc"]
+size = Vector2(32, 32)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6ci2p"]
+radius = 4.0
+height = 625.0
+
+[sub_resource type="Animation" id="Animation_sler4"]
+resource_name = "Attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("WarningBeam/Beam:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.25, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WarningBeam/Beam/Hurtbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WarningBeam/Beam:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.25, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WarningBeam:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_vodw8"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_cvrfl"]
+resource_name = "Teleport"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qwicn"]
+_data = {
+"Attack": SubResource("Animation_sler4"),
+"RESET": SubResource("Animation_vodw8"),
+"Teleport": SubResource("Animation_cvrfl")
+}
+
+[node name="Mage" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 4
+script = ExtResource("1_iadl5")
+
+[node name="Collision (Terrain)" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_vyya2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_aktqq")
+frame = 3
+frame_progress = 1.0
+
+[node name="Hitbox" parent="." instance=ExtResource("3_fu2cg")]
+collision_layer = 1024
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_n82wc")
+
+[node name="Delete this - testing only" type="Label" parent="."]
+visible = false
+offset_left = -10.0
+offset_top = -49.0
+offset_right = 30.0
+offset_bottom = -26.0
+text = "ow"
+
+[node name="Timer" type="Timer" parent="Delete this - testing only"]
+wait_time = 0.5
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+
+[node name="Wall Detector" type="RayCast2D" parent="."]
+target_position = Vector2(31, 0)
+
+[node name="StunTimer" type="Timer" parent="."]
+
+[node name="PlayerAggroTimer" type="Timer" parent="."]
+
+[node name="PlayerRaycast" type="RayCast2D" parent="."]
+
+[node name="WarningBeam" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.247059)
+position = Vector2(0, -54)
+scale = Vector2(1.8724, 1)
+texture = ExtResource("4_5epm8")
+centered = false
+offset = Vector2(0, -5)
+
+[node name="Beam" type="Sprite2D" parent="WarningBeam"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("5_17a8p")
+centered = false
+offset = Vector2(0, -5)
+
+[node name="Hurtbox" parent="WarningBeam/Beam" instance=ExtResource("6_p3hnc")]
+visible = false
+position = Vector2(0, 54)
+scale = Vector2(0.534073, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WarningBeam/Beam/Hurtbox"]
+position = Vector2(316, -54)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_6ci2p")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qwicn")
+}
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="TeleportFinished"]
+[connection signal="timeout" from="Delete this - testing only/Timer" to="." method="delete_this_testing_only"]
+[connection signal="body_entered" from="PlayerDetection" to="." method="PlayerDetection"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="PlayerDetection_Leave"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]

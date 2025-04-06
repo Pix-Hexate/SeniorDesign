@@ -117,7 +117,6 @@ func _physics_process(delta): #Override this
 
 func _Got_Hit(Data : AttackData): #Override This
 	#TODO take damage
-	print("i got hit")
 	CurrentHP -= Data.Damage
 	print("Enemy took " + str(Data.Damage) + " damage")
 	if CurrentHP <= 0:

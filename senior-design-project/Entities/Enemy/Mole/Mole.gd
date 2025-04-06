@@ -87,7 +87,6 @@ func Dig():
 	#if rng checks all fail, we warp to last viable location
 	var pos = lastmap.map_to_local(lastviableplace)
 	global_position = lastmap.to_global(pos)
-	return
 
 func Attack():
 	var Proj_Instance = Proj.instantiate()

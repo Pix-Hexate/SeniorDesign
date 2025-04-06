@@ -10,6 +10,7 @@ class_name EnemyBaseScene extends CharacterBody2D
 @onready var PlayerAggroTimer : Timer = $PlayerAggroTimer
 @onready var PlayerRaycast : RayCast2D = $"PlayerRaycast"
 
+
 func _physics_process(delta): #Override this
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -47,7 +48,7 @@ func ApplySpecialEffects(SpecialEffects : Dictionary):
 		PoisonDamage += SpecialEffects["PoisonDamage"]	
 
 func _Got_Hit(Data : AttackData): #Override This
-	print("i got hit")
+	print("i got hit -- enemy base -- OVERRIDE THIS")
 	#$"Delete this - testing only".visible = true
 	#$"Delete this - testing only/Timer".start()
 
