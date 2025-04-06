@@ -40,7 +40,6 @@ func _ready():
 	CurrentHP = 100
 	AttackKnockbackBase = 300.0
 	ReflectDamage = 10.0
-	
 	# Initialize cooldown timers
 	for ability in AbilityCooldowns.keys():
 		var timer = Timer.new()

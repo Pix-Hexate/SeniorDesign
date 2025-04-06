@@ -3,7 +3,7 @@ class_name CharacterBaseScene extends CharacterBody2D
 '''Movement Stuff'''
 @export var MovementVector : float = 0
 @export var MoveSpeed : float = 250
-@export var JumpStrength : float = 250 #250 default
+@export var JumpStrength : float = 370 #250 default
 @export var GravityStrength : float = 1200
 @export var MaxHP: int = 100
 @export var CurrentHP: int = 100
