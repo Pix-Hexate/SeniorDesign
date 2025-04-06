@@ -1,4 +1,9 @@
-[gd_scene format=3 uid="uid://c0m1gfywarcgo"]
+[gd_scene load_steps=5 format=3 uid="uid://c0m1gfywarcgo"]
+
+[ext_resource type="Theme" uid="uid://df14w6dfgl4bw" path="res://Resources/GameTheme.tres" id="1_0pyof"]
+[ext_resource type="Texture2D" uid="uid://ihh44y4ogjay" path="res://Resources/UI/AbilityHPBar.png" id="2_2k4dd"]
+[ext_resource type="Texture2D" uid="uid://5n1d3h1ur4m8" path="res://Resources/UI/FullHP.png" id="4_ds25x"]
+[ext_resource type="Texture2D" uid="uid://brfo8rvhgclxm" path="res://Resources/UI/EmptyHP.png" id="4_ebcyx"]
 
 [node name="GameplayUi" type="Control"]
 layout_mode = 3
@@ -7,3 +12,33 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_0pyof")
+metadata/_edit_lock_ = true
+
+[node name="AbilityHpBar" type="Sprite2D" parent="."]
+position = Vector2(219, 276)
+texture = ExtResource("2_2k4dd")
+centered = false
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="AbilityHpBar"]
+custom_minimum_size = Vector2(203, 23)
+offset_right = 203.0
+offset_bottom = 23.0
+theme = ExtResource("1_0pyof")
+value = 55.0
+texture_under = ExtResource("4_ebcyx")
+texture_progress = ExtResource("4_ds25x")
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="AbilityHpBar/TextureProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -5.5
+offset_bottom = -2.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "1/2"
+horizontal_alignment = 1
+vertical_alignment = 1

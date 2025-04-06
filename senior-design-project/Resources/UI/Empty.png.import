@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8hpflwoahbmg"
-path="res://.godot/imported/knight-swing1.png-48a8ef38a784037ade70a71f6444440e.ctex"
+uid="uid://cg4kq8javfwu6"
+path="res://.godot/imported/Empty.png-1088e51309623bee779d89978793289b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Sprites/Player_Characters/Knight/knight-swing1.png"
-dest_files=["res://.godot/imported/knight-swing1.png-48a8ef38a784037ade70a71f6444440e.ctex"]
+source_file="res://Resources/UI/Empty.png"
+dest_files=["res://.godot/imported/Empty.png-1088e51309623bee779d89978793289b.ctex"]
 
 [params]
 

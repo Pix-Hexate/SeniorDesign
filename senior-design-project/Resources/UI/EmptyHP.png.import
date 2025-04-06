@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjddlyfmhwm00"
-path="res://.godot/imported/EmptyButton.png-a618afc83cdbcb88d2ef6cad29d8bc1f.ctex"
+uid="uid://brfo8rvhgclxm"
+path="res://.godot/imported/EmptyHP.png-977dcb0831a7b9a6e58fa9ae349b5c56.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/EmptyButton.png"
-dest_files=["res://.godot/imported/EmptyButton.png-a618afc83cdbcb88d2ef6cad29d8bc1f.ctex"]
+source_file="res://Resources/UI/EmptyHP.png"
+dest_files=["res://.godot/imported/EmptyHP.png-977dcb0831a7b9a6e58fa9ae349b5c56.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4ur0e4jk2xyg"
-path="res://.godot/imported/Scaler2.png-00d6f31acc6ec61b89e13fbc2a1a93ce.ctex"
+uid="uid://5n1d3h1ur4m8"
+path="res://.godot/imported/FullHP.png-0ceb8e826310a449e6a64a82cf13cabd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Scaler2.png"
-dest_files=["res://.godot/imported/Scaler2.png-00d6f31acc6ec61b89e13fbc2a1a93ce.ctex"]
+source_file="res://Resources/UI/FullHP.png"
+dest_files=["res://.godot/imported/FullHP.png-0ceb8e826310a449e6a64a82cf13cabd.ctex"]
 
 [params]
 

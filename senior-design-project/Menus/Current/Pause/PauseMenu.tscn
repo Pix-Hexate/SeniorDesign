@@ -2,12 +2,51 @@
 
 [ext_resource type="PackedScene" uid="uid://fxwww7poh7ea" path="res://Menus/Resources/BetterButton.tscn" id="1_ibtif"]
 [ext_resource type="Script" path="res://Menus/Current/Pause/pause_menu.gd" id="1_o0xne"]
-[ext_resource type="Texture2D" uid="uid://cg4kq8javfwu6" path="res://Resources/Empty.png" id="2_ctq2h"]
-[ext_resource type="Texture2D" uid="uid://bl58qixihso0g" path="res://Resources/Full.png" id="3_4m2us"]
+[ext_resource type="Texture2D" uid="uid://cg4kq8javfwu6" path="res://Resources/UI/Empty.png" id="2_ctq2h"]
+[ext_resource type="Texture2D" uid="uid://bl58qixihso0g" path="res://Resources/UI/Full.png" id="3_4m2us"]
 [ext_resource type="Theme" uid="uid://df14w6dfgl4bw" path="res://Resources/GameTheme.tres" id="4_ldwlw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lfo55"]
 bg_color = Color(0, 0, 0, 0.262745)
+
+[sub_resource type="Animation" id="Animation_ynu0w"]
+resource_name = "MainFadeIn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Main:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(176, 120), Vector2(256, 120)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Main:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Main:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_wrfdk"]
 resource_name = "MainFadeOut"
@@ -50,45 +89,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_pmi1o"]
 length = 0.001
-
-[sub_resource type="Animation" id="Animation_ynu0w"]
-resource_name = "MainFadeIn"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Main:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(176, 120), Vector2(256, 120)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Main:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Main:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_favp8"]
 _data = {
@@ -136,9 +136,6 @@ tracks/2/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_p3krg"]
-length = 0.001
-
 [sub_resource type="Animation" id="Animation_w4c72"]
 resource_name = "OptionsFadeOut"
 tracks/0/type = "value"
@@ -177,6 +174,9 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(219, 126), Vector2(299, 126)]
 }
+
+[sub_resource type="Animation" id="Animation_p3krg"]
+length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3enj8"]
 _data = {

@@ -3,9 +3,9 @@
 [ext_resource type="Theme" uid="uid://df14w6dfgl4bw" path="res://Resources/GameTheme.tres" id="1_b3tie"]
 [ext_resource type="PackedScene" uid="uid://fxwww7poh7ea" path="res://Menus/Resources/BetterButton.tscn" id="1_lsk4x"]
 [ext_resource type="Script" path="res://Menus/Current/Main/MainMenu.gd" id="1_qs43v"]
-[ext_resource type="Texture2D" uid="uid://4ur0e4jk2xyg" path="res://Resources/Scaler2.png" id="2_5pshp"]
-[ext_resource type="Texture2D" uid="uid://cg4kq8javfwu6" path="res://Resources/Empty.png" id="4_e31l3"]
-[ext_resource type="Texture2D" uid="uid://bl58qixihso0g" path="res://Resources/Full.png" id="5_obufb"]
+[ext_resource type="Texture2D" uid="uid://4ur0e4jk2xyg" path="res://Resources/UI/Scaler2.png" id="2_5pshp"]
+[ext_resource type="Texture2D" uid="uid://cg4kq8javfwu6" path="res://Resources/UI/Empty.png" id="4_e31l3"]
+[ext_resource type="Texture2D" uid="uid://bl58qixihso0g" path="res://Resources/UI/Full.png" id="5_obufb"]
 
 [sub_resource type="Animation" id="Animation_0ysi3"]
 resource_name = "MainFadeIn"

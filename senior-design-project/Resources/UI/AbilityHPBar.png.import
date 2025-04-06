@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cg4kq8javfwu6"
-path="res://.godot/imported/Empty.png-1d9f1e8bd2dd09e555532e41210530ef.ctex"
+uid="uid://ihh44y4ogjay"
+path="res://.godot/imported/AbilityHPBar.png-18d29189a8d8247aa6d243b10ba33ae5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Empty.png"
-dest_files=["res://.godot/imported/Empty.png-1d9f1e8bd2dd09e555532e41210530ef.ctex"]
+source_file="res://Resources/UI/AbilityHPBar.png"
+dest_files=["res://.godot/imported/AbilityHPBar.png-18d29189a8d8247aa6d243b10ba33ae5.ctex"]
 
 [params]
 

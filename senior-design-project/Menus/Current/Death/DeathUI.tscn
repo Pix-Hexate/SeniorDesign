@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://b1q8xsulamo0d"]
+[gd_scene load_steps=3 format=3 uid="uid://b1q8xsulamo0d"]
+
+[ext_resource type="Theme" uid="uid://df14w6dfgl4bw" path="res://Resources/GameTheme.tres" id="1_a7qvq"]
+[ext_resource type="PackedScene" uid="uid://fxwww7poh7ea" path="res://Menus/Resources/BetterButton.tscn" id="1_vkcl8"]
 
 [node name="DeathUi" type="Control"]
 layout_mode = 3
@@ -7,3 +10,41 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_a7qvq")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.458824)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.0
+offset_top = -124.06
+offset_right = 61.0
+offset_bottom = -98.06
+grow_horizontal = 2
+grow_vertical = 2
+text = "No Way Back..."
+
+[node name="BetterButton" parent="." instance=ExtResource("1_vkcl8")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.0
+offset_top = -13.0
+offset_right = 27.0
+offset_bottom = 13.0
+text = "Again?"

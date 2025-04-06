@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cctpvwbkiffi8"
-path="res://.godot/imported/Scaler.png-e50c55b783f7b0b08e497060dac1cd39.ctex"
+uid="uid://dthkphsmcd1mh"
+path="res://.godot/imported/PressedButton.png-2c238ac90e7417703bf8876c8225ddd0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/Scaler.png"
-dest_files=["res://.godot/imported/Scaler.png-e50c55b783f7b0b08e497060dac1cd39.ctex"]
+source_file="res://Resources/UI/PressedButton.png"
+dest_files=["res://.godot/imported/PressedButton.png-2c238ac90e7417703bf8876c8225ddd0.ctex"]
 
 [params]
 
