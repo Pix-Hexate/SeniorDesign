@@ -15,9 +15,9 @@ class_name Knight extends CharacterBaseScene
 
 # Track cooldown timers
 var AbilityCooldownTimers: Dictionary = {}
-var IsBoosted: bool = false
+@export var IsBoosted: bool = false
 var WasBoosted = false
-var IsInvulnerable: bool = false
+@export var IsInvulnerable: bool = false
 var AttackBuffTimer: Timer
 var BasicAttackBonusTimer: Timer
 var RegeneratingShieldTimer: Timer
@@ -146,6 +146,58 @@ func _Got_Hit(Data: AttackData):
 	if CurrentHP <= 0:
 		Die()
 
+func SetAnimation() -> void:
+	if not Playing_Action:
+		if not is_on_floor(): #in the air
+			if (velocity.y >= 15): #jump up
+				pass
+			elif (velocity.y <= 15): #jump down
+				pass
+			else: #jump mid
+				pass
+		#otherwise we're on the floor
+		elif velocity.x != 0:
+			AnimPlayer.play("Walk")
+		else:
+			AnimPlayer.play("Idle")
+
+
+var QueuedTurn : bool = true
+var WantFaceRight : bool = true
+func Process_Movement_Inputs():
+	if Buffered_Keys["Movement"] == "":
+		if not is_on_floor():
+			MovementVector *= .99
+		else:
+			MovementVector = 0
+			
+	if not Playing_Action:
+		match Buffered_Keys["Movement"]:
+			"LeftKey":
+				Buffered_Keys["Movement"] = ""
+				MovementVector = -1
+				if FacingRight:
+					FacingRight = false
+					scale.x = -1
+				
+			"RightKey":
+				Buffered_Keys["Movement"] = ""
+				MovementVector = 1
+				if not FacingRight:
+					FacingRight = true
+					scale.x = -1
+	else:
+		if not is_on_floor(): #if playing action and not on floor
+			MovementVector*=.99
+		else:
+			MovementVector = 0
+			
+	if Buffered_Keys["Action"] == "Jump" and not Playing_Action:
+		AttemptJump()
+		
+	SetAnimation()
+
+
 func Die():
 	print("Knight has fallen!")
 	# Instead of deleting the player, transition to an end screen
@@ -155,9 +207,9 @@ func Die():
 # Handles boost expiration
 func _on_boost_expired():
 	print("Boost expired!")
-	AttackSpeedDelay /= 0.5
-	MoveSpeed /= 1.5
-	JumpStrength /= 1.2
+	#AttackSpeedDelay /= 0.5
+	#MoveSpeed /= 1.5
+	#JumpStrength /= 1.2
 	IsBoosted = false
 	AbilityCooldownTimers["AbilityFour"].start()
 	
@@ -225,7 +277,7 @@ Hurtbox automatically calls hits to hitboxes, do not manually call hits in code
 
 
 func BasicAttack():		
-	Playing_Action = true
+	#Playing_Action = true
 	
 	# Create attack data
 	is_crit = randf() < CritChance
@@ -241,7 +293,8 @@ func BasicAttack():
 		attack_data.Knockback = AttackKnockbackBase
 	attack_data.SpecialEffects = SpecialEffects
 	attack_data.Source = global_position  # Set attack origin
-	
+	attack_hitbox.StoredAttackData = attack_data
+	AnimPlayer.play("BasicAttack1")
 	# Enable hitbox temporarily
 	'''
 	attack_hitbox.monitoring = true
@@ -291,8 +344,8 @@ func Ability1Stab():
 		TotalDamage = AttackDamage * 1.5 * (CritDamage if is_crit else 1)
 	
 	attack_data.Damage = TotalDamage
-	#if IsBoosted:
-		#attack_data.Knockback = -200 
+	if IsBoosted:
+		attack_data.Damage *= 1.5
 	attack_data.SpecialEffects = SpecialEffects
 	attack_data.Source = global_position
 	attack_hitbox.StoredAttackData = attack_data
@@ -300,28 +353,30 @@ func Ability1Stab():
 	if IsBoosted:
 		print("Ability 1 when boosted")
 		#attack_hitbox.scale *= 1.5  # Increase stab range
-		WasBoosted = true
+		#WasBoosted = true
 	
 	# Enable hitbox for attack detection
-	attack_hitbox.monitoring = true
+	#attack_hitbox.monitoring = true
 	
 	# Update attack animation speed
 	UpdateAnimationSpeed()
 	
 	# Play stab animation
-	AnimPlayer.play("AbilityOne")
-	
+	if not IsBoosted:
+		AnimPlayer.play("Ability 1 - Thrust - Normal")
+	else:
+		AnimPlayer.play("Ability 1 - Thrust - Boosted")
 	# Check for enemies in range
 	#for area in attack_hitbox.get_overlapping_areas():
 	#	if area is Hurtbox:  # Check if it's a valid Hurtbox
 	#		area.Got_Hit(attack_data)  # Apply attack data to hurtbox
 
 	# If boosted, apply extra effects
-	if WasBoosted:
-		attack_hitbox.scale /= 1.5  # Reset the scale
-		IsBoosted = false
-		WasBoosted = false
-		attack_data.Knockback = 0
+	#if WasBoosted:
+		#attack_hitbox.scale /= 1.5  # Reset the scale
+		#IsBoosted = false
+		#WasBoosted = false
+		#attack_data.Knockback = 0
 		
 	# Disable hitbox after the attack
 	#attack_hitbox.monitoring = false
@@ -335,28 +390,31 @@ func Ability1Stab():
 	AnimPlayer.speed_scale = 1
 
 func Ability2Block():
-	Playing_Action = true
+	#Playing_Action = true
 	print("Ability 2: Blocking!")
 	
 	# Play block animation
 	AnimPlayer.play("AbilityTwo")
 	
 	# Set invulnerability flag
-	IsInvulnerable = true
+	#IsInvulnerable = true #set by animation
 	
 	# Wait for a short duration of invulnerability
-	await get_tree().create_timer(0.5).timeout
-	IsBoosted = false;
+	#await get_tree().create_timer(0.5).timeout #set by animation
+	#IsBoosted = false; #set by animation
 	
 	# Remove invulnerability
-	IsInvulnerable = false
-	IsBoosted = false
-	Playing_Action = false
+	#IsInvulnerable = false
+	#IsBoosted = false
+	#Playing_Action = false
 	
 	# Start cooldown
 	AbilityCooldownTimers["AbilityTwo"].start()
 
 func Ability3WhilrwindSlash():
+	#TODO NOT READY
+	return
+	
 	Playing_Action = true
 	print("Ability 3: Whirlwind!")
 
@@ -409,14 +467,14 @@ func Ability3WhilrwindSlash():
 	
 
 func Ability4Boosted():
-	Playing_Action = true
+	#Playing_Action = true
 	# Play animation
-	AnimPlayer.play("AbilityFour")	
+	#AnimPlayer.play("AbilityFour")	#there is no animation
 	IsBoosted = true
-	AttackSpeedDelay *= 0.5
-	MoveSpeed *= 1.5
-	JumpStrength *= 1.2
-	AttackBuffTimer.start()
-	Playing_Action = false
+	#AttackSpeedDelay *= 0.5
+	#MoveSpeed *= 1.5
+	#JumpStrength *= 1.2
+	#AttackBuffTimer.start()
+	#Playing_Action = false
 
 #endregion

@@ -3,7 +3,7 @@ class_name CharacterBaseScene extends CharacterBody2D
 '''Movement Stuff'''
 @export var MovementVector : float = 0
 @export var MoveSpeed : float = 250
-@export var JumpStrength : float = 370 #250 default
+@export var JumpStrength : float = 370 #370 default
 @export var GravityStrength : float = 1200
 @export var MaxHP: int = 100
 @export var CurrentHP: int = 100
@@ -39,11 +39,11 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	Take_Inputs()
-	Process_Movement_Inputs()
-	Process_Action_Inputs()
 
 func _physics_process(delta: float) -> void: 
 	Process_Movement_Physics(delta)
+	Process_Movement_Inputs()
+	Process_Action_Inputs()
 
 var Buffered_Keys : Dictionary = {"Movement" : "", "Action" : ""}
 @export var Playing_Action : bool = false
@@ -175,6 +175,7 @@ func SetAnimation() -> void:
 			AnimPlayer.play("Walk")
 		else:
 			AnimPlayer.play("Idle")
+
 
 func _Got_Hit(Data : AttackData):
 	pass
