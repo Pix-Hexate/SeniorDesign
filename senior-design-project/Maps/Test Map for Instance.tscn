@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://clbc4sq7aq0p6" path="res://Resources/Upgrade Icons/Block.png" id="1_ibeyo"]
 [ext_resource type="Script" path="res://Maps/Instancing_Test_Only.gd" id="1_q7kuy"]
-[ext_resource type="PackedScene" uid="uid://cjxwfm7on3ii0" path="res://Entities/Enemy/Basic Walker/Walker_Enemy.tscn" id="2_2kqow"]
 [ext_resource type="PackedScene" uid="uid://c733lubf7hob6" path="res://Entities/Characters/Character_Base/CharacterScene.tscn" id="3_sb55g"]
+[ext_resource type="PackedScene" uid="uid://bodemnculx6hh" path="res://Maps/Instances/Boss Instance.tscn" id="5_f7x2c"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sibo7"]
 texture = ExtResource("1_ibeyo")
@@ -71,9 +71,10 @@ tile_map_data = PackedByteArray("AADd/wsAAAACAAAAAADe/wsAAAACAAAAAADf/wsAAAACAAA
 tile_set = SubResource("TileSet_bjvq2")
 metadata/_edit_lock_ = true
 
-[node name="WalkerEnemy2" parent="." instance=ExtResource("2_2kqow")]
-position = Vector2(-47, 133)
-DIE_ON_HIT_TESTER = true
+[node name="InstanceLocation" type="Marker2D" parent="."]
+position = Vector2(688, -176)
+
+[node name="Instance" parent="InstanceLocation" instance=ExtResource("5_f7x2c")]
 
 [node name="CharacterScene" parent="." instance=ExtResource("3_sb55g")]
 position = Vector2(-353, 57)
@@ -83,15 +84,3 @@ position = Vector2(0, -125)
 
 [node name="Camera2D2" type="Camera2D" parent="CharacterScene" groups=["Camera"]]
 position = Vector2(0, -125)
-
-[node name="WalkerEnemy3" parent="." instance=ExtResource("2_2kqow")]
-position = Vector2(-138, 125)
-DIE_ON_HIT_TESTER = true
-SLOW_TESTER = true
-
-[node name="WalkerEnemy5" parent="." instance=ExtResource("2_2kqow")]
-position = Vector2(-127, 153)
-scale = Vector2(0.125, 0.125)
-
-[node name="InstanceLocation" type="Marker2D" parent="."]
-position = Vector2(688, -176)

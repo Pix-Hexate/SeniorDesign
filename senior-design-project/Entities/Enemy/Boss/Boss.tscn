@@ -1,0 +1,362 @@
+[gd_scene load_steps=14 format=3 uid="uid://02cy5w5qb6ft"]
+
+[ext_resource type="Script" path="res://Entities/Enemy/Boss/boss.gd" id="1_re6ad"]
+[ext_resource type="Texture2D" uid="uid://rmss06pcfjen" path="res://icon.svg" id="2_xgqya"]
+[ext_resource type="PackedScene" uid="uid://cu77iqu4ph4v5" path="res://Entities/Shared Resources/Hitbox.tscn" id="3_60gx2"]
+[ext_resource type="Texture2D" uid="uid://cwlxwfa543jat" path="res://Entities/Enemy/Mage/WarningBeam.png" id="4_xy3q2"]
+[ext_resource type="Texture2D" uid="uid://bjfg6yk8jf2i2" path="res://Entities/Enemy/Mage/Beam.png" id="5_5pw4g"]
+[ext_resource type="PackedScene" uid="uid://c1vt3jqxeo5ln" path="res://Entities/Shared Resources/Hurtbox.tscn" id="6_7o2xs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vu6rn"]
+size = Vector2(76, 102)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n82wc"]
+size = Vector2(74, 99)
+
+[sub_resource type="Animation" id="Animation_w5vbk"]
+resource_name = "BeamAnimation"
+length = 1.9
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LaserOne:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LaserOne2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LaserOne2/Beam:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.3, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LaserOne/Beam:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.3, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("LaserOne/Hurtbox/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.45, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("LaserOne2/Hurtbox/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.45, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("LaserOne:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.3, 1.6, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("LaserOne2:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.3, 1.6, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.588235), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("LaserOne2/Beam:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 1.3, 1.6, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("LaserOne/Beam:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 1.3, 1.6, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_avi88"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LaserOne:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LaserOne2:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LaserOne2/Beam:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LaserOne/Beam:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("LaserOne/Hurtbox/CollisionShape2D:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("LaserOne2/Hurtbox/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("LaserOne2/Beam:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("LaserOne/Beam:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("LaserOne:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("LaserOne2:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ppfed"]
+_data = {
+"BeamAnimation": SubResource("Animation_w5vbk"),
+"RESET": SubResource("Animation_avi88")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m46vw"]
+size = Vector2(336, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8yk2v"]
+size = Vector2(336.5, 10)
+
+[node name="Boss" type="CharacterBody2D" groups=["Enemy"]]
+collision_layer = 4
+script = ExtResource("1_re6ad")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.6, 0.8)
+texture = ExtResource("2_xgqya")
+
+[node name="Collision (Terrain)" type="CollisionShape2D" parent="."]
+light_mask = 0
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_vu6rn")
+
+[node name="Hitbox" parent="." instance=ExtResource("3_60gx2")]
+collision_layer = 1024
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_n82wc")
+
+[node name="Delete this - testing only" type="Label" parent="."]
+visible = false
+offset_left = -10.0
+offset_top = -49.0
+offset_right = 30.0
+offset_bottom = -26.0
+text = "ow"
+
+[node name="Timer" type="Timer" parent="Delete this - testing only"]
+wait_time = 0.5
+
+[node name="PlayerDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
+
+[node name="Wall Detector" type="RayCast2D" parent="."]
+target_position = Vector2(31, 0)
+
+[node name="StunTimer" type="Timer" parent="."]
+
+[node name="PlayerAggroTimer" type="Timer" parent="."]
+
+[node name="PlayerRaycast" type="RayCast2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ppfed")
+}
+
+[node name="LaserOne" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -25)
+scale = Vector2(2, 2)
+texture = ExtResource("4_xy3q2")
+
+[node name="Beam" type="Sprite2D" parent="LaserOne"]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("5_5pw4g")
+
+[node name="Hurtbox" parent="LaserOne" instance=ExtResource("6_7o2xs")]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaserOne/Hurtbox"]
+shape = SubResource("RectangleShape2D_m46vw")
+
+[node name="LaserOne2" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 30)
+scale = Vector2(2, 2)
+texture = ExtResource("4_xy3q2")
+
+[node name="Beam" type="Sprite2D" parent="LaserOne2"]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("5_5pw4g")
+
+[node name="Hurtbox" parent="LaserOne2" instance=ExtResource("6_7o2xs")]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaserOne2/Hurtbox"]
+position = Vector2(0.25, 0)
+shape = SubResource("RectangleShape2D_8yk2v")
+
+[connection signal="timeout" from="Delete this - testing only/Timer" to="." method="delete_this_testing_only"]
+[connection signal="body_entered" from="PlayerDetection" to="." method="PlayerDetection"]
+[connection signal="body_exited" from="PlayerDetection" to="." method="PlayerDetection_Leave"]

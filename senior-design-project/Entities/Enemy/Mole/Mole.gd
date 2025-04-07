@@ -91,8 +91,8 @@ func Dig():
 func Attack():
 	var Proj_Instance = Proj.instantiate()
 	if Proj_Instance is MoleProjectile:
-		Proj_Instance.global_position = global_position
-		Proj_Instance.Normalized_Direction = global_position.direction_to(PlayerRef.global_position)
+		Proj_Instance.global_position = global_position + Vector2(0,-10)
+		Proj_Instance.Normalized_Direction = global_position.direction_to(PlayerRef.global_position+Vector2(0,-15))
 		get_parent().add_child(Proj_Instance)
 
 func Got_Hit(Data : AttackData): #Override This

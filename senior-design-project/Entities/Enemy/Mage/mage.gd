@@ -133,7 +133,3 @@ func _on_stun_timer_timeout():
 	if AI_Phase == 6:
 		AI_Phase = 1
 		Teleport()
-
-
-func TeleportFinished():
-	pass # Replace with function body.

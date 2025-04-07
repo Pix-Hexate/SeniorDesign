@@ -167,7 +167,7 @@ var WantFaceRight : bool = true
 func Process_Movement_Inputs():
 	if Buffered_Keys["Movement"] == "":
 		if not is_on_floor():
-			MovementVector *= .99
+			MovementVector *= .97
 		else:
 			MovementVector = 0
 			
@@ -188,7 +188,7 @@ func Process_Movement_Inputs():
 					scale.x = -1
 	else:
 		if not is_on_floor(): #if playing action and not on floor
-			MovementVector*=.99
+			MovementVector*=.97
 		else:
 			MovementVector = 0
 			

@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=4 uid="uid://c740ul0beilqq"]
+[gd_scene load_steps=14 format=4 uid="uid://c740ul0beilqq"]
 
 [ext_resource type="Texture2D" uid="uid://clbc4sq7aq0p6" path="res://Resources/Upgrade Icons/Block.png" id="2_hcnkr"]
 [ext_resource type="Texture2D" uid="uid://7atjuim5wwjh" path="res://Resources/ExampleTile.png" id="2_y34on"]
 [ext_resource type="PackedScene" uid="uid://dm7iv3g8qnokp" path="res://Entities/Characters/Knight/KnightScene.tscn" id="3_hgkdq"]
-[ext_resource type="PackedScene" uid="uid://p25bqbuir1qm" path="res://Entities/Enemy/Mage/Mage.tscn" id="4_7h5g5"]
+[ext_resource type="PackedScene" uid="uid://csxeqd002a2cn" path="res://Entities/Enemy/Spike/Spike.tscn" id="6_mv08q"]
+[ext_resource type="PackedScene" uid="uid://km42jk0g2set" path="res://Entities/Enemy/Mole/Mole.tscn" id="7_1uyde"]
 [ext_resource type="Texture2D" uid="uid://ctm2gxd5ikbnq" path="res://Resources/Sprites/Player_Characters/Knight/knight-idle.png" id="7_o6p3c"]
+[ext_resource type="PackedScene" uid="uid://es1a8m5femrx" path="res://Entities/Enemy/Boss/Rock.tscn" id="7_s2lui"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_map0a"]
 texture = ExtResource("2_hcnkr")
@@ -100,7 +102,7 @@ tile_set = SubResource("TileSet_bjvq2")
 metadata/_edit_lock_ = true
 
 [node name="KnightScene" parent="." instance=ExtResource("3_hgkdq")]
-Playing_Action = false
+position = Vector2(171, 114)
 
 [node name="Marker2D2" type="Marker2D" parent="KnightScene" groups=["PlayerCameraPosition"]]
 position = Vector2(-706, -11)
@@ -108,9 +110,20 @@ position = Vector2(-706, -11)
 [node name="Camera2D2" type="Camera2D" parent="KnightScene" groups=["Camera"]]
 position = Vector2(3, -44)
 
-[node name="Mage" parent="." instance=ExtResource("4_7h5g5")]
-position = Vector2(113, -9)
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-5, 157)
+position = Vector2(-5, 155)
 sprite_frames = SubResource("SpriteFrames_mofei")
+
+[node name="Spike" parent="." node_paths=PackedStringArray("Teleport_Location") instance=ExtResource("6_mv08q")]
+position = Vector2(304, 180)
+Teleport_Location = NodePath("../Marker2D")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(173, 10)
+scale = Vector2(0.13, 0.394)
+
+[node name="Rock" parent="." instance=ExtResource("7_s2lui")]
+position = Vector2(93, 119)
+
+[node name="Mole" parent="." instance=ExtResource("7_1uyde")]
+position = Vector2(375, 147)

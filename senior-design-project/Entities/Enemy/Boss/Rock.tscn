@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://es1a8m5femrx"]
+
+[ext_resource type="Script" path="res://Entities/Enemy/Boss/rock.gd" id="1_ejrho"]
+[ext_resource type="Texture2D" uid="uid://ca32cqb5swddf" path="res://Entities/Enemy/Boss/ROCK.png" id="1_rq2ff"]
+[ext_resource type="PackedScene" uid="uid://c1vt3jqxeo5ln" path="res://Entities/Shared Resources/Hurtbox.tscn" id="3_dtxnc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a3dxn"]
+radius = 20.025
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c33d7"]
+radius = 20.3961
+
+[node name="Rock" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 0
+freeze = true
+script = ExtResource("1_ejrho")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_a3dxn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_rq2ff")
+
+[node name="Hurtbox" parent="." instance=ExtResource("3_dtxnc")]
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_c33d7")
+
+[node name="Lifespan" type="Timer" parent="."]
+wait_time = 4.0
+autostart = true
+
+[node name="ReadyTimer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[connection signal="timeout" from="Lifespan" to="." method="_on_lifespan_timeout"]
+[connection signal="timeout" from="ReadyTimer" to="." method="_on_ready_timer_timeout"]

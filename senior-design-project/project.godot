@@ -41,6 +41,8 @@ Enemy=""
 Camera=""
 PlayerCameraPosition=""
 Map=""
+Rocks=""
+Spikes=""
 
 [input]
 
