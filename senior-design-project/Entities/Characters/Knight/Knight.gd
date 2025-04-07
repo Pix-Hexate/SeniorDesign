@@ -25,7 +25,7 @@ var RegeneratingShieldUp: bool = true
 var BasicAttackBonusUp: bool = true
 var regen_timer: float = 0.0
 var is_crit = randf() < CritChance
-@onready var attack_hitbox = $Flipper/Hurtbox # Reference the Area2D
+@onready var attack_hitbox = $Hurtbox # Reference the Area2D
 
 func _ready():
 	# Initialize stats
@@ -208,6 +208,22 @@ func CalcBonusDamage(Damage: float):
 		TotalDamage *= 1.5 
 
 #region Attacks
+
+'''
+TODO - check all attack layouts
+they should
+1 - Make the relevant AttackData (if like boosted or not)
+2 - Set the hurtbox AttackData (and if crit)
+3 - Set the animationplayer speed
+4 - Call the relevant animation
+5 - Call Attack Cooldown
+6 - Call the attack sound
+
+Animation player modifies Playing_Action, handles hitbox movement and enabled/disabled
+Hurtbox automatically calls hits to hitboxes, do not manually call hits in code
+'''
+
+
 func BasicAttack():		
 	Playing_Action = true
 	
@@ -227,6 +243,7 @@ func BasicAttack():
 	attack_data.Source = global_position  # Set attack origin
 	
 	# Enable hitbox temporarily
+	'''
 	attack_hitbox.monitoring = true
 	attack_hitbox.StoredAttackData = attack_data
 	
@@ -253,12 +270,12 @@ func BasicAttack():
 	# Disable hitbox after the attack
 	attack_hitbox.monitoring = false
 	Playing_Action = false
-	
+	'''
 	# Start attack cooldown
 	AbilityCooldownTimers["BasicAttack"].start()
 		
 	# Reset Animation Speed
-	AnimPlayer.speed_scale = 1
+	#AnimPlayer.speed_scale = 1
 	
 func Ability1Stab():	
 	Playing_Action = true
@@ -274,15 +291,15 @@ func Ability1Stab():
 		TotalDamage = AttackDamage * 1.5 * (CritDamage if is_crit else 1)
 	
 	attack_data.Damage = TotalDamage
-	if IsBoosted:
-		attack_data.Knockback = -200 
+	#if IsBoosted:
+		#attack_data.Knockback = -200 
 	attack_data.SpecialEffects = SpecialEffects
 	attack_data.Source = global_position
 	attack_hitbox.StoredAttackData = attack_data
 	
 	if IsBoosted:
 		print("Ability 1 when boosted")
-		attack_hitbox.scale *= 1.5  # Increase stab range
+		#attack_hitbox.scale *= 1.5  # Increase stab range
 		WasBoosted = true
 	
 	# Enable hitbox for attack detection
@@ -295,9 +312,9 @@ func Ability1Stab():
 	AnimPlayer.play("AbilityOne")
 	
 	# Check for enemies in range
-	for area in attack_hitbox.get_overlapping_areas():
-		if area is Hurtbox:  # Check if it's a valid Hurtbox
-			area.Got_Hit(attack_data)  # Apply attack data to hurtbox
+	#for area in attack_hitbox.get_overlapping_areas():
+	#	if area is Hurtbox:  # Check if it's a valid Hurtbox
+	#		area.Got_Hit(attack_data)  # Apply attack data to hurtbox
 
 	# If boosted, apply extra effects
 	if WasBoosted:
@@ -307,8 +324,8 @@ func Ability1Stab():
 		attack_data.Knockback = 0
 		
 	# Disable hitbox after the attack
-	attack_hitbox.monitoring = false
-	Playing_Action = false
+	#attack_hitbox.monitoring = false
+	#Playing_Action = false
 	#CurrentAttackKnockback = AttackKnockbackBase
 	
 	# Start cooldown
