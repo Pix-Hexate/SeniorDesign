@@ -42,6 +42,7 @@ visible = false
 position = Vector2(-224, 87)
 
 [node name="KnightScene" parent="." instance=ExtResource("4_r02gn")]
+Playing_Action = false
 
 [node name="Marker2D2" type="Marker2D" parent="KnightScene" groups=["PlayerCameraPosition"]]
 position = Vector2(-706, -11)
