@@ -366,6 +366,7 @@ func Ability1Stab():
 		AnimPlayer.play("Ability 1 - Thrust - Normal")
 	else:
 		AnimPlayer.play("Ability 1 - Thrust - Boosted")
+		IsBoosted = false
 	# Check for enemies in range
 	#for area in attack_hitbox.get_overlapping_areas():
 	#	if area is Hurtbox:  # Check if it's a valid Hurtbox
