@@ -21,7 +21,7 @@ This bruh cannot jump, obviously, so it cant go up in elevation
 var Curr_Speed : float = 0
 var Acceleration : float = 75 
 var Max_Speed : float = 200 #Player is 250 for reference
-var AI_Phase : int = 1 #idle
+var AI_Phase : int = 0 #default is 1
 var Dist_to_Player : float = 0
 var WantRight : bool = true
 @export var Damage : float = 35
@@ -76,6 +76,8 @@ func _AI(delta : float):
 				AI_Phase = 2
 			
 		
+func Activate():
+	AI_Phase = 1
 
 func Attack():
 	print("preping attack")

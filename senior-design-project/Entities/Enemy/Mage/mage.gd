@@ -1,7 +1,7 @@
 extends EnemyBaseScene
 
 var AI_Timer : float = 0
-var AI_Phase : int = 1:
+var AI_Phase : int = 0: #default is 1
 	get:
 		return AI_Phase
 	set(value):
@@ -133,3 +133,6 @@ func _on_stun_timer_timeout():
 	if AI_Phase == 6:
 		AI_Phase = 1
 		Teleport()
+
+func Activate():
+	AI_Phase = 1

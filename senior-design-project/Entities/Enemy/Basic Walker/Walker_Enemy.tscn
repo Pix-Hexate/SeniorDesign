@@ -1,12 +1,13 @@
 [gd_scene load_steps=9 format=3 uid="uid://cjxwfm7on3ii0"]
 
 [ext_resource type="Script" path="res://Entities/Enemy/Basic Walker/Walker_Enemy.gd" id="1_8jg57"]
-[ext_resource type="Texture2D" uid="uid://rmss06pcfjen" path="res://icon.svg" id="2_16pps"]
 [ext_resource type="PackedScene" uid="uid://cu77iqu4ph4v5" path="res://Entities/Shared Resources/Hitbox.tscn" id="3_0uf3w"]
 [ext_resource type="PackedScene" uid="uid://c1vt3jqxeo5ln" path="res://Entities/Shared Resources/Hurtbox.tscn" id="4_4kx0i"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vyya2"]
 radius = 18.0278
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lca5n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n82wc"]
 size = Vector2(32, 32)
@@ -25,10 +26,10 @@ script = ExtResource("1_8jg57")
 [node name="Collision (Terrain)" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_vyya2")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_16pps")
+sprite_frames = SubResource("SpriteFrames_lca5n")
 
 [node name="Hitbox" parent="." instance=ExtResource("3_0uf3w")]
 collision_layer = 1024

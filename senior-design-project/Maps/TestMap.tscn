@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://c740ul0beilqq"]
+[gd_scene load_steps=16 format=4 uid="uid://c740ul0beilqq"]
 
 [ext_resource type="Script" path="res://Maps/test_map.gd" id="1_en0b4"]
 [ext_resource type="Texture2D" uid="uid://clbc4sq7aq0p6" path="res://Resources/Upgrade Icons/Block.png" id="2_hcnkr"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ctm2gxd5ikbnq" path="res://Resources/Sprites/Player_Characters/Knight/knight-idle.png" id="7_o6p3c"]
 [ext_resource type="PackedScene" uid="uid://es1a8m5femrx" path="res://Entities/Enemy/Boss/Rock.tscn" id="7_s2lui"]
 [ext_resource type="PackedScene" uid="uid://c0m1gfywarcgo" path="res://Menus/Current/GameplayUI.tscn" id="8_b7lm7"]
+[ext_resource type="PackedScene" uid="uid://dmgxevoewo7u8" path="res://Entities/Enemy/Ghost/Ghost.tscn" id="9_e1y3o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_map0a"]
 texture = ExtResource("2_hcnkr")
@@ -130,3 +131,6 @@ position = Vector2(93, 119)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="GameplayUi" parent="CanvasLayer" instance=ExtResource("8_b7lm7")]
+
+[node name="Ghost" parent="." instance=ExtResource("9_e1y3o")]
+position = Vector2(404, 131)

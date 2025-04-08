@@ -34,7 +34,7 @@ Player went inside detection, but not "Visible" due to collision blocking vision
 In this state, start a timer to create a raycast to attempt to "re-detect" player every 1s
 If player leaves, go back to 3
 '''
-var AI_Phase : int = 3
+var AI_Phase : int = 0 #default 3
 var Want_Right : bool = true #Which way the enemy "wants" to go, and determines the way its facing
 var Acceleration : float = 300 #takes slightly under 1s to get to max speed
 var Max_Speed : float = 220 #Player is 250 for reference
@@ -56,6 +56,9 @@ func _ready():
 	Max_Speed *= randf_range(.9, 1.1)
 	if SLOW_TESTER:
 		Max_Speed *= .5
+
+func Activate():
+	AI_Phase = 3
 
 func _AI(delta : float):#Override This
 	match AI_Phase:

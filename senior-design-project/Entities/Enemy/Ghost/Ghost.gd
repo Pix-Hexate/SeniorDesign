@@ -1,7 +1,7 @@
 extends EnemyBaseScene
 
 var AI_Timer : float = 0
-var AI_Phase : int = 1:
+var AI_Phase : int = 0: #default 1
 	get:
 		return AI_Phase
 	set(value):
@@ -113,7 +113,9 @@ func Dash():
 func _physics_process(delta): #Override this
 	_AI(delta)
 	move_and_slide()
-	
+
+func Activate():
+	AI_Phase = 1
 
 func _Got_Hit(Data : AttackData): #Override This
 	#TODO take damage

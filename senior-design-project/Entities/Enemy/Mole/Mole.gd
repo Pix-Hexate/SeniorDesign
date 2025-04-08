@@ -1,7 +1,7 @@
 extends EnemyBaseScene
 
 var AI_Timer : float = 0
-var AI_Phase : int = 1:
+var AI_Phase : int = 0: #default is 1
 	get:
 		return AI_Phase
 	set(value):
@@ -29,6 +29,9 @@ Throwing animation - 5
 Throw dirt (n/a, instant, called by throwing animation done)
 Stunned - 6
 '''
+
+func Activate():
+	AI_Phase = 1
 
 func _AI(delta : float):#Override This
 	AI_Timer += delta

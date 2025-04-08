@@ -487,3 +487,8 @@ func Ability4Boosted():
 	#Playing_Action = false
 
 #endregion
+
+
+func _on_enemy_activater_body_entered(body):
+	if body.has_method("Activate"):
+		body.Activate()

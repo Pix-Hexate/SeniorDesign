@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://dm7iv3g8qnokp"]
+[gd_scene load_steps=83 format=3 uid="uid://dm7iv3g8qnokp"]
 
 [ext_resource type="Script" path="res://Entities/Characters/Knight/Knight.gd" id="1_h0thw"]
 [ext_resource type="Texture2D" uid="uid://ctm2gxd5ikbnq" path="res://Resources/Sprites/Player_Characters/Knight/knight-idle.png" id="2_7v6ls"]
@@ -1380,6 +1380,9 @@ _data = {
 radius = 20.0
 height = 59.68
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h1adr"]
+size = Vector2(901.016, 254.5)
+
 [node name="KnightScene" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
 script = ExtResource("1_h0thw")
@@ -1454,4 +1457,15 @@ visible = false
 position = Vector2(10, -48)
 texture = ExtResource("16_1s0jd")
 
+[node name="EnemyActivater" type="Area2D" parent="."]
+visible = false
+light_mask = 0
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyActivater"]
+position = Vector2(3, -77.75)
+shape = SubResource("RectangleShape2D_h1adr")
+
 [connection signal="timeout" from="InputBufferTimer" to="." method="BufferTimeout"]
+[connection signal="body_entered" from="EnemyActivater" to="." method="_on_enemy_activater_body_entered"]

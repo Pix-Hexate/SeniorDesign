@@ -34,6 +34,7 @@ collision_layer = 1024
 shape = SubResource("RectangleShape2D_n82wc")
 
 [node name="Delete this - testing only" type="Label" parent="."]
+visible = false
 offset_left = -10.0
 offset_top = -49.0
 offset_right = 30.0
