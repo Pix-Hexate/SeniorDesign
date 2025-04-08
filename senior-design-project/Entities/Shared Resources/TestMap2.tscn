@@ -164,6 +164,7 @@ visible = false
 visible = false
 
 [node name="Victory" parent="CanvasLayer" instance=ExtResource("16_mlhol")]
+visible = false
 
 [node name="Spikes" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
@@ -324,3 +325,5 @@ position = Vector2(-898, 823)
 
 [node name="SpotSix" type="Marker2D" parent="Spike SafeSpots"]
 position = Vector2(-1779, 963)
+
+[node name="ItemLocations" type="Node2D" parent="."]

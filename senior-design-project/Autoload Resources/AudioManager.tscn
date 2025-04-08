@@ -10,6 +10,7 @@ streams_count = 1
 stream_0/stream = ExtResource("2_iww4q")
 
 [node name="AudioManager" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_gc6o3")
 
 [node name="Permanent Sounds" type="Node" parent="."]

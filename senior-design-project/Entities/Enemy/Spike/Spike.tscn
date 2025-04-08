@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://csxeqd002a2cn"]
 
-[ext_resource type="Texture2D" uid="uid://rmss06pcfjen" path="res://icon.svg" id="1_rntsr"]
+[ext_resource type="Texture2D" uid="uid://dtfcjmekldl03" path="res://Resources/Sprites/Tilemaps/Spike.png" id="2_2pwdt"]
 [ext_resource type="Script" path="res://Entities/Enemy/Spike/spike.gd" id="2_pau50"]
 
 [sub_resource type="Animation" id="Animation_sb5sw"]
@@ -8,38 +8,38 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Hurtbox/CollisionShape2D:disabled")
+tracks/1/path = NodePath(".:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".:modulate")
+tracks/2/path = NodePath("Hurtbox/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_rk1xx"]
@@ -55,7 +55,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1.5, 2, 2.2, 2.6, 3.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, -5), Vector2(0, -5), Vector2(0, -50), Vector2(0, -50), Vector2(0, -35)]
+"values": [Vector2(0, 0), Vector2(0, -5), Vector2(0, -5), Vector2(0, -35), Vector2(0, -35), Vector2(0, -25)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -89,15 +89,13 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nr70v"]
-size = Vector2(128, 126.826)
+size = Vector2(7, 32)
 
 [node name="Spike" type="Node2D"]
 script = ExtResource("2_pau50")
 
 [node name="Spike" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0)
-scale = Vector2(0.13, 0.394)
-texture = ExtResource("1_rntsr")
+texture = ExtResource("2_2pwdt")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Spike"]
 libraries = {
@@ -109,6 +107,7 @@ collision_layer = 0
 collision_mask = 512
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spike/Hurtbox"]
+position = Vector2(0.5, 0.999998)
 shape = SubResource("RectangleShape2D_nr70v")
 disabled = true
 

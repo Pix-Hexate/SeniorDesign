@@ -217,64 +217,64 @@ position = Vector2(603, 17)
 [node name="Spikes" type="Node2D" parent="." groups=["Spikes"]]
 
 [node name="Spike2" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(33, 375)
+position = Vector2(33, 365)
 
 [node name="Spike3" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(63, 375)
+position = Vector2(63, 365)
 
 [node name="Spike4" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(93, 375)
+position = Vector2(93, 365)
 
 [node name="Spike5" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(123, 375)
+position = Vector2(123, 365)
 
 [node name="Spike6" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(153, 375)
+position = Vector2(153, 365)
 
 [node name="Spike7" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(183, 375)
+position = Vector2(183, 365)
 
 [node name="Spike8" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(213, 375)
+position = Vector2(213, 365)
 
 [node name="Spike9" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(243, 375)
+position = Vector2(243, 365)
 
 [node name="Spike10" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(273, 375)
+position = Vector2(273, 365)
 
 [node name="Spike11" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(303, 375)
+position = Vector2(303, 365)
 
 [node name="Spike12" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(333, 375)
+position = Vector2(333, 365)
 
 [node name="Spike13" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(363, 375)
+position = Vector2(363, 365)
 
 [node name="Spike14" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(393, 375)
+position = Vector2(393, 365)
 
 [node name="Spike15" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(423, 375)
+position = Vector2(423, 365)
 
 [node name="Spike16" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(453, 375)
+position = Vector2(453, 365)
 
 [node name="Spike17" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(483, 375)
+position = Vector2(483, 365)
 
 [node name="Spike18" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(513, 375)
+position = Vector2(513, 365)
 
 [node name="Spike19" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(543, 375)
+position = Vector2(543, 365)
 
 [node name="Spike20" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(573, 375)
+position = Vector2(573, 365)
 
 [node name="Spike21" parent="Spikes" instance=ExtResource("5_ohd57")]
-position = Vector2(603, 375)
+position = Vector2(603, 365)
 
 [connection signal="body_entered" from="EntityDetection" to="." method="EntityEntered"]
 [connection signal="body_exited" from="EntityDetection" to="." method="EntityLeaving"]
