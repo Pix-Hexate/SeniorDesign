@@ -9,8 +9,7 @@ class_name Knight extends CharacterBaseScene
 	"BasicAttack": AttackSpeedDelay, # Cooldown in seconds
 	"AbilityOne": 2.0,  
 	"AbilityTwo": 4.0,
-	"AbilityThree": 6.0,
-	"AbilityFour": 8.0
+	"AbilityThree": 6.0
 }
 
 # Track cooldown timers
@@ -32,10 +31,10 @@ func _ready():
 	MaxHP = 100
 	CritChance = 0.05 # crit chance percentage as decimal
 	CritDamage = 1.5 # crit damage boost
-	HealthRegen = 5.0 # HP regenerated per second
-	Armor = 5.0 # flat damage reduction
-	BaseAttackSpeedDelay = 0.3
-	AttackSpeedDelay = 0.3 # Attack timer
+	HealthRegen = 2 # HP regenerated per second
+	Armor = 0 # flat damage reduction
+	BaseAttackSpeedDelay = 0.25
+	AttackSpeedDelay = 0.25 # Attack timer
 	AttackDamage = 5.0
 	CurrentHP = 100
 	AttackKnockbackBase = 300.0
@@ -87,10 +86,7 @@ func Process_Action_Inputs():
 			if not Playing_Action and AbilityCooldownTimers["AbilityTwo"].is_stopped():
 				Ability2Block()
 		"AbilityThree":
-			if not Playing_Action and AbilityCooldownTimers["AbilityThree"].is_stopped():
-				Ability3WhilrwindSlash()
-		"AbilityFour":
-			if not Playing_Action and AbilityCooldownTimers["AbilityFour"].is_stopped() and IsBoosted == false:
+			if not Playing_Action and AbilityCooldownTimers["AbilityThree"].is_stopped() and IsBoosted == false:
 				Ability4Boosted()
 	Buffered_Keys["Action"] = ""  # Clear input after processing
 
@@ -111,14 +107,21 @@ func _process(delta: float) -> void:
 		UpdateCooldowns()
 
 func Heal(amount: float):
+	UpdateUI()
 	CurrentHP = min(CurrentHP + amount, MaxHP)
+
+@onready var HPBar : TextureProgressBar = get_tree().get_first_node_in_group("HPBar")
+@onready var HPLabel : Label = get_tree().get_first_node_in_group("HPLabel")
+func UpdateUI():
+	HPLabel.text = str(CurrentHP) + "/" + str(MaxHP)
+	HPBar.value = CurrentHP/MaxHP*100
 
 func UpdateCooldowns():
 	# Update cooldown times
 	AbilityCooldowns["AbilityOne"] *= CooldownBonus
 	AbilityCooldowns["AbilityTwo"] *= CooldownBonus
 	AbilityCooldowns["AbilityThree"] *= CooldownBonus
-	AbilityCooldowns["AbilityFour"] *= CooldownBonus
+
 	
 	# Update cooldown timers
 	for ability in AbilityCooldowns.keys():
@@ -140,8 +143,7 @@ func _Got_Hit(Data: AttackData):
 	print("Took " + str(Data.Damage) + " damage")
 	var damage = max(Data.Damage - Armor, 1)
 	CurrentHP -= damage
-	print(CurrentHP)
-	#TODO Knockback
+	UpdateUI()
 	
 	if CurrentHP <= 0:
 		Die()
@@ -211,7 +213,7 @@ func _on_boost_expired():
 	#MoveSpeed /= 1.5
 	#JumpStrength /= 1.2
 	IsBoosted = false
-	AbilityCooldownTimers["AbilityFour"].start()
+	AbilityCooldownTimers["AbilityThree"].start()
 	
 # Handles shield timer expiration
 func _on_shield_timer_ended():
@@ -256,8 +258,6 @@ func CalcBonusDamage(Damage: float):
 		TotalDamage *= 1.5
 	if AbilityCooldownTimers["AbilityThree"].is_stopped():
 		TotalDamage *= 1.5
-	if AbilityCooldownTimers["AbilityFour"].is_stopped():
-		TotalDamage *= 1.5 
 
 #region Attacks
 
@@ -275,6 +275,7 @@ Animation player modifies Playing_Action, handles hitbox movement and enabled/di
 Hurtbox automatically calls hits to hitboxes, do not manually call hits in code
 '''
 
+@onready var _GameplayUI : GameplayUI = get_tree().get_first_node_in_group("GamePlayUI")
 
 func BasicAttack():		
 	#Playing_Action = true
@@ -294,14 +295,14 @@ func BasicAttack():
 	attack_data.SpecialEffects = SpecialEffects
 	attack_data.Source = global_position  # Set attack origin
 	attack_hitbox.StoredAttackData = attack_data
+		# Update attack animation speed
+	UpdateAnimationSpeed()
+	
 	AnimPlayer.play("BasicAttack1")
 	# Enable hitbox temporarily
 	'''
 	attack_hitbox.monitoring = true
 	attack_hitbox.StoredAttackData = attack_data
-	
-	# Update attack animation speed
-	UpdateAnimationSpeed()
 	
 	if BasicAttackBonusUp and BasicAttackBonus:
 		print("Basic Attack Bonus: Slashing forward!")
@@ -386,7 +387,7 @@ func Ability1Stab():
 	
 	# Start cooldown
 	AbilityCooldownTimers["AbilityOne"].start()
-	
+	_GameplayUI.SetStab(AbilityCooldownTimers["AbilityOne"].wait_time)
 	# Reset Animation Speed
 	AnimPlayer.speed_scale = 1
 
@@ -395,7 +396,7 @@ func Ability2Block():
 	print("Ability 2: Blocking!")
 	
 	# Play block animation
-	AnimPlayer.play("AbilityTwo")
+	AnimPlayer.play("Ability 2 - Block")
 	
 	# Set invulnerability flag
 	#IsInvulnerable = true #set by animation
@@ -411,7 +412,8 @@ func Ability2Block():
 	
 	# Start cooldown
 	AbilityCooldownTimers["AbilityTwo"].start()
-
+	_GameplayUI.SetBlock(AbilityCooldownTimers["AbilityTwo"].wait_time)
+'''
 func Ability3WhilrwindSlash():
 	#TODO NOT READY
 	return
@@ -465,13 +467,17 @@ func Ability3WhilrwindSlash():
 	
 	# Start cooldown
 	AbilityCooldownTimers["AbilityThree"].start()
-	
+'''
 
 func Ability4Boosted():
 	#Playing_Action = true
 	# Play animation
 	#AnimPlayer.play("AbilityFour")	#there is no animation
 	IsBoosted = true
+	print("boosting")
+	AbilityCooldownTimers["AbilityThree"].start()
+	_GameplayUI.SetBoost(AbilityCooldownTimers["AbilityThree"].wait_time)
+	
 	#AttackSpeedDelay *= 0.5
 	#MoveSpeed *= 1.5
 	#JumpStrength *= 1.2

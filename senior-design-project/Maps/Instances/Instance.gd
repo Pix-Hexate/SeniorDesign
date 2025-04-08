@@ -5,6 +5,7 @@ class_name Instance extends Node2D
 var Done : bool = false #done with the fight but not exited, likely looking at item, spawns still disabled and camera still set
 var Started : bool = false #started the fight
 var Compleated : bool = false #turns off all instance functionality after player leaves the instance
+@export var CameraMove : bool = true
 '''
 Instances need to1
 1. Move Camera to center of stage, and shut the door

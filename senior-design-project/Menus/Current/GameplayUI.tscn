@@ -1,0 +1,122 @@
+[gd_scene load_steps=10 format=3 uid="uid://c0m1gfywarcgo"]
+
+[ext_resource type="Theme" uid="uid://df14w6dfgl4bw" path="res://Resources/GameTheme.tres" id="1_mpnkc"]
+[ext_resource type="Texture2D" uid="uid://bjbpu5mi5sho" path="res://Resources/UI/AbilityHPBar-export.png" id="2_152wi"]
+[ext_resource type="Script" path="res://Menus/Current/gameplay_ui.gd" id="2_ehw4w"]
+[ext_resource type="Texture2D" uid="uid://brfo8rvhgclxm" path="res://Resources/UI/EmptyHP.png" id="3_2bpj5"]
+[ext_resource type="Texture2D" uid="uid://5n1d3h1ur4m8" path="res://Resources/UI/FullHP.png" id="4_lmsxq"]
+[ext_resource type="Texture2D" uid="uid://clai35axcl6oi" path="res://Resources/UI/Boost.png" id="5_o363g"]
+[ext_resource type="Texture2D" uid="uid://buribhisnh6te" path="res://Resources/UI/Stab.png" id="6_kaq36"]
+[ext_resource type="Texture2D" uid="uid://biuway76a2nx2" path="res://Resources/UI/Sword.png" id="7_gcwnc"]
+[ext_resource type="Texture2D" uid="uid://du7av62i42ef0" path="res://Resources/UI/Block.png" id="8_2ipus"]
+
+[node name="GameplayUi" type="Control" groups=["GamePlayUI"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mpnkc")
+script = ExtResource("2_ehw4w")
+metadata/_edit_lock_ = true
+
+[node name="AbilityHpBar" type="Sprite2D" parent="."]
+position = Vector2(219, 276)
+texture = ExtResource("2_152wi")
+centered = false
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="AbilityHpBar" groups=["HPBar"]]
+custom_minimum_size = Vector2(203, 23)
+offset_right = 203.0
+offset_bottom = 23.0
+theme = ExtResource("1_mpnkc")
+value = 100.0
+texture_under = ExtResource("3_2bpj5")
+texture_progress = ExtResource("4_lmsxq")
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="AbilityHpBar/TextureProgressBar" groups=["HPLabel"]]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -5.5
+offset_bottom = -2.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Boost" type="Sprite2D" parent="."]
+position = Vector2(404, 328)
+texture = ExtResource("5_o363g")
+
+[node name="Hider" type="ColorRect" parent="Boost"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0, 0, 0, 0.584314)
+
+[node name="CD" type="Label" parent="Boost/Hider"]
+offset_left = 1.0
+offset_top = -17.0
+offset_right = 33.0
+offset_bottom = 34.0
+theme = ExtResource("1_mpnkc")
+theme_override_font_sizes/font_size = 64
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stab" type="Sprite2D" parent="."]
+position = Vector2(292, 328)
+texture = ExtResource("6_kaq36")
+flip_h = true
+flip_v = true
+
+[node name="Hider" type="ColorRect" parent="Stab"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0, 0, 0, 0.584314)
+
+[node name="CD" type="Label" parent="Stab/Hider"]
+offset_left = 1.0
+offset_top = -17.0
+offset_right = 33.0
+offset_bottom = 34.0
+theme = ExtResource("1_mpnkc")
+theme_override_font_sizes/font_size = 64
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sword" type="Sprite2D" parent="."]
+position = Vector2(237, 328)
+texture = ExtResource("7_gcwnc")
+
+[node name="Block" type="Sprite2D" parent="."]
+position = Vector2(348, 328)
+texture = ExtResource("8_2ipus")
+
+[node name="Hider" type="ColorRect" parent="Block"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0, 0, 0, 0.584314)
+
+[node name="CD" type="Label" parent="Block/Hider"]
+offset_left = 1.0
+offset_top = -17.0
+offset_right = 33.0
+offset_bottom = 34.0
+theme = ExtResource("1_mpnkc")
+theme_override_font_sizes/font_size = 64
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1

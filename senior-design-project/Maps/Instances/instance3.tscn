@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=4 uid="uid://j7ejobnhbt4l"]
+[gd_scene load_steps=10 format=4 uid="uid://rgl51wljux6k"]
 
 [ext_resource type="Script" path="res://Maps/Instances/Instance.gd" id="1_ynhov"]
 [ext_resource type="TileSet" uid="uid://bi7hx2els3iev" path="res://Resources/Sprites/Tilemaps/ground-tiles.tres" id="2_iy1qy"]

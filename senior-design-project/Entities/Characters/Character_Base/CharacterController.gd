@@ -5,8 +5,8 @@ class_name CharacterBaseScene extends CharacterBody2D
 @export var MoveSpeed : float = 250
 @export var JumpStrength : float = 410 #370 default
 @export var GravityStrength : float = 1200
-@export var MaxHP: int = 100
-@export var CurrentHP: int = 100
+@export var MaxHP: float = 100
+@export var CurrentHP: float = 100
 @export var Armor: float = 5.0 # flat damage reduction
 @export var BaseAttackSpeedDelay: float = 0.3 # Attack timer
 @export var AttackSpeedDelay: float = 0.3 # Attack timer
@@ -75,9 +75,6 @@ func Take_Inputs(): #This function is our input buffer
 		BufferTimer.start()
 	if Input.is_action_pressed("AbilityThreeKey"):
 		Buffered_Keys["Action"] = "AbilityThree"
-		BufferTimer.start()
-	if Input.is_action_pressed("AbilityFourKey"):
-		Buffered_Keys["Action"] = "AbilityFour"
 		BufferTimer.start()
 
 var FacingRight = true
