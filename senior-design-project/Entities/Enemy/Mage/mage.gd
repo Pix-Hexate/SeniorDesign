@@ -158,4 +158,5 @@ func _on_stun_timer_timeout():
 		Teleport()
 
 func Activate():
-	AI_Phase = 1
+	if AI_Phase == 0:
+		AI_Phase = 1

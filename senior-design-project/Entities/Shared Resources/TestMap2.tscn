@@ -158,7 +158,7 @@ position = Vector2(0, -65)
 modulate = Color(1, 1, 1, 0.498039)
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("13_g48fa")]
-visible = false
+modulate = Color(1, 1, 1, 0)
 
 [node name="DeathUi" parent="CanvasLayer" instance=ExtResource("15_y1iki")]
 visible = false

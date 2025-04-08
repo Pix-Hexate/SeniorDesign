@@ -119,8 +119,8 @@ func _physics_process(delta): #Override this
 	move_and_slide()
 
 func Activate():
-	print("ghost getting activated")
-	AI_Phase = 1
+	if AI_Phase == 0:
+		AI_Phase = 1
 
 func _Got_Hit(Data : AttackData): #Override This	
 	velocity = Vector2(0,0)
@@ -134,6 +134,7 @@ func _Got_Hit(Data : AttackData): #Override This
 
 func Die():
 	$Hitbox/CollisionShape2D.set_deferred("disabled",true)
+	$Hurtbox/CollisionShape2D.set_deferred("disabled",true)
 	self_modulate.a = 1
 	velocity = Vector2.ZERO
 	AI_Phase = 9

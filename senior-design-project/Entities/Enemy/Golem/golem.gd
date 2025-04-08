@@ -81,7 +81,8 @@ func _AI(delta : float):
 			
 		
 func Activate():
-	AI_Phase = 1
+	if AI_Phase == 0:
+		AI_Phase = 1
 
 @onready var AnimPlayer : AnimationPlayer = $AnimationPlayer
 func Attack():

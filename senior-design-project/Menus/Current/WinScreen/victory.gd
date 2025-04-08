@@ -16,5 +16,6 @@ func win():
 
 func _on_better_button_pressed():
 	AudioManager.StartMenu()
+	get_tree().paused = false
 	print("RETURN PRESSED")
 	get_tree().change_scene_to_file("res://Menus/Current/Main/MainMenu.tscn")
