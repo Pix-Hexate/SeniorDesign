@@ -50,7 +50,7 @@ func _ready():
 		
 	# Timer for attack speed buff from Boosted
 	AttackBuffTimer = Timer.new()
-	AttackBuffTimer.wait_time = 5.0
+	AttackBuffTimer.wait_time = 4.0
 	AttackBuffTimer.one_shot = true
 	AttackBuffTimer.timeout.connect(_on_boost_expired)
 	add_child(AttackBuffTimer)
@@ -152,11 +152,11 @@ func SetAnimation() -> void:
 	if not Playing_Action:
 		if not is_on_floor(): #in the air
 			if (velocity.y >= 15): #jump up
-				pass
+				AnimPlayer.play("JumpUp")
 			elif (velocity.y <= 15): #jump down
-				pass
+				AnimPlayer.play("JumpDown")
 			else: #jump mid
-				pass
+				AnimPlayer.play("JumpMid")
 		#otherwise we're on the floor
 		elif velocity.x != 0:
 			AnimPlayer.play("Walk")
@@ -368,6 +368,7 @@ func Ability1Stab():
 	else:
 		AnimPlayer.play("Ability 1 - Thrust - Boosted")
 		IsBoosted = false
+		$BoostedCrown.visible = false
 	# Check for enemies in range
 	#for area in attack_hitbox.get_overlapping_areas():
 	#	if area is Hurtbox:  # Check if it's a valid Hurtbox
@@ -474,6 +475,7 @@ func Ability4Boosted():
 	# Play animation
 	#AnimPlayer.play("AbilityFour")	#there is no animation
 	IsBoosted = true
+	$BoostedCrown.visible = true
 	print("boosting")
 	AbilityCooldownTimers["AbilityThree"].start()
 	_GameplayUI.SetBoost(AbilityCooldownTimers["AbilityThree"].wait_time)
@@ -481,7 +483,7 @@ func Ability4Boosted():
 	#AttackSpeedDelay *= 0.5
 	#MoveSpeed *= 1.5
 	#JumpStrength *= 1.2
-	#AttackBuffTimer.start()
+	AttackBuffTimer.start()
 	#Playing_Action = false
 
 #endregion

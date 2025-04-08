@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://dm7iv3g8qnokp"]
+[gd_scene load_steps=82 format=3 uid="uid://dm7iv3g8qnokp"]
 
 [ext_resource type="Script" path="res://Entities/Characters/Knight/Knight.gd" id="1_h0thw"]
 [ext_resource type="Texture2D" uid="uid://ctm2gxd5ikbnq" path="res://Resources/Sprites/Player_Characters/Knight/knight-idle.png" id="2_7v6ls"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://c1vt3jqxeo5ln" path="res://Entities/Shared Resources/Hurtbox.tscn" id="9_v8dpl"]
 [ext_resource type="Texture2D" uid="uid://dimrjtb1w0u1y" path="res://Resources/Sprites/Player_Characters/Knight/knight-thrust.png" id="9_xwriq"]
 [ext_resource type="Texture2D" uid="uid://0bkvtol1xyg6" path="res://Resources/Sprites/Player_Characters/Knight/knight-thrust-magic.png" id="10_otahw"]
+[ext_resource type="Texture2D" uid="uid://c6ojjiiuouy78" path="res://Resources/UI/BoostedCrown.png" id="16_1s0jd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s8mg0"]
 height = 32.0
@@ -653,7 +654,7 @@ tracks/0/path = NodePath(".:Playing_Action")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.5),
+"times": PackedFloat32Array(0, 0.75),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -705,6 +706,30 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:IsBoosted")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.75),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("BoostedCrown:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.75),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_2te16"]
@@ -1182,6 +1207,18 @@ tracks/8/keys = {
 "update": 0,
 "values": [Vector2(33, -28)]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath(".:IsBoosted")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_xjhsj"]
 resource_name = "WIP - AbilityFour"
@@ -1411,5 +1448,10 @@ scale = Vector2(14.2222, 3.04762)
 shape = SubResource("CapsuleShape2D_sb3t2")
 disabled = true
 metadata/_edit_lock_ = true
+
+[node name="BoostedCrown" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(10, -48)
+texture = ExtResource("16_1s0jd")
 
 [connection signal="timeout" from="InputBufferTimer" to="." method="BufferTimeout"]
