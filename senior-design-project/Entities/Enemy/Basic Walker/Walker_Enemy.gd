@@ -36,9 +36,9 @@ If player leaves, go back to 3
 '''
 var AI_Phase : int = 0 #default 3
 var Want_Right : bool = true #Which way the enemy "wants" to go, and determines the way its facing
-var Acceleration : float = 300 #takes slightly under 1s to get to max speed
-var Max_Speed : float = 220 #Player is 250 for reference
-var JumpStrength : float = 250 #Player is 250
+var Acceleration : float = 150 #takes slightly under 1s to get to max speed
+var Max_Speed : float = 175 #Player is 250 for reference
+var JumpStrength : float = 300 #Player is 250
 var GravityStrength : float = 1200 #Player is 1200
 var RecentlyTurned : bool = false
 @onready var _Hurtbox : Hurtbox = $Hurtbox
@@ -59,7 +59,9 @@ func _ready():
 		Max_Speed *= .5
 
 func Activate():
-	AI_Phase = 3
+	if AI_Phase == 0:
+		print("skele getting activated")
+		AI_Phase = 3
 
 func _AI(delta : float):#Override This
 	match AI_Phase:
@@ -93,7 +95,6 @@ func _AI(delta : float):#Override This
 					if not ($JumpRaycast as RayCast2D).is_colliding(): #we check if the wall is jumpable
 						if is_on_floor(): #if it's jumpable, then we jump
 							velocity.y -= JumpStrength
-							print("trying to jump")	
 				#we don't turn cos we are aggro even if we are at a wall
 			
 			if Want_Right:
@@ -130,7 +131,6 @@ func _AI(delta : float):#Override This
 				if not ($JumpRaycast as RayCast2D).is_colliding(): #if we can jump it
 					if is_on_floor(): #we try to jump
 						velocity.y -= JumpStrength
-						print("trying to jump")
 				else: #if we cant jump it 
 					if not RecentlyTurned: #we turn around
 						if Want_Right:
@@ -173,7 +173,6 @@ func _AI(delta : float):#Override This
 				if not ($JumpRaycast as RayCast2D).is_colliding(): #if we can jump it
 					if is_on_floor(): #we try to jump
 						velocity.y -= JumpStrength
-						print("trying to jump")
 				else: #if we cant jump it 
 					if not RecentlyTurned: #we turn around
 						if Want_Right:
@@ -231,11 +230,16 @@ func _Got_Hit(Data : AttackData): #Override This
 	velocity.x = 0
 	StunTimer.start()
 	$"Attempt Reaggro".stop()
+	TakeDamage(Data.Damage)
+	ApplySpecialEffects(Data)
 
 func Die():
-	print("we're dying")
-	SignalBus.EnemyDied.emit(self)
-	#TODO play death animation
+	velocity = Vector2.ZERO
+	AI_Phase = 9
+	$Hurtbox/CollisionShape2D.disabled = true
+	var tw : Tween = get_tree().create_tween()
+	tw.tween_property(self, "modulate.a", 0, 3)
+	await tw.finished
 	queue_free()
 
 func delete_this_testing_only():

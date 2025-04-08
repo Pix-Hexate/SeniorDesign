@@ -211,6 +211,9 @@ tracks/3/keys = {
 "values": [4]
 }
 
+[sub_resource type="Animation" id="Animation_73hwx"]
+length = 0.001
+
 [sub_resource type="Animation" id="Animation_ury0s"]
 resource_name = "Walk"
 length = 2.0
@@ -238,9 +241,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
 }
-
-[sub_resource type="Animation" id="Animation_73hwx"]
-length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2k05l"]
 _data = {
@@ -280,7 +280,8 @@ size = Vector2(111, 24)
 [node name="Golem" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
 script = ExtResource("1_fyyaa")
-MaxHP = 100
+MaxHP = 75
+CurrentHP = 75
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_fumf2")

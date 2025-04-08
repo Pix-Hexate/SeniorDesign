@@ -61,6 +61,7 @@ offset_bottom = 16.0
 color = Color(0, 0, 0, 0.584314)
 
 [node name="CD" type="Label" parent="Boost/Hider"]
+layout_mode = 0
 offset_left = 1.0
 offset_top = -17.0
 offset_right = 33.0
@@ -85,6 +86,7 @@ offset_bottom = 16.0
 color = Color(0, 0, 0, 0.584314)
 
 [node name="CD" type="Label" parent="Stab/Hider"]
+layout_mode = 0
 offset_left = 1.0
 offset_top = -17.0
 offset_right = 33.0
@@ -111,6 +113,7 @@ offset_bottom = 16.0
 color = Color(0, 0, 0, 0.584314)
 
 [node name="CD" type="Label" parent="Block/Hider"]
+layout_mode = 0
 offset_left = 1.0
 offset_top = -17.0
 offset_right = 33.0

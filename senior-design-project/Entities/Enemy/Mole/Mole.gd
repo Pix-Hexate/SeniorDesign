@@ -32,7 +32,9 @@ Stunned - 6
 '''
 
 func Activate():
-	AI_Phase = 1
+	if AI_Phase == 0:
+		print("MOLE ACTIVATION")
+		AI_Phase = 1
 
 var FacingRight : bool = true
 @onready var Sprite : AnimatedSprite2D = $Sprite2D
@@ -51,6 +53,8 @@ func _AI(delta : float):#Override This
 		ProjSpawn.position.x = -27
 		
 	match AI_Phase:
+		0:
+			pass
 		1: #idle start
 			AnimPlayer.play("Idle")
 			if AI_Timer >= IdleTime:
@@ -135,4 +139,13 @@ func _Got_Hit(Data : AttackData): #Override This
 		await AnimPlayer.animation_finished
 		AI_Phase = 2
 		Dig()
-	#TODO flash white
+	TakeDamage(Data.Damage)
+	ApplySpecialEffects(Data)
+
+func Die():
+	velocity = Vector2.ZERO
+	AI_Phase = 9
+	var tw : Tween = get_tree().create_tween()
+	tw.tween_property(self, "modulate.a", 0, 3)
+	await tw.finished
+	queue_free()

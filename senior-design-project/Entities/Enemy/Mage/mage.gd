@@ -120,7 +120,18 @@ func _Got_Hit(Data : AttackData): #Override This
 	AI_Phase = 6
 	velocity.x = 0
 	StunTimer.start(StunTime)
+	TakeDamage(Data.Damage)
+	ApplySpecialEffects(Data)
 
+func Die():
+	velocity = Vector2.ZERO
+	AI_Phase = 9
+	WarningBeam.visible = false
+	$WarningBeam/Beam/Hurtbox/CollisionShape2D.disabled = true
+	var tw : Tween = get_tree().create_tween()
+	tw.tween_property(self, "modulate.a", 0, 3)
+	await tw.finished
+	queue_free()
 '''
 Mage
 

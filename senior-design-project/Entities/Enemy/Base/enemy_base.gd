@@ -26,7 +26,7 @@ func _AI(delta : float):#Override This
 
 func TakeDamage(amount: int):
 	CurrentHP -= amount
-	print("Enemy took " + str(amount) + " damage")
+	#print("Enemy took " + str(amount) + " damage")
 	
 	if CurrentHP <= 0:
 		Die()

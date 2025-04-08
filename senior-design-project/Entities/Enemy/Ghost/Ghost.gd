@@ -1,7 +1,7 @@
 extends EnemyBaseScene
 
 var AI_Timer : float = 0
-var AI_Phase : int = 0: #default 1
+@export var AI_Phase : int = 0: #default 1
 	get:
 		return AI_Phase
 	set(value):
@@ -119,25 +119,28 @@ func _physics_process(delta): #Override this
 	move_and_slide()
 
 func Activate():
+	print("ghost getting activated")
 	AI_Phase = 1
 
-func _Got_Hit(Data : AttackData): #Override This
-	#TODO take damage
-	CurrentHP -= Data.Damage
-	print("Enemy took " + str(Data.Damage) + " damage")
-	if CurrentHP <= 0:
-		Die()
-	if !Data.SpecialEffects.is_empty():
-		ApplySpecialEffects(Data)
-		
-	#TODO Knockback
+func _Got_Hit(Data : AttackData): #Override This	
 	velocity = Vector2(0,0)
 	$Hurtbox/CollisionShape2D.set_deferred("disabled", true)
 	$Hitbox/CollisionShape2D.set_deferred("disabled", true)
 	self_modulate.a = .5
 	AI_Phase = 5
 	StunTimer.start()
-	#TODO flash white
+	TakeDamage(Data.Damage)
+	ApplySpecialEffects(Data)
+
+func Die():
+	self_modulate.a = 1
+	velocity = Vector2.ZERO
+	AI_Phase = 9
+	var tw : Tween = get_tree().create_tween()
+	tw.tween_property(self, "modulate.a", 0, 3)
+	await tw.finished
+	queue_free()
+
 	
 
 func StunDone():

@@ -29,6 +29,8 @@ size = Vector2(20, 32)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_k1lxq")
+MaxHP = 15
+CurrentHP = 15
 
 [node name="Collision (Terrain)" type="CollisionShape2D" parent="."]
 visible = false

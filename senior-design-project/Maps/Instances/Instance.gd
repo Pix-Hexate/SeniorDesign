@@ -62,6 +62,8 @@ func _SetCamera():
 	var tw : Tween = get_tree().create_tween()
 	tw.tween_property(camera, "global_position", $CameraPosition.global_position, 2).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	await tw.finished	
+	get_tree().get_first_node_in_group("GamePlayUI").position.y = -260
+	get_tree().get_first_node_in_group("GamePlayUI").modulate.a = .5
 	
 func _SpawnEnemies():
 	'''then setting up enemies'''
@@ -104,6 +106,8 @@ func _ResetCamera():
 	tw.tween_property(camera, "position", camerafinalpos.position, 2).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	await tw.finished	
 	camera.position_smoothing_enabled = true
+	get_tree().get_first_node_in_group("GamePlayUI").position.y = 0
+	get_tree().get_first_node_in_group("GamePlayUI").modulate.a = 1
 	
 func _OpenDoor():
 	$Doors.enabled = false

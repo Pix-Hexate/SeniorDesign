@@ -35,7 +35,7 @@ func _ready():
 	Armor = 0 # flat damage reduction
 	BaseAttackSpeedDelay = 0.25
 	AttackSpeedDelay = 0.25 # Attack timer
-	AttackDamage = 5.0
+	AttackDamage = 7.5
 	CurrentHP = 100
 	AttackKnockbackBase = 300.0
 	ReflectDamage = 10.0

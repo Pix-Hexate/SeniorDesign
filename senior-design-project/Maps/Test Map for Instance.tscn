@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=4 uid="uid://bt8r1nu4hc1qj"]
+[gd_scene load_steps=8 format=4 uid="uid://bt8r1nu4hc1qj"]
 
 [ext_resource type="Texture2D" uid="uid://clbc4sq7aq0p6" path="res://Resources/Upgrade Icons/Block.png" id="1_ibeyo"]
 [ext_resource type="Script" path="res://Maps/Instancing_Test_Only.gd" id="1_q7kuy"]
-[ext_resource type="PackedScene" uid="uid://c733lubf7hob6" path="res://Entities/Characters/Character_Base/CharacterScene.tscn" id="3_sb55g"]
+[ext_resource type="PackedScene" uid="uid://dm7iv3g8qnokp" path="res://Entities/Characters/Knight/KnightScene.tscn" id="4_r7yim"]
+[ext_resource type="PackedScene" uid="uid://c0m1gfywarcgo" path="res://Menus/Current/GameplayUI.tscn" id="5_bm3ar"]
 [ext_resource type="PackedScene" uid="uid://bodemnculx6hh" path="res://Maps/Instances/Boss Instance.tscn" id="5_f7x2c"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sibo7"]
@@ -76,11 +77,17 @@ position = Vector2(688, -176)
 
 [node name="Instance" parent="InstanceLocation" instance=ExtResource("5_f7x2c")]
 
-[node name="CharacterScene" parent="." instance=ExtResource("3_sb55g")]
-position = Vector2(-353, 57)
+[node name="KnightScene" parent="." instance=ExtResource("4_r7yim")]
+position = Vector2(606, 82)
 
-[node name="Marker2D2" type="Marker2D" parent="CharacterScene" groups=["PlayerCameraPosition"]]
-position = Vector2(0, -125)
+[node name="Marker2D2" type="Marker2D" parent="KnightScene" groups=["PlayerCameraPosition"]]
+position = Vector2(0, -75)
+scale = Vector2(0.5, 0.5)
 
-[node name="Camera2D2" type="Camera2D" parent="CharacterScene" groups=["Camera"]]
-position = Vector2(0, -125)
+[node name="Camera2D2" type="Camera2D" parent="KnightScene" groups=["Camera"]]
+position = Vector2(0, -75)
+scale = Vector2(0.5, 0.5)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameplayUi" parent="CanvasLayer" instance=ExtResource("5_bm3ar")]

@@ -26,7 +26,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if not get_tree().paused:
+		if Input.is_action_pressed("ESC"):
+			get_tree().paused = true
+			visible = true
 
 #region main funcs
 func ResumePressed():

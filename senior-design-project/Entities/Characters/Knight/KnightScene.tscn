@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://c6ojjiiuouy78" path="res://Resources/UI/BoostedCrown.png" id="16_1s0jd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s8mg0"]
-height = 32.0
+height = 24.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c5cwl"]
 atlas = ExtResource("5_1q7kp")
@@ -1381,10 +1381,13 @@ radius = 20.0
 height = 59.68
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h1adr"]
-size = Vector2(901.016, 254.5)
+size = Vector2(720.508, 207.25)
 
 [node name="KnightScene" type="CharacterBody2D" groups=["Player"]]
+z_index = 7
+z_as_relative = false
 collision_layer = 2
+collision_mask = 65
 script = ExtResource("1_h0thw")
 
 [node name="Collision (Terrain)" type="CollisionShape2D" parent="."]
@@ -1443,6 +1446,7 @@ metadata/_edit_lock_ = true
 
 [node name="Hurtbox" parent="." instance=ExtResource("9_v8dpl")]
 position = Vector2(33, -28)
+rotation = 1.5708
 scale = Vector2(0.0703125, 0.328125)
 collision_mask = 1024
 monitorable = false
@@ -1460,13 +1464,12 @@ position = Vector2(10, -48)
 texture = ExtResource("16_1s0jd")
 
 [node name="EnemyActivater" type="Area2D" parent="."]
-visible = false
 light_mask = 0
 collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyActivater"]
-position = Vector2(3, -77.75)
+position = Vector2(-1, -102.625)
 shape = SubResource("RectangleShape2D_h1adr")
 
 [connection signal="timeout" from="InputBufferTimer" to="." method="BufferTimeout"]

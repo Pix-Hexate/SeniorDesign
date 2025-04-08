@@ -9,3 +9,5 @@ extends Node
 signal EnemyDied(Enemy : EnemyBaseScene)
 
 signal EnemyHit(Enemy : EnemyBaseScene)
+
+signal WIN()

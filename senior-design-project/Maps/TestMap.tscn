@@ -134,10 +134,3 @@ position = Vector2(93, 119)
 
 [node name="Mole" parent="." instance=ExtResource("9_px62n")]
 position = Vector2(297, 124)
-IdleTime = 1.0
-DigTime = 0.75
-AttackTime = 1.0
-StunTime = 0.33
-MaxHP = 10
-CurrentHP = 10
-BurnDamage = 0

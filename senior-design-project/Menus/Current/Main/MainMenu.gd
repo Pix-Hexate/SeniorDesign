@@ -27,7 +27,7 @@ func _ready():
 
 #region Main menu funcs
 func PlayPressed():
-	get_tree().change_scene_to_file("res://Maps/TestMap.tscn")
+	get_tree().change_scene_to_file("res://Entities/Shared Resources/TestMap2.tscn")
 	
 func OptionsPressed():
 	for button in MainButtons:
