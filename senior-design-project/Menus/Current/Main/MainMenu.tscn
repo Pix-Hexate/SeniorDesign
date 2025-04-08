@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://c08j1iqnpewjl"]
+[gd_scene load_steps=17 format=3 uid="uid://c08j1iqnpewjl"]
 
 [ext_resource type="Theme" uid="uid://df14w6dfgl4bw" path="res://Resources/GameTheme.tres" id="1_b3tie"]
 [ext_resource type="PackedScene" uid="uid://fxwww7poh7ea" path="res://Menus/Resources/BetterButton.tscn" id="1_lsk4x"]
 [ext_resource type="Script" path="res://Menus/Current/Main/MainMenu.gd" id="1_qs43v"]
 [ext_resource type="Texture2D" uid="uid://4ur0e4jk2xyg" path="res://Resources/UI/Scaler2.png" id="2_5pshp"]
+[ext_resource type="Texture2D" uid="uid://82tpcdq54pyr" path="res://Menus/Current/Main/menu-sketch.png" id="3_33tdc"]
 [ext_resource type="Texture2D" uid="uid://cg4kq8javfwu6" path="res://Resources/UI/Empty.png" id="4_e31l3"]
 [ext_resource type="Texture2D" uid="uid://bl58qixihso0g" path="res://Resources/UI/Full.png" id="5_obufb"]
 
@@ -177,6 +178,7 @@ script = ExtResource("1_qs43v")
 metadata/_edit_lock_ = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -185,6 +187,10 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.193386, 0.288156, 0.119596, 1)
 metadata/_edit_lock_ = true
+
+[node name="Menu-sketch" type="Sprite2D" parent="."]
+position = Vector2(322, 183)
+texture = ExtResource("3_33tdc")
 
 [node name="Main" type="VBoxContainer" parent="."]
 layout_mode = 1
