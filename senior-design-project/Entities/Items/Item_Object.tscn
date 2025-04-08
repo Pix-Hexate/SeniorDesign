@@ -28,6 +28,7 @@ size_flags_vertical = 4
 texture = ExtResource("2_tseyq")
 
 [node name="Panel" type="Panel" parent="."]
+visible = false
 offset_left = -152.0
 offset_top = -156.965
 offset_right = 158.0
