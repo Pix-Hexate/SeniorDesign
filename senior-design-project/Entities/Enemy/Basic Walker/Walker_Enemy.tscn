@@ -132,7 +132,7 @@ shape = SubResource("CapsuleShape2D_fvlks")
 material = SubResource("ShaderMaterial_j0hah")
 sprite_frames = SubResource("SpriteFrames_lca5n")
 animation = &"Walk"
-frame_progress = 0.822984
+frame_progress = 0.949706
 
 [node name="Hitbox" parent="." instance=ExtResource("3_0uf3w")]
 collision_layer = 1024

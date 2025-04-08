@@ -1,7 +1,7 @@
 extends EnemyBaseScene
 
 var AI_Timer : float = 0
-var AI_Phase : int = 0: #default is 1
+@export var AI_Phase : int = 0: #default is 1
 	get:
 		return AI_Phase
 	set(value):
@@ -33,11 +33,12 @@ func _AI(delta : float):
 			WarningBeam.visible = false
 			AI_Timer += delta
 			if AI_Timer >= IdleTime:
-				AI_Phase = 2
-				WarningBeam.rotation += wrapf(WarningBeam.get_angle_to(PlayerRef.global_position) - rotation, -PI, PI)
+				#AI_Phase = 2 #done by animation
+				WarningBeam.rotation += wrapf(WarningBeam.get_angle_to(PlayerRef.global_position+Vector2(0,-25)) - rotation, -PI, PI)
+				AnimPlayer.play("RaiseStaff")
 		2: #attack tracking
 			WarningBeam.visible = true
-			Target_Angle = WarningBeam.get_angle_to(PlayerRef.global_position)
+			Target_Angle = WarningBeam.get_angle_to(PlayerRef.global_position+Vector2(0,-25))
 			Angle_Diff = wrapf(Target_Angle - rotation, -PI, PI)
 			Angle_Diff = clamp(Angle_Diff, -Max_Rotation_Rate*delta, Max_Rotation_Rate*delta)
 			WarningBeam.rotation += Angle_Diff
@@ -52,47 +53,53 @@ func _AI(delta : float):
 		4: #attacking, waiting for animation
 			pass
 		5: #teleport
-			AI_Timer += delta
-			if AI_Timer >= TeleportTime:
-				Teleport()
-				AI_Phase = 1
+			pass
 		6: #stunned
 			pass
 
 func Attack():
-	$AnimationPlayer.play("Attack")
-	await $AnimationPlayer.animation_finished
+	AnimPlayer.play("Attack")
+	await AnimPlayer.animation_finished
 	if AI_Phase == 4:
 		AI_Phase = 5
+		Teleport()
 	else: #this means we got hitstunned, and the hitstun will take over ai change
 		pass 
 	
 func Teleport():
-	var dist : int = 20
-	var maps = get_tree().get_nodes_in_group("Map")
-	var lastviableplace : Vector2i = Vector2i(0,0) 
-	var lastmap : TileMapLayer = null
-	for map in maps:
-		if map is TileMapLayer:	 #we scan a dist-sized square around the player
-			lastmap = map
-			var player_map_pos : Vector2 = map.local_to_map(PlayerRef.global_position)
-			for x in range(player_map_pos.x - dist, player_map_pos.x + dist):
-				for y in range(player_map_pos.y - dist, player_map_pos.y + dist):
-					var data = map.get_cell_tile_data(Vector2i(x, y)) #and check every tile
-					if data: #if there is something on that tile
-						data = map.get_cell_tile_data(Vector2i(x, y-1)) 
-						if not data: #we check the tile above it, and if its empty, chance to teleport based on dist
-							lastviableplace = Vector2i(x,y-1)
-							var distance : float = player_map_pos.distance_to(lastviableplace)
-							var chance : float = (distance / dist) / 10
-							if randf() < chance:
-								var pos = map.map_to_local(lastviableplace)
-								global_position = map.to_global(pos)
-								return
+	AnimPlayer.play("TeleportOut")
+	await get_tree().create_timer(4).timeout
 	
-	#if rng checks all fail, we warp to last viable location
-	var pos = lastmap.map_to_local(lastviableplace)
-	global_position = lastmap.to_global(pos)
+	if AI_Phase == 5:	#if not at 5, that means we got inturrupted and we dont teleport
+		AI_Phase = 1
+		var dist : int = 20 #base 20
+		var maps = get_tree().get_nodes_in_group("Map")
+		var lastviableplace : Vector2i = Vector2i(0,0) 
+		var lastmap : TileMapLayer = null
+		for map in maps:
+			if map is TileMapLayer:	 #we scan a dist-sized square around the player
+				lastmap = map
+				var player_map_pos : Vector2 = map.local_to_map(PlayerRef.global_position)
+				for x in range(player_map_pos.x - dist, player_map_pos.x + dist):
+					for y in range(player_map_pos.y - dist, player_map_pos.y + dist):
+						var data = map.get_cell_tile_data(Vector2i(x, y)) #and check every tile
+						if data: #if there is something on that tile
+							data = map.get_cell_tile_data(Vector2i(x, y-1)) 
+							if not data: #we check the tile above it, and if its empty, chance to teleport based on dist
+								lastviableplace = Vector2i(x,y-1)
+								var distance : float = player_map_pos.distance_to(lastviableplace)
+								var chance : float = (distance / dist) / 10
+								if randf() < chance:
+									var pos = map.map_to_local(lastviableplace)
+									global_position = map.to_global(pos)
+									AnimPlayer.play_backwards("TeleportOut")
+									return
+
+		#if rng checks all fail, we warp to last viable location
+		var pos = lastmap.map_to_local(lastviableplace)
+		global_position = lastmap.to_global(pos)
+		AnimPlayer.play_backwards("TeleportOut")
+
 	
 
 func _physics_process(delta): #Override this
@@ -102,14 +109,17 @@ func _physics_process(delta): #Override this
 	move_and_slide()
 
 var StunTime : float = .5
+@onready var FlashPlayer : AnimationPlayer = $FlashPlayer
 func _Got_Hit(Data : AttackData): #Override This
-	if AI_Phase == 2:
+	if AI_Phase == 5 or AI_Phase == 6:
+		AnimPlayer.play("Stunned")
+	FlashPlayer.play("Flash")
+	if (AI_Phase == 2) or (AI_Phase == 3):
 		WarningBeam.visible = false
 	PlayerAggroTimer.stop()
 	AI_Phase = 6
 	velocity.x = 0
 	StunTimer.start(StunTime)
-	#TODO flash white
 
 '''
 Mage

@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ctm2gxd5ikbnq" path="res://Resources/Sprites/Player_Characters/Knight/knight-idle.png" id="7_o6p3c"]
 [ext_resource type="PackedScene" uid="uid://es1a8m5femrx" path="res://Entities/Enemy/Boss/Rock.tscn" id="7_s2lui"]
 [ext_resource type="PackedScene" uid="uid://c0m1gfywarcgo" path="res://Menus/Current/GameplayUI.tscn" id="8_b7lm7"]
-[ext_resource type="PackedScene" uid="uid://dmgxevoewo7u8" path="res://Entities/Enemy/Ghost/Ghost.tscn" id="9_e1y3o"]
+[ext_resource type="PackedScene" uid="uid://p25bqbuir1qm" path="res://Entities/Enemy/Mage/Mage.tscn" id="9_qkopm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_map0a"]
 texture = ExtResource("2_hcnkr")
@@ -132,5 +132,5 @@ position = Vector2(93, 119)
 
 [node name="GameplayUi" parent="CanvasLayer" instance=ExtResource("8_b7lm7")]
 
-[node name="Ghost" parent="." instance=ExtResource("9_e1y3o")]
-position = Vector2(300, 85)
+[node name="Mage" parent="." instance=ExtResource("9_qkopm")]
+position = Vector2(242, 147)
