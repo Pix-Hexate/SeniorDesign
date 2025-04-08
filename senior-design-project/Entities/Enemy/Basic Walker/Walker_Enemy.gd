@@ -42,10 +42,11 @@ var JumpStrength : float = 250 #Player is 250
 var GravityStrength : float = 1200 #Player is 1200
 var RecentlyTurned : bool = false
 @onready var _Hurtbox : Hurtbox = $Hurtbox
-
+@onready var Sprite : AnimatedSprite2D = $Sprite2D
 @export var Damage : float = 20
 @export var DIE_ON_HIT_TESTER : bool = false
 @export var SLOW_TESTER : bool = false
+@onready var AnimPlayer : AnimationPlayer = $AnimationPlayer
 
 func _ready():
 	var AtkData : AttackData = AttackData.new()
@@ -63,6 +64,7 @@ func Activate():
 func _AI(delta : float):#Override This
 	match AI_Phase:
 		1: #aggro
+			Sprite.play("Walk")
 			$TEST_PHASE_INDICATOR.text = "1"
 			if PlayerRef.global_position.x > global_position.x:
 				if not Want_Right:
@@ -105,9 +107,11 @@ func _AI(delta : float):#Override This
 				velocity.x -= delta * Acceleration
 				velocity.x = clampf(velocity.x, -Max_Speed, Max_Speed)
 		2: #stunned
+			Sprite.play("Stunned")
 			$TEST_PHASE_INDICATOR.text = "2"
 			#do nothing
 		3: #wander
+			Sprite.play("Walk")
 			$TEST_PHASE_INDICATOR.text = "3"
 			
 			if not $FloorRaycast.is_colliding():
@@ -151,6 +155,7 @@ func _AI(delta : float):#Override This
 				velocity.x -= delta * Acceleration
 				velocity.x = clampf(velocity.x, -Max_Speed, Max_Speed)
 		4: #this is basically a copy of 3, we need 4 though to know when to actively "look" for the player within aggro range
+			Sprite.play("Walk")
 			$TEST_PHASE_INDICATOR.text = "4"
 			if not $FloorRaycast.is_colliding():
 				if Want_Right:
@@ -192,6 +197,8 @@ func _AI(delta : float):#Override This
 					velocity.x *= pow(0.5, delta/.1)
 				velocity.x -= delta * Acceleration
 				velocity.x = clampf(velocity.x, -Max_Speed, Max_Speed)
+		0:
+			pass
 		_:
 			
 			print("ERROR IN WALKER ENEMY AI - AI is not 1-4? How is that even possible????")
@@ -202,10 +209,12 @@ func FlipRayCasts():
 		$JumpRaycast.target_position.x = 38
 		$WallRaycast.target_position.x = 27
 		$FloorRaycast.position.x = 28
+		Sprite.flip_h = true
 	else:
 		$JumpRaycast.target_position.x = -38
 		$WallRaycast.target_position.x = -27
 		$FloorRaycast.position.x = -28
+		Sprite.flip_h = false
 
 
 func _physics_process(delta): #Override this
@@ -216,14 +225,11 @@ func _physics_process(delta): #Override this
 
 
 func _Got_Hit(Data : AttackData): #Override This
-	if DIE_ON_HIT_TESTER:
-		Die()
+	AnimPlayer.play("Flash")
 	PlayerAggroTimer.stop()
 	AI_Phase = 2
 	velocity.x = 0
 	StunTimer.start()
-	#TODO flash white
-	#TODO Knockback
 	$"Attempt Reaggro".stop()
 
 func Die():

@@ -1,18 +1,29 @@
-[gd_scene load_steps=8 format=3 uid="uid://dmgxevoewo7u8"]
+[gd_scene load_steps=9 format=3 uid="uid://dmgxevoewo7u8"]
 
 [ext_resource type="Script" path="res://Entities/Enemy/Ghost/Ghost.gd" id="1_k1lxq"]
-[ext_resource type="Texture2D" uid="uid://rmss06pcfjen" path="res://icon.svg" id="2_gycj3"]
+[ext_resource type="Texture2D" uid="uid://ckkuo3etunbdv" path="res://Resources/Sprites/Enemies/ghost.png" id="2_r0rpt"]
 [ext_resource type="PackedScene" uid="uid://cu77iqu4ph4v5" path="res://Entities/Shared Resources/Hitbox.tscn" id="3_68kj5"]
 [ext_resource type="PackedScene" uid="uid://c1vt3jqxeo5ln" path="res://Entities/Shared Resources/Hurtbox.tscn" id="4_mldym"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vyya2"]
 radius = 18.0278
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_3l1sp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_r0rpt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n82wc"]
-size = Vector2(32, 32)
+size = Vector2(20.5, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r2wfv"]
-size = Vector2(32, 32)
+size = Vector2(20, 32)
 
 [node name="Ghost" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
@@ -23,14 +34,14 @@ script = ExtResource("1_k1lxq")
 visible = false
 shape = SubResource("CircleShape2D_vyya2")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_gycj3")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3l1sp")
 
 [node name="Hitbox" parent="." instance=ExtResource("3_68kj5")]
 collision_layer = 1024
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0.75, 0)
 shape = SubResource("RectangleShape2D_n82wc")
 
 [node name="Delete this - testing only" type="Label" parent="."]

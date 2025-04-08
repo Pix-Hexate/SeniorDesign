@@ -91,6 +91,7 @@ func Process_Action_Inputs():
 	Buffered_Keys["Action"] = ""  # Clear input after processing
 
 func _on_ability_cooldown(ability_name: String):
+	return
 	print(ability_name + " is ready!")
 	
 

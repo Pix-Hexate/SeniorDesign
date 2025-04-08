@@ -68,12 +68,16 @@ func _AI(delta : float):#Override This
 			var vertical_offset = sin(DashSine*PI*2/DashTime)*2900
 			
 			if FacingRight:
+				$Sprite2D.flip_h = true
 				velocity = Vector2(DashSpeed, vertical_offset)*delta
 			else:
+				$Sprite2D.flip_h = false
 				velocity = Vector2(-DashSpeed, vertical_offset)*delta
 			if AI_Timer >= DashTime:
 				AI_Phase = 1
 		5:
+			pass
+		0:
 			pass
 
 func PhaseOut():
@@ -83,8 +87,8 @@ func PhaseOut():
 	await tw.finished
 	if AI_Phase == 2:
 		RandPhaseOutTime = PhaseOutTime + randf_range(-1,1)
-		_HitBox.monitorable = false #we disable the hitbox while phased out
-		_HurtBox.monitoring = false
+		$Hurtbox/CollisionShape2D.set_deferred("disabled", true)
+		$Hitbox/CollisionShape2D.set_deferred("disabled", true)
 		await get_tree().create_timer(RandPhaseOutTime).timeout
 		PhaseIn()
 		$"Delete this - testing only".text = "3"
@@ -98,8 +102,8 @@ func PhaseIn():
 	else:
 		FacingRight = false
 		global_position = PlayerLoc + Vector2(200, -30)
-	_HitBox.monitorable = true
-	_HurtBox.monitoring = true
+	$Hurtbox/CollisionShape2D.set_deferred("disabled", false)
+	$Hitbox/CollisionShape2D.set_deferred("disabled", false)
 	var tw : Tween = get_tree().create_tween()
 	tw.tween_property(self, "modulate:a", 1, FadeInTime)
 	await tw.finished
@@ -128,8 +132,8 @@ func _Got_Hit(Data : AttackData): #Override This
 		
 	#TODO Knockback
 	velocity = Vector2(0,0)
-	_HitBox.set_deferred("monitorable", false)
-	_HurtBox.set_deferred("monitoring", true)
+	$Hurtbox/CollisionShape2D.set_deferred("disabled", true)
+	$Hitbox/CollisionShape2D.set_deferred("disabled", true)
 	self_modulate.a = .5
 	AI_Phase = 5
 	StunTimer.start()
