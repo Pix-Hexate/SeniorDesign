@@ -5,7 +5,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ga1o"]
 
 [node name="SpikeArea" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_3pccb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0ga1o")
+
+[connection signal="area_entered" from="." to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

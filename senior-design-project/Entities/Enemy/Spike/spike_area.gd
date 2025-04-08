@@ -13,13 +13,15 @@ func _ready():
 	if not Enabled:
 		$Spike/Hurtbox/CollisionShape2D.disabled = true
 
-func _on_hurtbox_area_entered(area):
+
+func _on_body_entered(area):
+	print("seeing something enter")
 	if StoredAttackData.Damage == -1:
 		print("THERE IS A SPIKE WITH AN UNSET ATTACK VALUE")
 	
 	StoredAttackData.Source = global_position
-	if area.get_parent() is CharacterBaseScene:
-		area.Got_Hit(StoredAttackData)
+	if area is CharacterBaseScene:
+		area._Got_Hit(StoredAttackData)
 		if Teleporter:
 			if is_instance_valid(Teleport_Location):
-				area.get_parent().global_position = Teleport_Location.global_position
+				area.global_position = Teleport_Location.global_position

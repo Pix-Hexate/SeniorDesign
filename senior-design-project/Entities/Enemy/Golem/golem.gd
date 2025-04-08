@@ -25,12 +25,13 @@ var Max_Speed : float = 200 #Player is 250 for reference
 var Dist_to_Player : float = 0
 var WantRight : bool = true
 @export var Damage : float = 35
-@onready var _Hurtbox : Area2D = $CustomHurtBox
+@onready var _Hurtbox : Hurtbox = $CustomHurtBox
 var AtkData : AttackData
 
 func _ready():
 	AtkData = AttackData.new()
 	AtkData.Damage = Damage
+	_Hurtbox.StoredAttackData = AtkData
 
 var ForceIdleTime : float = 0
 func _AI(delta : float):

@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ctm2gxd5ikbnq" path="res://Resources/Sprites/Player_Characters/Knight/knight-idle.png" id="7_o6p3c"]
 [ext_resource type="PackedScene" uid="uid://es1a8m5femrx" path="res://Entities/Enemy/Boss/Rock.tscn" id="7_s2lui"]
 [ext_resource type="PackedScene" uid="uid://c0m1gfywarcgo" path="res://Menus/Current/GameplayUI.tscn" id="8_b7lm7"]
-[ext_resource type="PackedScene" uid="uid://km42jk0g2set" path="res://Entities/Enemy/Mole/Mole.tscn" id="9_px62n"]
+[ext_resource type="PackedScene" uid="uid://dbd5vuf8d5v45" path="res://Entities/Enemy/Golem/Golem.tscn" id="9_br8ov"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_map0a"]
 texture = ExtResource("2_hcnkr")
@@ -132,5 +132,5 @@ position = Vector2(93, 119)
 
 [node name="GameplayUi" parent="CanvasLayer" instance=ExtResource("8_b7lm7")]
 
-[node name="Mole" parent="." instance=ExtResource("9_px62n")]
-position = Vector2(297, 124)
+[node name="Golem" parent="." instance=ExtResource("9_br8ov")]
+position = Vector2(246, 134)
