@@ -619,6 +619,7 @@ target_position = Vector2(31, 0)
 visible = false
 
 [node name="WarningBeam" type="Sprite2D" parent="."]
+visible = false
 self_modulate = Color(1, 1, 1, 0.247059)
 position = Vector2(15, -23)
 scale = Vector2(1.8724, 1)

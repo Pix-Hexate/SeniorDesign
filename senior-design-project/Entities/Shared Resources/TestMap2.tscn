@@ -327,3 +327,27 @@ position = Vector2(-898, 823)
 position = Vector2(-1779, 963)
 
 [node name="ItemLocations" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="ItemLocations"]
+position = Vector2(-153, 646)
+gizmo_extents = 20.6
+
+[node name="Marker2D2" type="Marker2D" parent="ItemLocations"]
+position = Vector2(1597, 403)
+gizmo_extents = 20.6
+
+[node name="Marker2D3" type="Marker2D" parent="ItemLocations"]
+position = Vector2(1454, 1136)
+gizmo_extents = 20.6
+
+[node name="Marker2D4" type="Marker2D" parent="ItemLocations"]
+position = Vector2(-1465, 1321)
+gizmo_extents = 20.6
+
+[node name="Marker2D5" type="Marker2D" parent="ItemLocations"]
+position = Vector2(-540, 1963)
+gizmo_extents = 20.6
+
+[node name="Marker2D6" type="Marker2D" parent="ItemLocations"]
+position = Vector2(-88, 1215)
+gizmo_extents = 20.6
