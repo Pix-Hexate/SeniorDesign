@@ -67,6 +67,9 @@ func _SpawnEnemies():
 	'''then setting up enemies'''
 	$"Preset Enemies".visible = true
 	$"Preset Enemies".process_mode = Node.PROCESS_MODE_INHERIT #this should turn on all the preset enemies
+	for child in $"Preset Enemies".get_children():
+		if child.has_method("Activate"):
+			child.Activate()
 	
 
 
