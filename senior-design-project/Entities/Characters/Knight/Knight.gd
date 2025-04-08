@@ -132,6 +132,7 @@ func _Got_Hit(Data: AttackData):
 	if IsInvulnerable:
 		print("Attack Blocked!")
 		# If boosted, reflect damage
+		AudioManager.QueueRandomizedSound("Blocked")
 		if IsBoosted:
 			_reflect_damage(Data)
 		return
@@ -141,7 +142,8 @@ func _Got_Hit(Data: AttackData):
 		RegeneratingShieldTimer.start()
 		return
 		
-	print("Took " + str(Data.Damage) + " damage")
+	print("Took " + str(Data.Damage) + " damcage")
+	AudioManager.QueueRandomizedSound("PlayerHit")
 	var damage = max(Data.Damage - Armor, 1)
 	CurrentHP -= damage
 	UpdateUI()
@@ -203,6 +205,8 @@ func Process_Movement_Inputs():
 
 func Die():
 	print("Knight has fallen!")
+	get_tree().get_first_node_in_group("DeathUI").visible = true
+	get_tree().paused = true
 	# Instead of deleting the player, transition to an end screen
 	#var game_over_screen = preload("res://GameOver.tscn").instantiate()
 	#get_tree().current_scene.add_child(game_over_screen)
@@ -300,6 +304,7 @@ func BasicAttack():
 	UpdateAnimationSpeed()
 	
 	AnimPlayer.play("BasicAttack1")
+	AudioManager.QueueRandomizedSound("Slash")
 	# Enable hitbox temporarily
 	'''
 	attack_hitbox.monitoring = true
@@ -364,6 +369,7 @@ func Ability1Stab():
 	UpdateAnimationSpeed()
 	
 	# Play stab animation
+	AudioManager.QueueRandomizedSound("Stab")
 	if not IsBoosted:
 		AnimPlayer.play("Ability 1 - Thrust - Normal")
 	else:
@@ -398,6 +404,7 @@ func Ability2Block():
 	print("Ability 2: Blocking!")
 	
 	# Play block animation
+	AudioManager.QueueRandomizedSound("Shield")
 	AnimPlayer.play("Ability 2 - Block")
 	
 	# Set invulnerability flag

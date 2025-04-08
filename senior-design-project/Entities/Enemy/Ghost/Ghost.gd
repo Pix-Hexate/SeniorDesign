@@ -133,11 +133,12 @@ func _Got_Hit(Data : AttackData): #Override This
 	ApplySpecialEffects(Data)
 
 func Die():
+	$Hitbox/CollisionShape2D.set_deferred("disabled",true)
 	self_modulate.a = 1
 	velocity = Vector2.ZERO
 	AI_Phase = 9
 	var tw : Tween = get_tree().create_tween()
-	tw.tween_property(self, "modulate.a", 0, 3)
+	tw.tween_property(self, "modulate:a", 0, 3)
 	await tw.finished
 	queue_free()
 

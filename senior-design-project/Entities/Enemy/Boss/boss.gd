@@ -170,6 +170,7 @@ func _Got_Hit(Data : AttackData):
 	ApplySpecialEffects(Data)
 
 func Die():
+	$Hitbox/CollisionShape2D.set_deferred("disabled",true)
 	velocity = Vector2.ZERO
 	AI_Phase = 9
 	AnimPlayer.play("Die")

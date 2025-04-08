@@ -46,6 +46,7 @@ Spikes=""
 HPBar=""
 HPLabel=""
 GamePlayUI=""
+DeathUI=""
 
 [input]
 

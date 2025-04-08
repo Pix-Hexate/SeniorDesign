@@ -17,7 +17,6 @@ var BaseString : String = "res://Resources/Sounds/"
 func _ready():
 	for i in MAX_PLAYERS:
 		var player : AudioStreamPlayer = AudioStreamPlayer.new()
-		player.bus = "SFX"
 		player.finished.connect(DonePlaying.bind(player))
 		add_child(player)
 		Player_Pool.append(player)
@@ -55,3 +54,11 @@ func QueueStableSound(input: String):
 
 func DonePlaying(player : AudioStreamPlayer):
 	player.stop()
+	
+func StartLevel():
+	$"Permanent Sounds/BGM".stream = load("res://Resources/Sounds/Game BGM.wav")
+	$"Permanent Sounds/BGM".play()
+
+func StartMenu():
+	$"Permanent Sounds/BGM".stream = load("res://Resources/Sounds/Menu BGM.wav")
+	$"Permanent Sounds/BGM".play()
