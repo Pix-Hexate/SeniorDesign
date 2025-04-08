@@ -2,7 +2,7 @@ class_name MoleProjectile extends Area2D
 
 @export var Damage : float = 15
 @export var Normalized_Direction = Vector2(0,0)
-@export var Velocity = 150
+@export var Velocity = 200
 
 
 func _physics_process(delta):

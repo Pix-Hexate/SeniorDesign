@@ -1,18 +1,19 @@
 extends EnemyBaseScene
 
 var AI_Timer : float = 0
-var AI_Phase : int = 0: #default is 1
+@export var AI_Phase : int = 0: #default is 1
 	get:
 		return AI_Phase
 	set(value):
 		AI_Phase = value
 		AI_Timer = 0
 
-@export var IdleTime : float = 2
-@export var DigTime : float = 1.5
+@export var IdleTime : float = 1
+@export var DigTime : float = .75
 @export var AttackTime : float = 1
 @export var StunTime : float = .33
 @onready var Proj : PackedScene = preload("res://Entities/Enemy/Mole/MoleProjectile.tscn")
+@onready var AnimPlayer : AnimationPlayer = $AnimationPlayer
 '''
 AI is simple - 
 Idle (start) -> dig animation-> Look for place to teleport near player and teleport there with digup animation -> 
@@ -33,30 +34,45 @@ Stunned - 6
 func Activate():
 	AI_Phase = 1
 
+var FacingRight : bool = true
+@onready var Sprite : AnimatedSprite2D = $Sprite2D
+@onready var ProjSpawn : Marker2D = $Sprite2D/Marker2D
 func _AI(delta : float):#Override This
 	AI_Timer += delta
 	$"Delete this - testing only".text = str(AI_Phase)
+	
+	if PlayerRef.global_position.x > global_position.x:
+		FacingRight = true
+		Sprite.flip_h = false
+		ProjSpawn.position.x = 27
+	else:
+		FacingRight = false
+		Sprite.flip_h = true
+		ProjSpawn.position.x = -27
+		
 	match AI_Phase:
 		1: #idle start
+			AnimPlayer.play("Idle")
 			if AI_Timer >= IdleTime:
 				AI_Phase = 2
-		2: #digging down
-			if AI_Timer >= DigTime:
 				Dig()
-				AI_Phase = 3
-		3: #digging up #it may be more appropriate to tie this into the digup animation itself instead and await done
-			if AI_Timer >= DigTime:
-				AI_Phase = 4
+		2: #digging down
+			pass
+			#everything set by animation
+		3: #teleported, digging up animation
+			pass
 		4: #idle aggro
+			AnimPlayer.play("Idle")
 			if AI_Timer >= IdleTime:
 				AI_Phase = 5
 		5: #throw animation
 			if AI_Timer >= AttackTime: #it may be more appropriate to tie this into the attack animation itself instead and await done
 				Attack()
-				AI_Phase = 1
+				#AI_Phase = 1
 		6: #stunned
-			if AI_Timer >= StunTime:
-				AI_Phase = 4
+			pass
+			#if AI_Timer >= StunTime:
+				#AI_Phase = 4
 	
 func _physics_process(delta): #Override this
 	_AI(delta)
@@ -65,6 +81,9 @@ func _physics_process(delta): #Override this
 	move_and_slide()
 	
 func Dig():
+	AnimPlayer.play("DigDown")
+	await AnimPlayer.animation_finished
+	AI_Phase = 3
 	var dist : int = 12
 	var maps = get_tree().get_nodes_in_group("Map")
 	var lastviableplace : Vector2i = Vector2i(0,0) 
@@ -85,20 +104,35 @@ func Dig():
 							if randf() < chance:
 								var pos = map.map_to_local(lastviableplace)
 								global_position = map.to_global(pos)
+								AnimPlayer.play_backwards("DigUp_Play_Backwards")
 								return
 	
 	#if rng checks all fail, we warp to last viable location
 	var pos = lastmap.map_to_local(lastviableplace)
 	global_position = lastmap.to_global(pos)
+	AnimPlayer.play_backwards("DigUp_Play_Backwards")
 
 func Attack():
+	AnimPlayer.play("Windup and Throw")
+
+func SuccessfulAttack():
 	var Proj_Instance = Proj.instantiate()
+	AI_Phase = 1
 	if Proj_Instance is MoleProjectile:
-		Proj_Instance.global_position = global_position + Vector2(0,-10)
-		Proj_Instance.Normalized_Direction = global_position.direction_to(PlayerRef.global_position+Vector2(0,-15))
+		Proj_Instance.global_position = ProjSpawn.global_position
+		Proj_Instance.Normalized_Direction = ProjSpawn.global_position.direction_to(PlayerRef.global_position+Vector2(0,-15))
 		get_parent().add_child(Proj_Instance)
 
-func Got_Hit(Data : AttackData): #Override This
-	AI_Phase = 3
-	StunTimer.start()
+@onready var FlashPlayer : AnimationPlayer = $FlashPlayer
+func _Got_Hit(Data : AttackData): #Override This
+	FlashPlayer.play("Flash")
+	if AI_Phase == 2 or AI_Phase == 6:
+		pass
+	else:
+		print("got stunned")
+		AI_Phase = 6
+		AnimPlayer.play("Stunned")
+		await AnimPlayer.animation_finished
+		AI_Phase = 2
+		Dig()
 	#TODO flash white

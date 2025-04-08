@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b1vl54vntxbj0"]
 
 [ext_resource type="Script" path="res://Entities/Enemy/Mole/mole_projectile.gd" id="1_g7fcb"]
-[ext_resource type="Texture2D" uid="uid://rmss06pcfjen" path="res://icon.svg" id="2_8kosq"]
+[ext_resource type="Texture2D" uid="uid://dj67h2qfptx0h" path="res://Resources/Sprites/Enemies/MoleBall.png" id="2_gfiw8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nhapm"]
 
@@ -14,8 +14,8 @@ collision_mask = 512
 script = ExtResource("1_g7fcb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.15, 0.15)
-texture = ExtResource("2_8kosq")
+scale = Vector2(2, 2)
+texture = ExtResource("2_gfiw8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
