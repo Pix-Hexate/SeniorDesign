@@ -144,7 +144,7 @@ position = Vector2(688, 396)
 texture = ExtResource("5_mu1k4")
 
 [node name="KnightScene" parent="." instance=ExtResource("4_r02gn")]
-position = Vector2(-392, 2075)
+position = Vector2(1, 11)
 
 [node name="Marker2D2" type="Marker2D" parent="KnightScene" groups=["PlayerCameraPosition"]]
 position = Vector2(0, -65)
