@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c08j1iqnpewjl"]
+[gd_scene load_steps=19 format=3 uid="uid://c08j1iqnpewjl"]
 
 [ext_resource type="Theme" uid="uid://df14w6dfgl4bw" path="res://Resources/GameTheme.tres" id="1_b3tie"]
 [ext_resource type="PackedScene" uid="uid://fxwww7poh7ea" path="res://Menus/Resources/BetterButton.tscn" id="1_lsk4x"]
@@ -118,9 +118,89 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_jl472"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Credits:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 40)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../Credits:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_eqg4y"]
+resource_name = "CreditsFadeIn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Credits:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../Credits:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 40), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3bv7t"]
+resource_name = "CreditsFadeOut"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../Credits:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../Credits:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -40)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0wm4m"]
 _data = {
+"CreditsFadeIn": SubResource("Animation_eqg4y"),
+"CreditsFadeOut": SubResource("Animation_3bv7t"),
 "MainFadeIn": SubResource("Animation_0ysi3"),
 "MainFadeOut": SubResource("Animation_wmhsj"),
 "OptionFadeIn": SubResource("Animation_e2776"),
@@ -358,6 +438,50 @@ libraries = {
 "": SubResource("AnimationLibrary_kfssb")
 }
 
+[node name="Credits" type="Control" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 0
+offset_top = 40.0
+offset_right = 641.0
+offset_bottom = 401.0
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="Credits"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -67.0
+offset_top = -62.5
+offset_right = 67.0
+offset_bottom = 137.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Programming
+Bailin Zhen
+Vitta Silberberg
+Matthew Estes
+
+Art
+Vitta Silberberg"
+
+[node name="CreditsBack" parent="Credits" instance=ExtResource("1_lsk4x")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -19.0
+offset_top = -34.0
+offset_right = 19.0
+offset_bottom = -8.0
+grow_vertical = 0
+text = "Back"
+
 [connection signal="pressed" from="Main/PlayButton" to="." method="PlayPressed"]
 [connection signal="pressed" from="Main/OptionsButton" to="." method="OptionsPressed"]
 [connection signal="pressed" from="Main/CreditsButton" to="." method="CreditsPressed"]
@@ -367,3 +491,4 @@ libraries = {
 [connection signal="item_selected" from="Options/HBoxContainer/ResolutionButton" to="." method="ResolutionChanged"]
 [connection signal="pressed" from="Options/FullScreen" to="." method="FullscreenPressed"]
 [connection signal="pressed" from="Options/OptionsBack" to="." method="OptionsBackPressed"]
+[connection signal="pressed" from="Credits/CreditsBack" to="." method="CreditsBackPressed"]

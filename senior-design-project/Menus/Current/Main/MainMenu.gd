@@ -41,15 +41,17 @@ func OptionsPressed():
 	for button in OptionsButtons:
 		button.disabled = false
 
-var x = 0
+
 func CreditsPressed():
-	x += 1 
-	DisplayServer.window_set_size(Vector2i(640*x, 360*x))
-	print("Window size: ", DisplayServer.window_get_size())
-	if x == 5:
-		DisplayServer.window_set_size(Vector2i(640*4, 360*4))
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
-	
+	FadePlayer2.play("MainFadeOut")
+	await get_tree().create_timer(.5).timeout
+	$Credits.visible = true
+	FadePlayer1.play("CreditsFadeIn")
+	await get_tree().create_timer(.5).timeout
+	$Main.visible = false
+
+
+
 func QuitPressed():
 	get_tree().quit()
 #endregion
@@ -101,3 +103,12 @@ func OptionsBackPressed():
 
 
 #endregion
+
+
+func CreditsBackPressed() -> void:
+	FadePlayer1.play("CreditsFadeOut")
+	await get_tree().create_timer(.5).timeout
+	$Main.visible = true
+	FadePlayer2.play("MainFadeIn")
+	await get_tree().create_timer(.5).timeout
+	$Credits.visible = false
