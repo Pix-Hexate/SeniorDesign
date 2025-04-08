@@ -47,6 +47,7 @@ func OptionsPressed():
 		button.disabled = false
 
 func HomePressed():
+	get_tree().paused = false
 	get_tree().change_scene_to_file("res://Menus/Current/Main/MainMenu.tscn")
 
 func QuitPressed():
