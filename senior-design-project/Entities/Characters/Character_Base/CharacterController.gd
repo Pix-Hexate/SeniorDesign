@@ -109,12 +109,12 @@ func Process_Movement_Inputs():
 
 func AttemptJump() -> void:
 	if is_on_floor():
-		velocity.y -= JumpStrength
+		velocity.y = -JumpStrength
 		Buffered_Keys["Action"] = ""
 		DoubleJumpReady = true
 		return
 	if DoubleJumpReady and DoubleJumpAvailable:
-		velocity.y -= JumpStrength
+		velocity.y = -JumpStrength
 		Buffered_Keys["Action"] = ""
 		DoubleJumpReady = false
 		return

@@ -1,104 +1,86 @@
 [
 	{
-		"Name": "Movement Speed",
+		"Name": "Swiftness",
 		"Effects": {
 			"Move":50
 			}
 	},
 	{
-		"Name": "Jump Boost",
-		"Effects": {
-			"Jump":75
-			}
-	},
-	{
-		"Name": "HP Boost",
+		"Name": "Vitality",
 		"Effects": {
 			"MaxHP":40
 			}
 	},
 	{
-		"Name": "Shield",
+		"Name": "Protection Veil",
 		"Effects": {
-			"Armor":10
+			"Armor":5
 			}
 	},
 	{
-		"Name": "Attack Speed",
+		"Name": "Alacrity",
 		"Effects": {
 			"AttackSpeed":0.7
 			}
 	},
 	{
-		"Name": "Attack Damage",
+		"Name": "Strength",
 		"Effects": {
 			"AttackDamage":10
 			}
 	},
 	{
-		"Name": "Crit Chance",
+		"Name": "Tome of Accuracy",
 		"Effects": {
-			"CritChance":0.1
+			"CritChance":0.2
 			}
 	},
 	{
-		"Name": "Crit Damage",
+		"Name": "Tome of Lethality",
 		"Effects": {
 			"CritDamage":0.3
 			}
 	},
 	{
-		"Name": "Health Regen",
+		"Name": "Rejuvination",
 		"Effects": {
 			"HealthRegen":7
 			}
 	},
 	{
-		"Name": "Regenerating Shield",
+		"Name": "Star Veil",
 		"Effects": {
 			"RegeneratingShield":true
 			}
 	},
 	{
-		"Name": "Double Jump",
+		"Name": "Hermes Boots",
 		"Effects": {
 			"DoubleJump":true
 			}
 	},
 	{
-		"Name": "Cooldown Bonus Damage",
+		"Name": "Readiness",
 		"Effects": {
 			"CooldownBonusDamage":true
 			}
 	},
 	{
-		"Name": "Burn Damage",
+		"Name": "Torch",
 		"Effects": {
 			"BurnDamage":10
 			}
 	},
 	{
-		"Name": "Lifesteal",
+		"Name": "Vampiric Essence",
 		"Effects": {
 			"Lifesteal":0.2
 			}
 	},
 	{
-		"Name": "Enable Knockback",
+		"Name": "Quickness",
 		"Effects": {
-			"Knockback":true
-			}
-	},
-	{
-		"Name": "Ability Cool Down",
-		"Effects": {
-			"CoolDown":0.5
-			}
-	},
-	{
-		"Name": "ABasic Attack Bonus",
-		"Effects": {
-			"BasicAttackBonus":true
+			"CoolDown":0.7
 			}
 	}
 ]
